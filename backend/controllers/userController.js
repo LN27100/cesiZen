@@ -6,11 +6,11 @@ const jwt = require('jsonwebtoken');
 exports.register = (req, res) => {
     const { prenom, nom, email, mot_de_passe, pseudo } = req.body;
     const hashedPassword = bcrypt.hashSync(mot_de_passe, 8);
-    const newUser = { prenom, nom, email, mot_de_passe: hashedPassword, statut_compte: 'valide', pseudo };
+    const newUser = { prenom, nom, email, mot_de_passe: hashedPassword, pseudo };
 
     User.create(newUser, (err, user) => {
-        if (err) return res.status(500).send(err);
-        res.send('Utilisateur créé');
+        if (err) return res.status(500).json({ error: 'Une erreur est survenue lors de la création de l\'utilisateur', details: err });
+        res.status(201).json({ message: 'Utilisateur créé', user });
     });
 };
 

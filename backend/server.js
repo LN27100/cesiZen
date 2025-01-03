@@ -14,9 +14,9 @@ const userRoutes = require('./routes/userRoutes');
 const activityRoutes = require('./routes/activityRoutes');
 const infoRoutes = require('./routes/infoRoutes');
 
-app.use('/api/users', userRoutes);
-app.use('/api/activities', activityRoutes);
-app.use('/api/info', infoRoutes);
+app.use('/users', userRoutes);
+app.use('/activities', activityRoutes);
+app.use('/info', infoRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

@@ -20,15 +20,34 @@
       </div>
       <div class="form-group">
         <label for="password">Mot de passe</label>
-        <input type="password" id="password" v-model="password" required autocomplete="new-password" />
+        <input
+          type="password"
+          id="password"
+          v-model="password"
+          required
+          autocomplete="new-password"
+        />
       </div>
       <div class="form-group">
         <label for="confirmPassword">Confirmer le mot de passe</label>
-        <input type="password" id="confirmPassword" v-model="confirmPassword" required autocomplete="new-password" />
+        <input
+          type="password"
+          id="confirmPassword"
+          v-model="confirmPassword"
+          required
+          autocomplete="new-password"
+        />
       </div>
       <div class="form-group">
-        <input type="checkbox" id="acceptTerms" v-model="acceptTerms" required />
-        <label for="acceptTerms">J'accepte les conditions générales d'utilisation</label>
+        <input
+          type="checkbox"
+          id="acceptTerms"
+          v-model="acceptTerms"
+          required
+        />
+        <label for="acceptTerms"
+          >J'accepte les conditions générales d'utilisation</label
+        >
       </div>
       <button type="submit">S'inscrire</button>
     </form>
@@ -37,27 +56,27 @@
 
 <script>
 export default {
-  name: 'RegisterView',
+  name: "RegisterView",
   data() {
     return {
-      firstName: '',
-      lastName: '',
-      username: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      acceptTerms: false
+      firstName: "",
+      lastName: "",
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      acceptTerms: false,
     };
   },
   methods: {
     async handleSubmit() {
       if (this.password !== this.confirmPassword) {
-        alert('Les mots de passe ne correspondent pas.');
+        alert("Les mots de passe ne correspondent pas.");
         return;
       }
 
       if (!this.acceptTerms) {
-        alert('Vous devez accepter les conditions générales d\'utilisation.');
+        alert("Vous devez accepter les conditions générales d'utilisation.");
         return;
       }
 
@@ -71,31 +90,39 @@ export default {
       };
 
       try {
-        const response = await fetch('http://localhost:3000/users/register', {
-          method: 'POST',
+        const response = await fetch("http://localhost:3000/users/register", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(userData),
         });
 
+        const text = await response.text();
+        let data;
+
+        try {
+          data = JSON.parse(text);
+        } catch {
+          data = { message: text };
+        }
+
         if (response.ok) {
-          const data = await response.json();
-          alert('Inscription réussie!');
-          console.log('User registered:', data);
+          alert(data.message || "Inscription réussie!");
+          console.log("User registered:", data);
         } else {
-          const errorData = await response.json();
-          alert(`Erreur lors de l'inscription: ${errorData.error}`);
-          console.error('Error registering user:', errorData);
+          alert(`Erreur lors de l'inscription: ${data.error || data.message || "Erreur inconnue"}`);
+          console.error("Error registering user:", data);
         }
       } catch (error) {
-        alert('Une erreur est survenue lors de l\'inscription.');
-        console.error('Error:', error);
+        alert("Une erreur est survenue lors de l'inscription.");
+        console.error("Error:", error);
       }
-    }
-  }
+    },
+  },
 };
 </script>
+
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Open+Sans:wght@400;600&display=swap");
@@ -136,7 +163,7 @@ input[type="password"] {
 button {
   width: 100%;
   padding: 10px;
-  background-color: #84B66D;
+  background-color: #84b66d;
   color: white;
   border: none;
   border-radius: 5px;
@@ -144,6 +171,6 @@ button {
 }
 
 button:hover {
-  background-color: #69A050;
+  background-color: #69a050;
 }
 </style>
