@@ -3,12 +3,12 @@
     <h1>Connexion</h1>
     <form @submit.prevent="handleLogin">
       <div>
-        <label for="username">Nom d'utilisateur :</label>
+        <label for="email">Email :</label>
         <input
-          type="text"
-          id="username"
-          v-model="username"
-          placeholder="Entrez votre nom d'utilisateur"
+          type="email"
+          id="email"
+          v-model="email"
+          placeholder="Entrez votre adresse email"
         />
       </div>
       <div>
@@ -30,39 +30,50 @@
 </template>
 
 <script>
-import { loginUser } from '../services/api';
+import { loginUser } from "../services/api";
 
 export default {
-  name: 'LoginView',
+  name: "LoginView",
   data() {
     return {
-      username: '',
-      password: ''
+      email: "",
+      password: "",
     };
   },
   methods: {
     async handleLogin() {
-      if (this.username && this.password) {
+      if (this.email && this.password) {
         try {
-          const response = await loginUser({ email: this.username, mot_de_passe: this.password });
+          console.log("URL de connexion:", process.env.VUE_APP_API_URL);
+
+          const response = await loginUser({
+            email: this.email,
+            mot_de_passe: this.password,
+          });
+
           if (response.data.auth) {
-            // Stocker le token dans le localStorage ou un cookie
-            localStorage.setItem('token', response.data.token);
-            console.log("Connexion réussie pour:", this.username);
-            // Rediriger vers une autre page après la connexion
-            this.$router.push('/');
+            // Stocker le token JWT dans le localStorage
+            localStorage.setItem("token", response.data.token);
+            console.log("Connexion réussie pour:", this.email);
+
+            // Rediriger vers la page principale après connexion
+            this.$router.push("/");
           } else {
             alert("Échec de la connexion. Veuillez vérifier vos informations.");
           }
         } catch (error) {
-          console.error("Erreur lors de la connexion:", error);
-          alert("Erreur lors de la connexion. Veuillez réessayer.");
+          console.error("Erreur lors de la connexion:", error.response || error);
+          alert(
+            `Erreur lors de la connexion : ${
+              error.response?.data?.message || "Veuillez réessayer."
+            }`
+          );
         }
       } else {
         alert("Veuillez remplir tous les champs.");
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
