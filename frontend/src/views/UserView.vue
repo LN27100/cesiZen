@@ -20,8 +20,8 @@
       <span>Paramètres</span>
       <img src="../assets/icones/parametres.png" alt="icone paramètres" />
     </button>
-    <button class="logout-button" @click="goTo('LoginView')">
-      <span>Connexion</span>
+    <button class="logout-button" @click="toggleLogin">
+      <span>{{ isLoggedIn ? 'Déconnexion' : 'Connexion' }}</span>
       <img src="../assets/icones/deconnexion.png" alt="icone connexion" />
     </button>
   </div>
@@ -30,9 +30,32 @@
 <script>
 export default {
   name: 'UserView',
+  data() {
+    return {
+      isLoggedIn: false // Initialisez l'état de connexion à false
+    };
+  },
   methods: {
     goTo(page) {
       this.$router.push({ name: page });
+    },
+    toggleLogin() {
+      if (this.isLoggedIn) {
+        // Logique de déconnexion
+        this.isLoggedIn = false;
+        localStorage.removeItem('token');
+        this.$router.push({ name: 'HomeView' });
+      } else {
+        // Logique de connexion
+        this.$router.push({ name: 'LoginView' });
+      }
+    }
+  },
+  created() {
+    // Vérifiez si l'utilisateur est déjà connecté
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.isLoggedIn = true;
     }
   }
 };

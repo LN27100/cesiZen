@@ -42,7 +42,6 @@ const routes = [
     path: '/users',
     name: 'Users',
     component: UserView,
-    meta: { requiresAuth: true }
   },
   {
     path: '/profil',
