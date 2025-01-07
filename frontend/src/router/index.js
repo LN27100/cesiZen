@@ -30,7 +30,7 @@ const routes = [
   },
   {
     path: '/activities',
-    name: 'Activities',
+    name: 'ActivitiesView',
     component: ActivitiesView,
   },
   {
@@ -75,7 +75,7 @@ const routes = [
   },
   {
     path: '/detente-activities',
-    name: 'DetenteActivities',
+    name: 'detenteActivities',
     component: DetenteActivitiesView,
   }
 ];
