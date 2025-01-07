@@ -42,7 +42,7 @@
 
     <!-- Navbar pour les écrans mobiles -->
     <div class="mobile-navbar">
-      <div class="nav-item">
+      <div class="nav-item2">
         <img src="@/assets/icones/diagnosis.png" alt="Diagnostic" class="nav-icon" />
       </div>
       <div class="nav-item" @click="goTo('DetenteActivities')">
@@ -96,10 +96,24 @@ export default {
 
 .nav-item {
   display: flex;
+  width: 56px;
+  height: 56px;
   justify-content: center;
   align-items: center;
   background-color: #84B66D;
   cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-item2 {
+  display: flex;
+  width: 56px;
+  height: 56px;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(198, 191, 191);
+  border-radius: 10px;
   transition: background-color 0.3s ease;
 }
 

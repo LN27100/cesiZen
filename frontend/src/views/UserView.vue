@@ -21,7 +21,7 @@
       <img src="../assets/icones/parametres.png" alt="icone paramètres" />
     </button>
     <button class="logout-button" @click="toggleLogin">
-      <span>{{ isLoggedIn ? 'Déconnexion' : 'Connexion' }}</span>
+      <span>{{ isLoggedIn ? 'Déconnexion' : 'Connexion/Inscription' }}</span>
       <img src="../assets/icones/deconnexion.png" alt="icone connexion" />
     </button>
   </div>
