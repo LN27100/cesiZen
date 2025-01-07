@@ -59,12 +59,12 @@ exports.login = (req, res) => {
 
     User.findByEmail(email, (err, user) => {
         if (err) return res.status(500).send(err);
-        if (!user) return res.status(404).send('Utilisateur non trouvé');
+        if (!user || !user.mot_de_passe) return res.status(404).send('Utilisateur non trouvé');
 
         const passwordIsValid = bcrypt.compareSync(mot_de_passe, user.mot_de_passe);
         if (!passwordIsValid) return res.status(401).send('Mot de passe incorrect');
 
-        const token = jwt.sign({ id: user.id_utilisateur }, process.env.JWT_SECRET, {
+        const token = jwt.sign({ id: user.id_utilisateur }, process.env.VUE_APP_JWT_SECRET, {
             expiresIn: 86400 // 24 heures
         });
 

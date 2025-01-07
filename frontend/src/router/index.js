@@ -31,53 +31,70 @@ const routes = [
   {
     path: '/activities',
     name: 'Activities',
-    component: ActivitiesView
+    component: ActivitiesView,
   },
   {
     path: '/info',
     name: 'Info',
-    component: InfoView
+    component: InfoView,
   },
   {
     path: '/users',
     name: 'Users',
-    component: UserView
+    component: UserView,
+    meta: { requiresAuth: true }
   },
   {
     path: '/profil',
     name: 'Profil',
-    component: ProfilView
+    component: ProfilView,
+    meta: { requiresAuth: true }
   },
   {
     path: '/progression',
     name: 'Progression',
-    component: ProgressionView
+    component: ProgressionView,
+    meta: { requiresAuth: true }
   },
   {
     path: '/parametres',
     name: 'Parametres',
-    component: ParametresView
+    component: ParametresView,
+    meta: { requiresAuth: true }
   },
   {
     path: '/deconnexion',
     name: 'Deconnexion',
-    component: LogoutView
+    component: LogoutView,
+    meta: { requiresAuth: true }
   },
   {
     path: '/favorites',
     name: 'Favorites',
-    component: FavoritesView
+    component: FavoritesView,
+    meta: { requiresAuth: true }
   },
   {
     path: '/detente-activities',
     name: 'DetenteActivities',
-    component: DetenteActivitiesView
+    component: DetenteActivitiesView,
   }
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const isAuthenticated = localStorage.getItem('token');
+
+  if (requiresAuth && !isAuthenticated) {
+    next('/login');
+  } else {
+    next();
+  }
 });
 
 export default router;

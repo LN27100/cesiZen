@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import { loginUser } from '../services/api';
+
 export default {
   name: 'LoginView',
   data() {
@@ -39,10 +41,23 @@ export default {
     };
   },
   methods: {
-    handleLogin() {
+    async handleLogin() {
       if (this.username && this.password) {
-        // Logique pour vérifier l'authentification
-        console.log("Connexion réussie pour:", this.username);
+        try {
+          const response = await loginUser({ email: this.username, mot_de_passe: this.password });
+          if (response.data.auth) {
+            // Stocker le token dans le localStorage ou un cookie
+            localStorage.setItem('token', response.data.token);
+            console.log("Connexion réussie pour:", this.username);
+            // Rediriger vers une autre page après la connexion
+            this.$router.push('/');
+          } else {
+            alert("Échec de la connexion. Veuillez vérifier vos informations.");
+          }
+        } catch (error) {
+          console.error("Erreur lors de la connexion:", error);
+          alert("Erreur lors de la connexion. Veuillez réessayer.");
+        }
       } else {
         alert("Veuillez remplir tous les champs.");
       }

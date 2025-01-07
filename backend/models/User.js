@@ -7,7 +7,7 @@ const User = {
         db.query(sql, [user.prenom, user.nom, user.email, user.mot_de_passe, user.pseudo], callback);
     },
 
-    // Récupérer tous les utilisateur
+    // Récupérer tous les utilisateurs
     findAll: (callback) => {
         const sql = 'SELECT * FROM utilisateur';
         db.query(sql, callback);
@@ -16,7 +16,10 @@ const User = {
     // Récupérer un utilisateur par email
     findByEmail: (email, callback) => {
         const sql = 'SELECT * FROM utilisateur WHERE email = ?';
-        db.query(sql, [email], callback);
+        db.query(sql, [email], (err, results) => {
+            if (err) return callback(err);
+            callback(null, results[0]); // Retourne le premier résultat
+        });
     },
 
     // Récupérer un utilisateur par ID
