@@ -8,10 +8,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item first-nav-item nav-item-margin">
+            <li class="nav-item3 first-nav-item nav-item-margin">
               <a class="nav-link active" aria-current="page" href="#" @click.prevent="goTo('HomeView')">Accueil</a>
             </li>
-            <li class="nav-item dropdown nav-item-margin">
+            <li class="nav-item3 dropdown nav-item-margin">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Activitiés
               </a>
@@ -20,10 +20,10 @@
                 <li><a class="dropdown-item disabled" href="#">Exercices de respiration</a></li>
               </ul>
             </li>
-            <li class="nav-item nav-item-margin">
+            <li class="nav-item3 nav-item-margin">
               <a class="nav-link" href="#" @click.prevent="goTo('Info')">Informations santé</a>
             </li>
-            <li class="nav-item dropdown nav-item-margin">
+            <li class="nav-item3 dropdown nav-item-margin">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Utilisateur
               </a>
@@ -32,7 +32,7 @@
                 <li><a class="dropdown-item disabled" href="#">Tracker d'émotions</a></li>
                 <li><a class="dropdown-item" href="#" @click.prevent="goTo('Progression')">Progression</a></li>
                 <li><a class="dropdown-item" href="#" @click.prevent="goTo('Parametres')">Paramètres</a></li>
-                <li><a class="dropdown-item" href="#" @click.prevent="goTo('Deconnexion')">Déconnexion</a></li>
+                <li><a class="dropdown-item" href="#" @click.prevent="goTo('LoginView')">Connexion</a></li>
               </ul>
             </li>
           </ul>
@@ -113,6 +113,16 @@ export default {
   justify-content: center;
   align-items: center;
   background-color: rgb(198, 191, 191);
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-item3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #84B66D;
+  cursor: pointer;
   border-radius: 10px;
   transition: background-color 0.3s ease;
 }
