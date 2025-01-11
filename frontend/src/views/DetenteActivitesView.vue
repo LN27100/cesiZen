@@ -4,23 +4,23 @@
     <h1>Activités détente</h1>
 
     <div class="button-container">
-      <button class="activity-button" @click="goTo('MandalaView')">
+      <button class="activity-button" @click="goToCategory('Mandala')">
         <span>Mandala</span>
         <img src="@/assets/icones/mandala.png" alt="icone mandala" />
       </button>
-      <button class="activity-button" @click="goTo('RelaxationSonoreView')">
+      <button class="activity-button" @click="goToCategory('Relaxation Sonore')">
         <span>Relaxation Sonore</span>
         <img src="@/assets/icones/relaxation_sonore.png" alt="icone relaxation sonore" />
       </button>
-      <button class="activity-button" @click="goTo('MeditationView')">
+      <button class="activity-button" @click="goToCategory('Méditation')">
         <span>Méditation</span>
         <img src="@/assets/icones/meditation.png" alt="icone méditation" />
       </button>
-      <button class="activity-button" @click="goTo('EtirementDouxView')">
+      <button class="activity-button" @click="goToCategory('Étirements Doux')">
         <span>Étirements Doux</span>
         <img src="@/assets/icones/etirements_doux.png" alt="icone étirements doux" />
       </button>
-      <button class="activity-button" @click="goTo('ActivitesExpressivesView')">
+      <button class="activity-button" @click="goToCategory('Activités Expressives')">
         <span>Activités Expressives</span>
         <img src="@/assets/icones/activites_expressives.png" alt="icone activités expressives" />
       </button>
@@ -30,14 +30,15 @@
 
 <script>
 export default {
-  name: 'DetenteActivitiesView',
+  name: 'DetenteActivitesView',
   methods: {
-    goTo(page) {
-      this.$router.push({ name: page });
+    goToCategory(category) {
+      this.$router.push({ name: 'CategoriesView', params: { category } });
     }
   }
 };
 </script>
+
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Open+Sans:wght@400;600&display=swap");

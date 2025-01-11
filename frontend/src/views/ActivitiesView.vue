@@ -31,7 +31,7 @@ export default {
   name: 'ActivitiesView',
   methods: {
     handleClick() {
-      this.$router.push({ name: 'detenteActivities' });
+      this.$router.push({ name: 'DetenteActivitesView' });
     }
   }
 };

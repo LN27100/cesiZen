@@ -10,12 +10,8 @@ import ProgressionView from '../views/ProgressionView.vue';
 import ParametresView from '../views/ParametresView.vue';
 import LogoutView from '../views/LogoutView.vue';
 import FavoritesView from '../views/FavoritesView.vue';
-import DetenteActivitiesView from '../views/DetenteActivitiesView.vue';
-import MandalaView from '../views/categories/MandalaView.vue';
-import RelaxationSonoreView from '../views/categories/RelaxationSonoreView.vue';
-import MeditationView from '../views/categories/MeditationView.vue';
-import EtirementDouxView from '../views/categories/EtirementDouxView.vue';
-import ActivitesExpressivesView from '../views/categories/ActivitesExpressivesView.vue';
+import DetenteActivitesView from '../views/DetenteActivitesView.vue';
+import CategorieView from '../views/CategoriesView.vue';
 
 const routes = [
   {
@@ -37,6 +33,11 @@ const routes = [
     path: '/activities',
     name: 'ActivitiesView',
     component: ActivitiesView,
+  },
+  {
+    path: '/categorie/:category',
+    name: 'CategoriesView',
+    component: CategorieView
   },
   {
     path: '/info',
@@ -80,33 +81,8 @@ const routes = [
   },
   {
     path: '/detente-activities',
-    name: 'detenteActivities',
-    component: DetenteActivitiesView,
-  },
-  {
-    path: '/mandala',
-    name: 'MandalaView',
-    component: MandalaView,
-  },
-  {
-    path: '/relaxation-sonore',
-    name: 'RelaxationSonoreView',
-    component: RelaxationSonoreView,
-  },
-  {
-    path: '/meditation',
-    name: 'MeditationView',
-    component: MeditationView,
-  },
-  {
-    path: '/etirement-doux',
-    name: 'EtirementDouxView',
-    component: EtirementDouxView,
-  },
-  {
-    path: '/activites-expressives',
-    name: 'ActivitesExpressivesView',
-    component: ActivitesExpressivesView,
+    name: 'DetenteActivitesView',
+    component: DetenteActivitesView,
   }
 ];
 

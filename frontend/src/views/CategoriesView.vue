@@ -2,7 +2,7 @@
   <div class="activities">
     <img src="@/assets/icones/mandala_noir.png" alt="icone activités détente" class="icone">
 
-    <h1>Mandalas</h1>
+    <h1>{{ categoryName }}</h1>
     <div class="filter-bar">
       <div class="search-container">
         <i class="fas fa-search search-icon"></i>
@@ -38,21 +38,24 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
-  name: 'MandalaView',
+  name: 'CategoriesView',
   data() {
     return {
-      activities: [
-        { id_activite: 1, nom_activite: 'Séance de coloriage', description_activite: 'Activité de coloriage de mandalas', duree_minutes: 30, sous_categorie: 'Coloriage de mandalas' },
-        { id_activite: 2, nom_activite: 'Création de mandalas', description_activite: 'Création de mandalas personnalisés', duree_minutes: 45, sous_categorie: 'Création de mandalas personnalisés' },
-        // Ajoutez d'autres activités ici
-      ],
+      categoryName: '',
+      activities: [],
       searchQuery: '',
       selectedSubCategory: '',
       selectedDuration: '',
-      subCategories: ['Coloriage de mandalas', 'Création de mandalas personnalisés'],
-      durations: [30, 45]
+      subCategories: [],
+      durations: []
     };
+  },
+  created() {
+    this.categoryName = this.$route.params.category;
+    this.fetchActivities();
   },
   computed: {
     filteredActivities() {
@@ -65,7 +68,17 @@ export default {
     }
   },
   methods: {
-   
+    fetchActivities() {
+      axios.get(`/api/activities/category/${this.categoryName}`)
+        .then(response => {
+          this.activities = response.data;
+          this.subCategories = [...new Set(this.activities.map(activity => activity.sous_categorie))];
+          this.durations = [...new Set(this.activities.map(activity => activity.duree_minutes))];
+        })
+        .catch(error => {
+          console.error('Erreur lors de la récupération des activités:', error);
+        });
+    }
   }
 };
 </script>
@@ -165,7 +178,6 @@ h1 {
 }
 
 /* Responsive */
-
 @media (max-width: 1200px) {
   .filter-bar {
     width: 70%;
@@ -214,11 +226,11 @@ h1 {
 
 @media (max-width: 576px) {
   .icone {
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  width: 20%;
-  height: auto;
-}
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    width: 20%;
+    height: auto;
+  }
 
   .filter-bar {
     width: 80%;
@@ -234,4 +246,3 @@ h1 {
   }
 }
 </style>
-
