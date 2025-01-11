@@ -47,7 +47,8 @@ export default {
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 32px;
+  margin-top: 9rem;
   color: black;
   font-family: "Nunito", sans-serif;
 }

@@ -16,7 +16,7 @@
                 Activitiés
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#" @click.prevent="goTo('DetenteActivities')">Activités détente</a></li>
+                <li><a class="dropdown-item" href="#" @click.prevent="goTo('detenteActivities')">Activités détente</a></li>
                 <li><a class="dropdown-item disabled" href="#">Exercices de respiration</a></li>
               </ul>
             </li>

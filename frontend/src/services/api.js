@@ -8,6 +8,7 @@ export const getActivities = () => axios.get(`${API_URL}/activities`);
 export const addActivity = (activityData) => axios.post(`${API_URL}/activities`, activityData);
 export const getInfo = () => axios.get(`${API_URL}/info`);
 export const addInfo = (infoData) => axios.post(`${API_URL}/info`, infoData);
-
-// Ajouter la fonction getUserById
 export const getUserById = (userId) => axios.get(`${API_URL}/users/${userId}`);
+
+// Ajouter la fonction updateUser
+export const updateUser = (userId, userData) => axios.put(`${API_URL}/users/${userId}`, userData);

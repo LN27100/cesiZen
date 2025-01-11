@@ -1,28 +1,45 @@
 <template>
   <div class="activities">
+    <img src="@/assets/icones/activités_détentes_black.png" alt="icone activités détente" class="icone">
     <h1>Activités détente</h1>
-    <div class="card mt-4">
-      <div class="card-body">
-        <!-- Contenu de la carte -->
-      </div>
+
+    <div class="button-container">
+      <button class="activity-button" @click="goTo('MandalaView')">
+        <span>Mandala</span>
+        <img src="@/assets/icones/mandala.png" alt="icone mandala" />
+      </button>
+      <button class="activity-button" @click="goTo('RelaxationSonoreView')">
+        <span>Relaxation Sonore</span>
+        <img src="@/assets/icones/relaxation_sonore.png" alt="icone relaxation sonore" />
+      </button>
+      <button class="activity-button" @click="goTo('MeditationView')">
+        <span>Méditation</span>
+        <img src="@/assets/icones/meditation.png" alt="icone méditation" />
+      </button>
+      <button class="activity-button" @click="goTo('EtirementDouxView')">
+        <span>Étirements Doux</span>
+        <img src="@/assets/icones/etirements_doux.png" alt="icone étirements doux" />
+      </button>
+      <button class="activity-button" @click="goTo('ActivitesExpressivesView')">
+        <span>Activités Expressives</span>
+        <img src="@/assets/icones/activites_expressives.png" alt="icone activités expressives" />
+      </button>
     </div>
-    <img src="../assets/images/lotus_2.png" alt="Activité" class="lotus">
   </div>
 </template>
 
 <script>
 export default {
-  name: 'detenteActivities',
+  name: 'DetenteActivitiesView',
   methods: {
-    handleClick() {
-      alert("Activités détente cliqué !");
+    goTo(page) {
+      this.$router.push({ name: page });
     }
   }
 };
 </script>
 
 <style scoped>
-/* Import de la police Nunito */
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Open+Sans:wght@400;600&display=swap");
 
 .activities {
@@ -31,75 +48,66 @@ export default {
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 32px;
   color: black;
   font-family: "Nunito", sans-serif;
 }
 
-.card {
-  max-width: 80%;
-  margin: 0 auto;
-  background-color: #a06db6;
-  border: solid 2px #a9b66d;
-  border-radius: 10px;
-  padding: 20px;
+.icone {
+  margin-top: 2rem;
   margin-bottom: 1rem;
-  color: white;
-}
-
-.lotus {
-  display: block;
-  margin: 20px auto;
-  max-width: 100%;
+  width: 5rem;
   height: auto;
 }
 
-.buttons {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
-}
-
 .button-container {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
-.action-button {
-  background-color: #8850A1;
+button {
+  height: 5rem;
+  width: 15rem;
+  background-color: #84B66D;
+  border: solid 1px white;
+  border-radius: 5px;
   color: white;
-  border: none;
-  border-radius: 50%;
-  width: 90px;
-  height: 90px;
+  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  font-size: 1rem;
+  padding: 0 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.3s ease;
+  position: relative;
 }
 
-.action-button:hover {
-  background-color: #5F3870;
+button:hover {
+  background-color: #69A050;
 }
 
-.action-button:disabled {
-  background-color: #8850A1;
+button img {
+  height: 3rem;
+  width: 3rem;
+  position: absolute;
+  right: 1rem;
+}
+
+button span {
+  flex: 1;
+  text-align: center;
+  margin-right: 3rem;
+}
+
+button:disabled {
+  background-color: #ccc;
   cursor: not-allowed;
 }
 
-.action-button:disabled:hover {
+button:disabled:hover {
   background-color: #ccc;
-}
-
-.button-label {
-  margin-top: 10px;
-  font-size: 1rem;
-  color: black;
-}
-
-.icon {
-  width: 50px;
-  height: 50px;
 }
 </style>
