@@ -8,7 +8,7 @@
         v-for="category in categories"
         :key="category.id_categorie"
         class="activity-button"
-        @click="goToCategory(category.nom_categorie)"
+        @click="goToCategory(category.id_categorie, category.nom_categorie)"
       >
         <span>{{ category.nom_categorie }}</span>
         <img :src="getIconPath(normalizeCategoryName(category.nom_categorie))" :alt="'icone ' + category.nom_categorie" />
@@ -28,8 +28,8 @@ export default {
     };
   },
   methods: {
-    goToCategory(categoryName) {
-      this.$router.push({ name: 'ActivitesDetenteView', params: { category: categoryName } });
+    goToCategory(categoryId, categoryName) {
+      this.$router.push({ name: 'ActivitesDetenteView', params: { id: categoryId, category: categoryName } });
     },
     getIconPath(categoryName) {
       const iconMap = {

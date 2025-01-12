@@ -1,38 +1,16 @@
-// routes/activitesRoutes.js
 const express = require('express');
 const router = express.Router();
 const Activite = require('../models/Activites');
+const activitesController = require('../controllers/activitesController');
 
 // Créer une nouvelle activité
-router.post('/', (req, res) => {
-    Activite.create(req.body, (err, result) => {
-        if (err) return res.status(500).send(err);
-        res.status(201).send(result);
-    });
-});
+router.post('/', activitesController.create);
 
 // Récupérer toutes les activités
-router.get('/', (req, res) => {
-    Activite.findAll((err, results) => {
-        if (err) return res.status(500).send(err);
-        res.status(200).send(results);
-    });
-});
+router.get('/', activitesController.findAll);
 
 // Récupérer les activités par catégorie
-router.get('/category/:id', (req, res) => {
-    const categoryId = req.params.id;
-
-    Activite.findByCategory(categoryId, (err, activities) => {
-        if (err) {
-            return res.status(500).json({ message: 'Erreur interne', details: err.message });
-        }
-        if (!activities.length) {
-            return res.status(404).json({ message: 'Aucune activité trouvée pour cette catégorie.' });
-        }
-        res.status(200).json(activities);
-    });
-});
+router.get('/category/:id', activitesController.findByCategory);
 
 // Récupérer une activité par ID
 router.get('/:id', (req, res) => {

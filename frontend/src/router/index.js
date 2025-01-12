@@ -80,9 +80,9 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/activites-detente',
+    path: '/activites/:id/:category',
     name: 'ActivitesDetenteView',
-    component: ActivitesDetenteView,
+    component: ActivitesDetenteView
   }
 ];
 

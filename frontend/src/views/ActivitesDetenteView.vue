@@ -1,7 +1,7 @@
 <template>
   <div class="activities">
     <img :src="iconPath" alt="icone activités détente" class="icone">
-    
+
     <h1>{{ categoryName }}</h1>
     <button class="back-button" @click="goBack">
       <img src="@/assets/icones/back.png" alt="Retour" />
@@ -71,7 +71,7 @@ export default {
     },
     iconPath() {
       switch (this.categoryName) {
-        case 'Mandala':
+        case 'Mandalas':
           return require('@/assets/icones/mandala_noir.png');
         case 'Relaxation Sonore':
           return require('@/assets/icones/relaxation_sonore_noir.png');
@@ -88,10 +88,10 @@ export default {
   },
   methods: {
     fetchActivities() {
-      axios.get(`/api/activities/category/${this.categoryName}`)
+      const categoryId = this.$route.params.id;
+      axios.get(`http://localhost:3000/api/activities/category/${categoryId}`)
         .then(response => {
           console.log(response.data); // Liste des activités
-
           this.activities = response.data;
           this.subCategories = [...new Set(this.activities.map(activity => activity.sous_categorie))];
           this.durations = [...new Set(this.activities.map(activity => activity.duree_minutes))];
@@ -101,7 +101,7 @@ export default {
         });
     },
     goBack() {
-      this.$router.push({ name: 'DetenteActivitesView' });
+      this.$router.push({ name: 'CategorieView' });
     }
   }
 };

@@ -16,3 +16,11 @@ exports.findAll = (req, res) => {
         res.send(activities);
     });
 };
+
+exports.findByCategory = (req, res) => {
+    const categoryId = req.params.id;
+    Activity.findByCategory(categoryId, (err, activities) => {
+        if (err) return res.status(500).send(err);
+        res.send(activities);
+    });
+};
