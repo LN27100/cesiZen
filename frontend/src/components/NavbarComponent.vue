@@ -16,7 +16,7 @@
                 Activitiés
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#" @click.prevent="goTo('detenteActivities')">Activités détente</a></li>
+                <li><a class="dropdown-item" href="#" @click.prevent="goTo('CategoriesView')">Activités détente</a></li>
                 <li><a class="dropdown-item disabled" href="#">Exercices de respiration</a></li>
               </ul>
             </li>
@@ -45,8 +45,8 @@
       <div class="nav-item2">
         <img src="@/assets/icones/diagnosis.png" alt="Diagnostic" class="nav-icon" />
       </div>
-      <div class="nav-item" @click="goTo('ActivitiesView')">
-        <img src="@/assets/icones/detente_blanc.png" alt="Activities" class="nav-icon2" />
+      <div class="nav-item" @click="goTo('CategoriesView')">
+        <img src="@/assets/icones/detente_blanc.png" alt="detente" class="nav-icon2" />
       </div>
       <div class="nav-item" @click="goTo('HomeView')">
         <img src="@/assets/icones/home_blanc.png" alt="Accueil" class="nav-icon" />

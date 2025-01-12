@@ -22,13 +22,14 @@ app.use((req, res, next) => {
 // Routes
 const userRoutes = require('./routes/userRoutes');
 const activityRoutes = require('./routes/activitesRoutes');
-const categoryRoutes = require('./routes/categorieRoutes');
+const categoriesRoutes = require('./routes/categoriesRoutes');
 const infoRoutes = require('./routes/infoRoutes');
 
 app.use('/api/users', userRoutes);
-app.use('/api/activities', activityRoutes);
-app.use('/api/categories', categoryRoutes);
+app.use('/api', categoriesRoutes);
 app.use('/api/info', infoRoutes);
+app.use('/api/categories', categoriesRoutes); 
+
 
 // Gestion des routes inexistantes
 app.use((req, res, next) => {

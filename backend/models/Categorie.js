@@ -19,6 +19,12 @@ const Categorie = {
         db.query(sql, [id], callback);
     },
 
+    // Récupérer une catégorie par nom
+    findByName: (nom_categorie, callback) => {
+        const sql = 'SELECT * FROM categories_activites WHERE nom_categorie = ?';
+        db.query(sql, [nom_categorie], callback);
+    },
+
     // Mettre à jour une catégorie par ID
     update: (id, categorie, callback) => {
         const sql = 'UPDATE categories_activites SET nom_categorie = ? WHERE id_categorie = ?';

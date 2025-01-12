@@ -1,38 +1,18 @@
 <template>
   <div class="activities">
-    <img src="@/assets/icones/mandala_noir.png" alt="icone activités détente" class="icone">
+    <img src="@/assets/icones/activités_détentes_black.png" alt="icone activités détente" class="icone">
+    <h1>Activités détente</h1>
 
-    <h1>{{ categoryName }}</h1>
-    <div class="filter-bar">
-      <div class="search-container">
-        <i class="fas fa-search search-icon"></i>
-        <input v-model="searchQuery" placeholder="Rechercher..." class="search-input" />
-      </div>
-      <select v-model="selectedSubCategory" class="filter-select">
-        <option value="">Toutes les sous-catégories</option>
-        <option v-for="subCategory in subCategories" :key="subCategory" :value="subCategory">
-          {{ subCategory }}
-        </option>
-      </select>
-      <select v-model="selectedDuration" class="filter-select">
-        <option value="">Toutes les durées</option>
-        <option v-for="duration in durations" :key="duration" :value="duration">
-          {{ duration }} minutes
-        </option>
-      </select>
-    </div>
-    <div class="card mt-4">
-      <div class="card-body">
-        <div v-if="filteredActivities.length === 0" class="no-results">
-          <p>Aucun résultat</p>
-        </div>
-        <div v-for="activity in filteredActivities" :key="activity.id_activite" class="activity-card">
-          <h3>{{ activity.nom_activite }}</h3>
-          <p>{{ activity.description_activite }}</p>
-          <p>Durée: {{ activity.duree_minutes }} minutes</p>
-          <p>Sous-catégorie: {{ activity.sous_categorie }}</p>
-        </div>
-      </div>
+    <div class="button-container">
+      <button
+        v-for="category in categories"
+        :key="category.id_categorie"
+        class="activity-button"
+        @click="goToCategory(category.nom_categorie)"
+      >
+        <span>{{ category.nom_categorie }}</span>
+        <img :src="getIconPath(category.nom_categorie)" :alt="'icone ' + category.nom_categorie" />
+      </button>
     </div>
   </div>
 </template>
@@ -41,50 +21,43 @@
 import axios from 'axios';
 
 export default {
-  name: 'CategoriesView',
+  name: 'CategorieView',
   data() {
     return {
-      categoryName: '',
-      activities: [],
-      searchQuery: '',
-      selectedSubCategory: '',
-      selectedDuration: '',
-      subCategories: [],
-      durations: []
+      categories: []
     };
   },
-  created() {
-    this.categoryName = this.$route.params.category;
-    this.fetchActivities();
-  },
-  computed: {
-    filteredActivities() {
-      return this.activities.filter(activity => {
-        const matchesSearch = activity.nom_activite.toLowerCase().includes(this.searchQuery.toLowerCase());
-        const matchesSubCategory = this.selectedSubCategory ? activity.sous_categorie === this.selectedSubCategory : true;
-        const matchesDuration = this.selectedDuration ? activity.duree_minutes === parseInt(this.selectedDuration) : true;
-        return matchesSearch && matchesSubCategory && matchesDuration;
-      });
-    }
-  },
   methods: {
-    fetchActivities() {
-      axios.get(`/api/activities/category/${this.categoryName}`)
+    goToCategory(categoryName) {
+      this.$router.push({ name: 'ActivitesDetenteView', params: { category: categoryName } });
+    },
+    getIconPath(categoryName) {
+      const iconMap = {
+        'Mandalas': require('@/assets/icones/mandala.png'),
+        'Relaxation Sonore': require('@/assets/icones/relaxation_sonore.png'),
+        'Méditation': require('@/assets/icones/meditation.png'),
+        'Étirements Doux': require('@/assets/icones/etirements_doux.png'),
+        'Activités Expressives': require('@/assets/icones/activites_expressives.png')
+      };
+      return iconMap[categoryName] || '';
+    },
+    fetchCategories() {
+      axios.get('http://localhost:3000/api/categories')
         .then(response => {
-          this.activities = response.data;
-          this.subCategories = [...new Set(this.activities.map(activity => activity.sous_categorie))];
-          this.durations = [...new Set(this.activities.map(activity => activity.duree_minutes))];
+          this.categories = response.data;
         })
         .catch(error => {
-          console.error('Erreur lors de la récupération des activités:', error);
+          console.error('Erreur lors de la récupération des catégories :', error);
         });
     }
+  },
+  created() {
+    this.fetchCategories();
   }
 };
 </script>
 
 <style scoped>
-/* Import de la police Nunito */
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Open+Sans:wght@400;600&display=swap");
 
 .activities {
@@ -93,156 +66,66 @@ export default {
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 32px;
   color: black;
   font-family: "Nunito", sans-serif;
-}
-
-.filter-bar {
-  background-color: #8850A1;
-  padding: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 2rem;
-  border: solid 2px #a9b66d;
-  border-radius: 4px;
-  width: 60%;
-  margin: 0 auto;
-}
-
-.search-container {
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
-.search-icon {
-  position: absolute;
-  left: 10px;
-  color: #ccc;
-}
-
-.search-input {
-  padding: 0.5rem 0.5rem 0.5rem 30px;
-  margin-right: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.filter-select {
-  padding: 0.5rem;
-  margin-right: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.card {
-  max-width: 800px;
-  margin: 0 auto;
-  background-color: #a06db6;
-  border: solid 2px #a9b66d;
-  padding: 2rem;
-  box-sizing: border-box;
-}
-
-.card-body {
-  width: 80%;
-  margin: 0 auto;
-}
-
-.activity-card {
-  margin-bottom: 1rem;
-  padding: 1rem;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.activity-card h3 {
-  margin-top: 0;
-}
-
-.no-results {
-  text-align: center;
-  margin-top: 2rem;
-  font-size: 1.2rem;
-  color: #8850A1;
 }
 
 .icone {
   margin-top: 2rem;
   margin-bottom: 1rem;
-  width: 10rem;
+  width: 5rem;
   height: auto;
 }
 
-/* Responsive */
-@media (max-width: 1200px) {
-  .filter-bar {
-    width: 70%;
-  }
-
-  .card {
-    max-width: 700px;
-  }
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
-@media (max-width: 992px) {
-  .filter-bar {
-    width: 90%;
-  }
-
-  .card {
-    max-width: 600px;
-  }
+button {
+  height: 5rem;
+  width: 15rem;
+  background-color: #84B66D;
+  border: solid 1px white;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.3s ease;
+  position: relative;
 }
 
-@media (max-width: 768px) {
-  .filter-bar {
-    width: 90%;
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .search-container {
-    width: 100%;
-    margin-bottom: 1rem;
-  }
-
-  .search-input {
-    width: 100%;
-  }
-
-  .filter-select {
-    width: 100%;
-    margin-bottom: 1rem;
-  }
-
-  .card {
-    max-width: 500px;
-  }
+button:hover {
+  background-color: #69A050;
 }
 
-@media (max-width: 576px) {
-  .icone {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    width: 20%;
-    height: auto;
-  }
+button img {
+  height: 3rem;
+  width: 3rem;
+  position: absolute;
+  right: 1rem;
+}
 
-  .filter-bar {
-    width: 80%;
-  }
+button span {
+  flex: 1;
+  text-align: center;
+  margin-right: 3rem;
+}
 
-  .card {
-    max-width: 90%;
-    padding: 1rem;
-  }
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
 
-  .card-body {
-    width: 100%;
-  }
+button:disabled:hover {
+  background-color: #ccc;
 }
 </style>

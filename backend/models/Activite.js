@@ -15,9 +15,9 @@ const Activite = {
     },
 
     // Récupérer les activités par catégorie
-    findByCategory: (category, callback) => {
-        const sql = 'SELECT * FROM activites_de_detente WHERE sous_categorie = ?';
-        db.query(sql, [category], callback);
+    findByCategory: (id_categorie, callback) => {
+        const sql = 'SELECT * FROM activites_de_detente WHERE id_categorie = ?';
+        db.query(sql, [id_categorie], callback);
     },
 
     // Récupérer une activité par ID

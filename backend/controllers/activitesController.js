@@ -1,4 +1,4 @@
-const Activity = require('../models/Activity');
+const Activity = require('../models/Activite');
 
 exports.create = (req, res) => {
     const { nom, description, statut } = req.body;

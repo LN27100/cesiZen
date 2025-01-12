@@ -20,10 +20,17 @@ router.get('/', (req, res) => {
 });
 
 // Récupérer les activités par catégorie
-router.get('/category/:category', (req, res) => {
-    Activite.findByCategory(req.params.category, (err, results) => {
-        if (err) return res.status(500).send(err);
-        res.status(200).send(results);
+router.get('/category/:id', (req, res) => {
+    const categoryId = req.params.id;
+
+    Activite.findByCategory(categoryId, (err, activities) => {
+        if (err) {
+            return res.status(500).json({ message: 'Erreur interne', details: err.message });
+        }
+        if (!activities.length) {
+            return res.status(404).json({ message: 'Aucune activité trouvée pour cette catégorie.' });
+        }
+        res.status(200).json(activities);
     });
 });
 

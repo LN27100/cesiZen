@@ -10,8 +10,8 @@ import ProgressionView from '../views/ProgressionView.vue';
 import ParametresView from '../views/ParametresView.vue';
 import LogoutView from '../views/LogoutView.vue';
 import FavoritesView from '../views/FavoritesView.vue';
-import DetenteActivitesView from '../views/DetenteActivitesView.vue';
-import CategorieView from '../views/CategoriesView.vue';
+import ActivitesDetenteView from '../views/ActivitesDetenteView.vue';
+import CategoriesView from '../views/CategoriesView.vue';
 
 const routes = [
   {
@@ -35,9 +35,9 @@ const routes = [
     component: ActivitiesView,
   },
   {
-    path: '/categorie/:category',
+    path: '/categorie',
     name: 'CategoriesView',
-    component: CategorieView
+    component: CategoriesView
   },
   {
     path: '/info',
@@ -80,9 +80,9 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/detente-activities',
-    name: 'DetenteActivitesView',
-    component: DetenteActivitesView,
+    path: '/activites-detente',
+    name: 'ActivitesDetenteView',
+    component: ActivitesDetenteView,
   }
 ];
 
