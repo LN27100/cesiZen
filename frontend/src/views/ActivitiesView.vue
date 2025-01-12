@@ -31,7 +31,7 @@ export default {
   name: 'ActivitiesView',
   methods: {
     handleClick() {
-      this.$router.push({ name: 'DetenteActivitesView' });
+      this.$router.push({ name: 'CategoriesView' });
     }
   }
 };

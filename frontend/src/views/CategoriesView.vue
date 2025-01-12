@@ -11,7 +11,7 @@
         @click="goToCategory(category.nom_categorie)"
       >
         <span>{{ category.nom_categorie }}</span>
-        <img :src="getIconPath(category.nom_categorie)" :alt="'icone ' + category.nom_categorie" />
+        <img :src="getIconPath(normalizeCategoryName(category.nom_categorie))" :alt="'icone ' + category.nom_categorie" />
       </button>
     </div>
   </div>
@@ -41,9 +41,19 @@ export default {
       };
       return iconMap[categoryName] || '';
     },
+    normalizeCategoryName(categoryName) {
+      const normalizationMap = {
+        'Étirements doux': 'Étirements Doux',
+        'Méditations': 'Méditation',
+        'Relaxation sonore': 'Relaxation Sonore',
+        'Activités expressives': 'Activités Expressives'
+      };
+      return normalizationMap[categoryName] || categoryName;
+    },
     fetchCategories() {
       axios.get('http://localhost:3000/api/categories')
         .then(response => {
+          console.log('Catégories récupérées :', response.data);
           this.categories = response.data;
         })
         .catch(error => {

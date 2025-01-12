@@ -1,7 +1,7 @@
 // routes/activitesRoutes.js
 const express = require('express');
 const router = express.Router();
-const Activite = require('../models/Activite');
+const Activite = require('../models/Activites');
 
 // Créer une nouvelle activité
 router.post('/', (req, res) => {
