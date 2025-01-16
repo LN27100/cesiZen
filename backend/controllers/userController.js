@@ -36,12 +36,42 @@ exports.findById = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
     const { prenom, nom, email, mot_de_passe, pseudo } = req.body;
-    const hashedPassword = bcrypt.hashSync(mot_de_passe, 8);
-    const updatedUser = { prenom, nom, email, mot_de_passe: hashedPassword, pseudo };
+
+    // Vérifiez si le mot de passe est fourni et hachez-le si nécessaire
+    const updatedUser = { prenom, nom, email, pseudo };
+    if (mot_de_passe) {
+        updatedUser.mot_de_passe = bcrypt.hashSync(mot_de_passe, 8);
+    } else {
+        // Si le mot de passe n'est pas fourni, récupérez l'utilisateur actuel pour obtenir le mot de passe actuel
+        User.findById(id, (err, user) => {
+            if (err) return res.status(500).send(err);
+            updatedUser.mot_de_passe = user.mot_de_passe;
+
+            User.update(id, updatedUser, (err, result) => {
+                if (err) {
+                    console.error('Erreur lors de la mise à jour de l\'utilisateur:', err);
+                    return res.status(500).send(err);
+                }
+                // Récupérer les données mises à jour de l'utilisateur
+                User.findById(id, (err, updatedUser) => {
+                    if (err) return res.status(500).send(err);
+                    res.send(updatedUser);
+                });
+            });
+        });
+        return;
+    }
 
     User.update(id, updatedUser, (err, result) => {
-        if (err) return res.status(500).send(err);
-        res.send('Utilisateur mis à jour');
+        if (err) {
+            console.error('Erreur lors de la mise à jour de l\'utilisateur:', err);
+            return res.status(500).send(err);
+        }
+        // Récupérer les données mises à jour de l'utilisateur
+        User.findById(id, (err, updatedUser) => {
+            if (err) return res.status(500).send(err);
+            res.send(updatedUser);
+        });
     });
 };
 

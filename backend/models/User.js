@@ -18,7 +18,7 @@ const User = {
         const sql = 'SELECT * FROM utilisateur WHERE email = ?';
         db.query(sql, [email], (err, results) => {
             if (err) return callback(err);
-            callback(null, results[0]); // Retourne le premier résultat
+            callback(null, results[0]);
         });
     },
 
