@@ -31,6 +31,7 @@
 
 <script>
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
 export default {
   name: "LoginView",
@@ -44,8 +45,6 @@ export default {
     async handleLogin() {
       if (this.email && this.password) {
         try {
-          console.log("URL de connexion:", process.env.VUE_APP_API_URL);
-
           const response = await axios.post(`${process.env.VUE_APP_API_URL}/users/login`, {
             email: this.email,
             mot_de_passe: this.password,
@@ -54,6 +53,11 @@ export default {
           if (response.data.auth) {
             // Stocker le token JWT dans le localStorage
             localStorage.setItem("token", response.data.token);
+
+            // Décoder le token pour obtenir l'ID utilisateur
+            const decodedToken = jwtDecode(response.data.token);
+            localStorage.setItem("userId", decodedToken.id);
+
             console.log("Connexion réussie pour:", this.email);
 
             // Rediriger vers la page principale après connexion

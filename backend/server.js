@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
+const verifyToken = require('./middlewares/authMiddleware');
 
 dotenv.config();
 
@@ -30,6 +31,11 @@ app.use('/api', categoriesRoutes);
 app.use('/api/info', infoRoutes);
 app.use('/api/categories', categoriesRoutes);
 app.use('/api/activities', activityRoutes);
+
+// Exemple de route protégée pour le profil
+app.get('/api/users/profile', verifyToken, (req, res) => {
+  res.send({ userId: req.userId });
+});
 
 // Gestion des routes inexistantes
 app.use((req, res, next) => {

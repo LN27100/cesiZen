@@ -7,7 +7,7 @@ const verifyToken = (req, res, next) => {
         return res.status(403).send({ message: 'No token provided' });
     }
 
-    jwt.verify(token, process.env.VUE_APP_JWT_SECRET, (err, decoded) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
             return res.status(500).send({ message: 'Failed to authenticate token' });
         }
