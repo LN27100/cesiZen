@@ -28,9 +28,8 @@ const infoRoutes = require('./routes/infoRoutes');
 app.use('/api/users', userRoutes);
 app.use('/api', categoriesRoutes);
 app.use('/api/info', infoRoutes);
-app.use('/api/categories', categoriesRoutes); 
+app.use('/api/categories', categoriesRoutes);
 app.use('/api/activities', activityRoutes);
-
 
 // Gestion des routes inexistantes
 app.use((req, res, next) => {

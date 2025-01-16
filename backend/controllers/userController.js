@@ -1,17 +1,18 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const userService = require('../services/userService');
 
 // Créer un nouvel utilisateur
-exports.register = (req, res) => {
+exports.register = async (req, res) => {
     const { prenom, nom, email, mot_de_passe, pseudo } = req.body;
-    const hashedPassword = bcrypt.hashSync(mot_de_passe, 8);
-    const newUser = { prenom, nom, email, mot_de_passe: hashedPassword, pseudo };
 
-    User.create(newUser, (err, user) => {
-        if (err) return res.status(500).json({ error: 'Une erreur est survenue lors de la création de l\'utilisateur', details: err });
+    try {
+        const user = await userService.creerUtilisateur({ prenom, nom, email, mot_de_passe, pseudo });
         res.status(201).json({ message: 'Utilisateur créé', user });
-    });
+    } catch (err) {
+        res.status(500).json({ error: 'Une erreur est survenue lors de la création de l\'utilisateur', details: err.message });
+    }
 };
 
 // Récupérer tous les utilisateurs
@@ -34,9 +35,9 @@ exports.findById = (req, res) => {
 // Mettre à jour un utilisateur par ID
 exports.update = (req, res) => {
     const id = req.params.id;
-    const { prenom, nom, email, mot_de_passe, statut_compte, pseudo } = req.body;
+    const { prenom, nom, email, mot_de_passe, pseudo } = req.body;
     const hashedPassword = bcrypt.hashSync(mot_de_passe, 8);
-    const updatedUser = { prenom, nom, email, mot_de_passe: hashedPassword, statut_compte, pseudo };
+    const updatedUser = { prenom, nom, email, mot_de_passe: hashedPassword, pseudo };
 
     User.update(id, updatedUser, (err, result) => {
         if (err) return res.status(500).send(err);
@@ -54,20 +55,13 @@ exports.delete = (req, res) => {
 };
 
 // Connecter un utilisateur
-exports.login = (req, res) => {
+exports.login = async (req, res) => {
     const { email, mot_de_passe } = req.body;
 
-    User.findByEmail(email, (err, user) => {
-        if (err) return res.status(500).send(err);
-        if (!user || !user.mot_de_passe) return res.status(404).send('Utilisateur non trouvé');
-
-        const passwordIsValid = bcrypt.compareSync(mot_de_passe, user.mot_de_passe);
-        if (!passwordIsValid) return res.status(401).send('Mot de passe incorrect');
-
-        const token = jwt.sign({ id: user.id_utilisateur }, process.env.VUE_APP_JWT_SECRET, {
-            expiresIn: 86400 // 24 heures
-        });
-
+    try {
+        const { utilisateur, token } = await userService.authentifierUtilisateur(email, mot_de_passe);
         res.status(200).send({ auth: true, token });
-    });
+    } catch (err) {
+        res.status(401).send({ error: err.message });
+    }
 };

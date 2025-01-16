@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { loginUser } from "../services/api";
+import axios from 'axios';
 
 export default {
   name: "LoginView",
@@ -46,7 +46,7 @@ export default {
         try {
           console.log("URL de connexion:", process.env.VUE_APP_API_URL);
 
-          const response = await loginUser({
+          const response = await axios.post(`${process.env.VUE_APP_API_URL}/users/login`, {
             email: this.email,
             mot_de_passe: this.password,
           });

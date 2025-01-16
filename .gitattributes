@@ -1,1 +1,2 @@
-* text=auto
+# Utiliser LF pour tous les fichiers texte
+* text=auto eol=lf
