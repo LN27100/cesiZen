@@ -32,15 +32,7 @@
           <label for="pseudo">Pseudo :</label>
           <input type="text" id="pseudo" v-model="editedUser.pseudo" />
         </div>
-        <div class="form-group">
-          <label for="mot_de_passe">Nouveau mot de passe :</label>
-          <input
-            type="password"
-            id="mot_de_passe"
-            placeholder="Laissez vide pour conserver l'ancien"
-            v-model="editedUser.mot_de_passe"
-          />
-        </div>
+        
         <button type="submit" class="btn-submit">Mettre à jour</button>
         <button type="button" @click="cancelEdit" class="btn-cancel">Annuler</button>
       </form>
@@ -62,7 +54,6 @@ export default {
         nom: "",
         email: "",
         pseudo: "",
-        mot_de_passe: "",
       },
     };
   },
@@ -124,14 +115,12 @@ export default {
           delete updatedUser.mot_de_passe;
         }
 
-        console.log("Données envoyées pour la mise à jour:", updatedUser); // Ajoutez ce log
+        console.log("Données envoyées pour la mise à jour:", updatedUser);
 
         const response = await axios.put(
           `/users/${this.user.id_utilisateur}`,
           updatedUser
         );
-
-        console.log("Réponse de la mise à jour:", response.data); // Ajoutez ce log
 
         alert("Profil mis à jour avec succès !");
         this.user = response.data;
