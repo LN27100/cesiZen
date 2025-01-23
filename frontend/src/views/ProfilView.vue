@@ -1,11 +1,11 @@
 <template>
+  <h1>Mon Profil</h1>
   <div class="profile">
-    <h1>Mon Profil</h1>
     <div v-if="user" class="profile-details">
-      <p><strong>Prénom :</strong> {{ user.prenom }}</p>
-      <p><strong>Nom :</strong> {{ user.nom }}</p>
-      <p><strong>Email :</strong> {{ user.email }}</p>
-      <p><strong>Pseudo :</strong> {{ user.pseudo }}</p>
+      <p><strong class="label">Prénom :</strong> <span class="value">{{ user.prenom }}</span></p>
+      <p><strong class="label">Nom :</strong> <span class="value">{{ user.nom }}</span></p>
+      <p><strong class="label">Email :</strong> <span class="value">{{ user.email }}</span></p>
+      <p><strong class="label">Pseudo :</strong> <span class="value">{{ user.pseudo }}</span></p>
       <div class="buttons">
         <button @click="editUser">Modifier</button>
         <button @click="deleteUser">Supprimer</button>
@@ -15,6 +15,7 @@
       <p>Chargement des informations utilisateur...</p>
     </div>
     <div v-if="editing" class="edit-form">
+      <hr class="separator" />
       <form @submit.prevent="updateUser">
         <div class="form-group">
           <label for="prenom">Prénom :</label>
@@ -32,7 +33,6 @@
           <label for="pseudo">Pseudo :</label>
           <input type="text" id="pseudo" v-model="editedUser.pseudo" />
         </div>
-        
         <button type="submit" class="btn-submit">Mettre à jour</button>
         <button type="button" @click="cancelEdit" class="btn-cancel">Annuler</button>
       </form>
@@ -172,19 +172,21 @@ export default {
 
 <style scoped>
 .profile {
-  max-width: 600px;
+  max-width: 90%;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #a06db6;
+  border: solid 3px #a9b66d;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-bottom: 1rem;
+  color: white;
 }
 
 h1 {
   font-family: "Nunito", sans-serif;
   font-size: 24px;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 }
 
 .profile-details {
@@ -195,24 +197,34 @@ h1 {
 
 .profile-details p {
   font-size: 1.1rem;
-  color: #333;
+  color: black;
+  text-align: left;
+}
+
+.label {
+  color: black;
+}
+
+.value {
+  color: white;
 }
 
 .buttons {
   display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
+  justify-content: center;
+  margin-top: 1rem;
 }
 
 .buttons button {
-  padding: 10px 20px;
+  padding: 0.3rem 0.8rem;
   background-color: #84b66d;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin: 0 0.5rem;
 }
 
 .buttons button:hover {
@@ -253,15 +265,15 @@ input:focus {
 }
 
 .btn-submit {
-  width: 100%;
-  padding: 10px;
+  padding: 0.3rem 0.8rem;
   background-color: #84b66d;
   color: white;
-  font-size: 1.1rem;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin: 0 0.5rem;
 }
 
 .btn-submit:hover {
@@ -269,18 +281,34 @@ input:focus {
 }
 
 .btn-cancel {
-  width: 100%;
-  padding: 10px;
-  background-color: #ccc;
+  padding: 0.3rem 0.8rem;
+  background-color: #84b66d;
   color: white;
-  font-size: 1.1rem;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin: 0 0.5rem;
 }
 
 .btn-cancel:hover {
-  background-color: #aaa;
+  background-color: #69a050;
+}
+
+.separator {
+  border: 0;
+  border-top: 2px solid white;
+  margin: 2rem 1rem;
+}
+
+@media (max-width: 768px) {
+  h1 {
+  font-family: "Nunito", sans-serif;
+  font-size: 24px;
+  text-align: center;
+  margin-top: 9rem;
+  margin-bottom: 1rem;
+}
 }
 </style>
