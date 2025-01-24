@@ -3,8 +3,10 @@
       <h1>{{ activity.nom_activite }}</h1>
       <p>Durée: {{ activity.duree_minutes }} minutes</p>
       <p>{{ activity.description_activite }}</p>
-      <img v-if="activity.image" :src="activity.image" :alt="activity.nom_activite" class="activity-image">
-      <video v-if="activity.video" :src="activity.video" controls class="activity-video"></video>
+      <img v-if="activity.nom_image" :src="getImagePath(activity.nom_image)" :alt="activity.nom_activite" class="activity-image">
+      <div v-if="activity.lien_video" class="video-container">
+        <iframe :src="activity.lien_video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
     </div>
   </template>
   
@@ -32,10 +34,14 @@
             } else {
               this.activity = response.data;
             }
+            console.log('Activity Data:', this.activity); // Add this line to verify the assigned data
           })
           .catch(error => {
-            console.error('Erreur lors de la récupération des détails de l\'activité:', error);
+            console.error('Error fetching activity details:', error);
           });
+      },
+      getImagePath(imageName) {
+        return require(`@/assets/images/${imageName}`);
       }
     }
   };
@@ -64,10 +70,15 @@
   }
   
   .activity-image,
-  .activity-video {
+  .video-container {
     max-width: 100%;
     height: auto;
     margin-top: 2rem;
+  }
+  
+  .video-container iframe {
+    width: 100%;
+    height: 315px;
   }
   </style>
   
