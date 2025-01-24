@@ -1,7 +1,6 @@
 <template>
   <div class="activities">
     <img :src="iconPath" alt="icone activités détente" class="icone">
-
     <h1>{{ categoryName }}</h1>
     <button class="back-button" @click="goBack">
       <img src="@/assets/icones/back.png" alt="Retour" />
@@ -29,11 +28,9 @@
         <div v-if="filteredActivities.length === 0" class="no-results">
           <p>Aucun résultat</p>
         </div>
-        <div v-for="activity in filteredActivities" :key="activity.id_activite" class="activity-card">
+        <div v-for="activity in filteredActivities" :key="activity.id_activite" class="activity-card" @click="viewDetails(activity.id_activite)">
           <h3>{{ activity.nom_activite }}</h3>
-          <p>{{ activity.description_activite }}</p>
           <p>Durée: {{ activity.duree_minutes }} minutes</p>
-          <p>Sous-catégorie: {{ activity.sous_categorie }}</p>
         </div>
       </div>
     </div>
@@ -91,7 +88,6 @@ export default {
       const categoryId = this.$route.params.id;
       axios.get(`http://localhost:3000/api/activities/category/${categoryId}`)
         .then(response => {
-          console.log(response.data); // Liste des activités
           this.activities = response.data;
           this.subCategories = [...new Set(this.activities.map(activity => activity.sous_categorie))];
           this.durations = [...new Set(this.activities.map(activity => activity.duree_minutes))];
@@ -102,6 +98,9 @@ export default {
     },
     goBack() {
       this.$router.push({ name: 'CategorieView' });
+    },
+    viewDetails(activityId) {
+      this.$router.push({ name: 'DetailsActivitesView', params: { id: activityId } });
     }
   }
 };
@@ -181,6 +180,7 @@ h1 {
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
+  cursor: pointer;
 }
 
 .activity-card h3 {
@@ -274,13 +274,13 @@ h1 {
   }
 
   .back-button img {
-  margin-top: 7rem;
-  width: 2rem;
-  height: 2rem;
-  padding: 0.2rem;
-  background-color: #a9b66d;
-  border-radius: 50%;
-}
+    margin-top: 7rem;
+    width: 2rem;
+    height: 2rem;
+    padding: 0.2rem;
+    background-color: #a9b66d;
+    border-radius: 50%;
+  }
 
   .filter-bar {
     width: 80%;

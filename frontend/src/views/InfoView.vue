@@ -12,7 +12,7 @@
       <h2 class="article-title">{{ article.title }}</h2>
       <p v-html="article.content"></p>
       <img v-if="article.image" :src="require(`@/assets/images/${article.image}`)" :alt="article.title">
-      <p class="article-source">Source croixrouge.ca</p>
+      <p class="article-source">Sources croixrouge.ca et coeuretavc.ca</p>
     </div>
 
     <div class="pagination">
@@ -48,11 +48,13 @@ export default {
     nextPage() {
       if (this.currentPage < this.totalPages) {
         this.currentPage++;
+        window.scrollTo(0, 0);
       }
     },
     prevPage() {
       if (this.currentPage > 1) {
         this.currentPage--;
+        window.scrollTo(0, 0);
       }
     }
   }

@@ -12,6 +12,7 @@ import LogoutView from '../views/LogoutView.vue';
 import FavoritesView from '../views/FavoritesView.vue';
 import ActivitesDetenteView from '../views/ActivitesDetenteView.vue';
 import CategoriesView from '../views/CategoriesView.vue';
+import DetailsActivitesView from '../views/DetailsActivitesView.vue';
 
 const routes = [
   {
@@ -83,6 +84,11 @@ const routes = [
     path: '/activites/:id/:category',
     name: 'ActivitesDetenteView',
     component: ActivitesDetenteView
+  },
+  {
+    path: '/details-activites/:id',
+    name: 'DetailsActivitesView',
+    component: DetailsActivitesView
   }
 ];
 
