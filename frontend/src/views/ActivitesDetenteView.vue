@@ -97,7 +97,7 @@ export default {
         });
     },
     goBack() {
-      this.$router.push({ name: 'CategorieView' });
+      this.$router.push({ name: 'CategoriesView' });
     },
     viewDetails(activityId) {
       this.$router.push({ name: 'DetailsActivitesView', params: { id: activityId } });
