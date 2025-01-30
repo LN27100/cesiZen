@@ -70,13 +70,13 @@ export default {
       switch (this.categoryName) {
         case 'Mandalas':
           return require('@/assets/icones/mandala_noir.png');
-        case 'Relaxation Sonore':
+        case 'Relaxation sonore':
           return require('@/assets/icones/relaxation_sonore_noir.png');
-        case 'Méditation':
+        case 'Méditations':
           return require('@/assets/icones/meditation_noir.png');
-        case 'Étirements Doux':
+        case 'Étirements doux':
           return require('@/assets/icones/etirements_doux_noir.png');
-        case 'Activités Expressives':
+        case 'Activités expressives':
           return require('@/assets/icones/activites_expressives_noir.png');
         default:
           return require('@/assets/icones/mandala_noir.png');
@@ -107,7 +107,6 @@ export default {
 </script>
 
 <style scoped>
-/* Import de la police Nunito */
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Open+Sans:wght@400;600&display=swap");
 
 .activities {
@@ -195,7 +194,7 @@ h1 {
 }
 
 .icone {
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-bottom: 1rem;
   width: 10rem;
   height: auto;
@@ -219,7 +218,7 @@ h1 {
 }
 
 /* Responsive */
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
   .filter-bar {
     width: 70%;
   }

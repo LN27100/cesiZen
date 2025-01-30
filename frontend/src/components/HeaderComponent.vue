@@ -1,77 +1,76 @@
 <template>
-    <header class="header">
-      <div class="header-content">
-        <!-- Image à gauche, plus grande -->
-        <img src="../assets/images/flower.jpg" alt="Background Image" class="header-image" />
-        <!-- Logo à droite avec fond vert, superposé sur l'image -->
-        <div class="logo-container">
-          <img src="../assets/icones/logoCesiZen.png" alt="Logo" class="logo" />
-        </div>
+  <header class="header">
+    <div class="header-content">
+      <!-- Image à gauche, plus grande -->
+      <img src="../assets/images/flower.jpg" alt="Background Image" class="header-image" />
+      <!-- Logo à droite avec fond vert, superposé sur l'image -->
+      <div class="logo-container">
+        <img src="../assets/icones/logoCesiZen.png" alt="Logo" class="logo" />
       </div>
-    </header>
-  </template>
-  
-  <script>
-  export default {
-    name: "HeaderComponent",
-  };
-  </script>
-  
-  <style scoped>
-  .header {
-    background-color: #A06DB6;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 999;
-    height: 100px;
-    margin-left: -8px;
-  }
-  
-  .header-content {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    position: relative;
-  }
-  
-  .header-image {
-    width: 13%;  
-    height: auto;
-  }
-  
-  .logo-container {
-  position: absolute; 
-  top: 50%;
-  left: 10%;
-  transform: translateY(-50%); 
-  background-color: #84B66D;
-  padding: 0 16px;
-  z-index: 1;  /* Assure que le logo reste au-dessus de l'image */
+    </div>
+  </header>
+</template>
+
+<script>
+export default {
+  name: "HeaderComponent",
+};
+</script>
+
+<style scoped>
+.header {
+  background-color: #A06DB6;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+  height: 100px;
+  margin: 0;
 }
 
-  
-  .logo {
-    width: 60px;
-    height: auto;
-  }
+.header-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
 
-  /* Media Queries pour écrans plus petits */
-  @media (max-width: 1024px) {
-    .header {
+.header-image {
+  width: 13%;
+  height: auto;
+}
+
+.logo-container {
+  position: absolute;
+  top: 50%;
+  right: 84.2%;
+  transform: translateY(-50%);
+  background-color: #84B66D;
+  padding: 0 16px;
+  z-index: 1; /* Assure que le logo reste au-dessus de l'image */
+}
+
+.logo {
+  width: 60px;
+  height: auto;
+}
+
+/* Media Queries pour écrans plus petits */
+@media (max-width: 1024px) {
+  .header {
     height: 140px;
   }
 
   .header-image {
-    width: 35%; 
+    width: 35%;
   }
 
   .logo-container {
-    left: 28%;
+    right: 59%;
   }
 
   .logo {
@@ -86,11 +85,11 @@
   }
 
   .header-image {
-    width: 40%; 
+    width: 40%;
   }
 
   .logo-container {
-    left: 33%;
+    right: 35%;
   }
 
   .logo {
@@ -99,17 +98,17 @@
   }
 }
 
-  @media (max-width: 480px) {
-    .header {
+@media (max-width: 480px) {
+  .header {
     height: 120px;
   }
 
   .header-image {
-    width: 69%; 
+    width: 69%;
   }
 
   .logo-container {
-    left: 55%;
+    right: 18%; 
   }
 
   .logo {
@@ -118,14 +117,13 @@
   }
 }
 
-
 @media (max-width: 320px) {
   .header-image {
-    width: 62%; 
+    width: 62%;
   }
 
   .logo-container {
-    left: 48%;
+    right: 25%;
   }
 
   .logo {
@@ -138,6 +136,4 @@
     padding: 15px;
   }
 }
-
-  </style>
-  
+</style>

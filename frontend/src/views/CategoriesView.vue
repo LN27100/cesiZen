@@ -82,7 +82,6 @@ h1 {
 }
 
 .icone {
-  margin-top: 2rem;
   margin-bottom: 1rem;
   width: 5rem;
   height: auto;
@@ -90,15 +89,15 @@ h1 {
 
 .button-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
   margin-top: 2rem;
 }
 
 button {
   height: 5rem;
-  width: 15rem;
+  width: 40rem; 
   background-color: #84B66D;
   border: solid 1px white;
   border-radius: 5px;
@@ -137,5 +136,34 @@ button:disabled {
 
 button:disabled:hover {
   background-color: #ccc;
+}
+
+@media (max-width: 1024px) {
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  button {
+    width: 80%;
+  }
+
+  .icone {
+    margin-top: 3rem;
+  }
+}
+@media (max-width: 798px) {
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  button {
+    width: 80%;
+  }
+
+  .icone {
+    margin-top: 2rem;
+  }
 }
 </style>

@@ -9,7 +9,7 @@ import ProfilView from '../views/ProfilView.vue';
 import ProgressionView from '../views/ProgressionView.vue';
 import ParametresView from '../views/ParametresView.vue';
 import LogoutView from '../views/LogoutView.vue';
-import FavoritesView from '../views/FavoritesView.vue';
+import FavorisView from '../views/FavorisView.vue';
 import ActivitesDetenteView from '../views/ActivitesDetenteView.vue';
 import CategoriesView from '../views/CategoriesView.vue';
 import DetailsActivitesView from '../views/DetailsActivitesView.vue';
@@ -75,9 +75,9 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/favorites',
-    name: 'Favorites',
-    component: FavoritesView,
+    path: '/favoris',
+    name: 'FavorisView',
+    component: FavorisView,
     meta: { requiresAuth: true }
   },
   {

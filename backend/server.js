@@ -25,12 +25,14 @@ const userRoutes = require('./routes/userRoutes');
 const activityRoutes = require('./routes/activitesRoutes');
 const categoriesRoutes = require('./routes/categoriesRoutes');
 const infoRoutes = require('./routes/infoRoutes');
+const favorisRoutes = require('./routes/favorisRoutes');
 
 app.use('/api/users', userRoutes);
 app.use('/api', categoriesRoutes);
 app.use('/api/info', infoRoutes);
 app.use('/api/categories', categoriesRoutes);
 app.use('/api/activities', activityRoutes);
+app.use('/api/favoris', favorisRoutes);
 
 // Exemple de route protégée pour le profil
 app.get('/api/users/profile', verifyToken, (req, res) => {

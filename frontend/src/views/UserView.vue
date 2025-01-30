@@ -12,7 +12,7 @@
       <span>Tracker d'émotions</span>
       <img src="../assets/icones/tracker_emo_blanc.png" alt="icone tracker émotions" />
     </button>
-    <button class="progress-button" @click="goTo('Favorites')">
+    <button class="progress-button" @click="goTo('FavorisView')">
       <span>Favoris</span>
       <img src="../assets/icones/favoris.png" alt="icone favoris" />
     </button>

@@ -49,8 +49,7 @@ exports.authentifierUtilisateur = async (email, mot_de_passe) => {
 
                 const token = jwt.sign(
                     { id: utilisateur.id_utilisateur, email: utilisateur.email },
-                    process.env.JWT_SECRET,
-                    { expiresIn: '1h' }
+                    process.env.JWT_SECRET
                 );
 
                 resolve({ utilisateur, token });

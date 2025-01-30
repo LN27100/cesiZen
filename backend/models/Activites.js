@@ -1,4 +1,3 @@
-// models/Activite.js
 const db = require('../config/db');
 
 const Activite = {
