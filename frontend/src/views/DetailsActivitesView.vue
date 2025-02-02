@@ -13,7 +13,8 @@
     <p>Durée: {{ activity.duree_minutes }} minutes</p>
     <p>{{ activity.description_activite }}</p>
     <img v-if="activity.nom_image" :src="getImagePath(activity.nom_image)" :alt="activity.nom_activite" class="activity-image">
-    
+    <img v-if="activity.nom_image_2" :src="getImagePath(activity.nom_image_2)" :alt="activity.nom_activite" class="activity-image">
+
     <div v-if="activity.lien_video" class="video-container">
       <iframe :src="activity.lien_video" frameborder="0" allowfullscreen></iframe>
     </div>
