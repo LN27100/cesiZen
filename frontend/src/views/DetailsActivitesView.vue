@@ -32,18 +32,22 @@ export default {
   methods: {
     fetchActivityDetails() {
       const activityId = this.$route.params.id;
-      axios.get(`http://localhost:3000/api/activities/${activityId}`)
-        .then(response => {
-          console.log('API Response:', response.data);
-          if (Array.isArray(response.data) && response.data.length > 0) {
-            this.activity = response.data[0];
-          } else {
-            this.activity = response.data;
-          }
-        })
-        .catch(error => {
-          console.error('Error fetching activity details:', error);
-        });
+      if (activityId) {
+        axios.get(`http://localhost:3000/api/activities/${activityId}`)
+          .then(response => {
+            console.log('API Response:', response.data);
+            if (Array.isArray(response.data) && response.data.length > 0) {
+              this.activity = response.data[0];
+            } else {
+              this.activity = response.data;
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching activity details:', error);
+          });
+      } else {
+        console.error('ID de l\'activité manquant');
+      }
     },
     getImagePath(imageName) {
       return require(`@/assets/images/${imageName}`);
@@ -56,17 +60,29 @@ export default {
     id_activite: this.activity.id_activite,
     id_exercice: null
   };
-  axios.post('http://localhost:3000/api/favoris', favorite)
+
+  axios.get('http://localhost:3000/api/favoris')
     .then(response => {
-      console.log('Activity added to favorites:', response.data);
-      alert('Activité ajoutée aux favoris');
+      const favoris = response.data;
+      const alreadyAdded = favoris.some(fav => fav.id_activite === this.activity.id_activite);
+
+      if (alreadyAdded) {
+        alert('Vous avez déjà ajouté cette activité à vos favoris');
+      } else {
+        axios.post('http://localhost:3000/api/favoris', favorite)
+          .then(() => {
+            alert('Activité ajoutée aux favoris');
+          })
+          .catch(error => {
+            console.error('Erreur lors de l\'ajout aux favoris:', error);
+            alert('Erreur lors de l\'ajout aux favoris');
+          });
+      }
     })
     .catch(error => {
-      console.error('Error adding activity to favorites:', error);
-      alert('Erreur lors de l\'ajout aux favoris');
+      console.error('Erreur lors de la récupération des favoris:', error);
     });
 }
-
   }
 };
 </script>

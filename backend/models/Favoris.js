@@ -1,17 +1,17 @@
 const db = require('../config/db');
 
-  const Favoris = {
-    // Créer un nouveau favori
-    create: (favorite, callback) => {
-      const sql = 'INSERT INTO favori (id_activite, id_exercice, id_utilisateur) VALUES (?, ?, ?)';
-      db.query(sql, [favorite.id_activite, favorite.id_exercice || null, favorite.id_utilisateur], (err, result) => {
-        if (err) {
-          console.error('Erreur lors de l\'insertion dans la base de données:', err);
-          return callback(err);
-        }
-        callback(null, result);
-      });
-    },
+const Favoris = {
+  // Créer un nouveau favori
+  create: (favorite, callback) => {
+    const sql = 'INSERT INTO favori (id_activite, id_exercice, id_utilisateur) VALUES (?, ?, ?)';
+    db.query(sql, [favorite.id_activite, favorite.id_exercice || null, favorite.id_utilisateur], (err, result) => {
+      if (err) {
+        console.error('Erreur lors de l\'insertion dans la base de données:', err);
+        return callback(err);
+      }
+      callback(null, result);
+    });
+  },
 
   // Récupérer tous les favoris
   findAll: (callback) => {
@@ -25,9 +25,12 @@ const db = require('../config/db');
     db.query(sql, [id], callback);
   },
 
-  // Récupérer tous les favoris de l'utilisateur connecté
+  // Récupérer tous les favoris de l'utilisateur connecté avec les informations de l'activité et de la catégorie
   findByUserId: (userId, callback) => {
-    const sql = 'SELECT * FROM favori WHERE id_utilisateur = ?';
+    const sql = `
+      SELECT f.id_favori,f.id_utilisateur, a.nom_activite FROM favori f JOIN activites_de_detente a ON f.id_activite = a.id_activite WHERE f.id_utilisateur = ?
+
+    `;
     db.query(sql, [userId], callback);
   },
 

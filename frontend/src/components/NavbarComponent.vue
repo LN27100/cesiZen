@@ -30,7 +30,7 @@
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#" @click.prevent="goTo('Profil')">Profil</a></li>
                 <li><a class="dropdown-item disabled" href="#">Tracker d'émotions</a></li>
-                <li><a class="dropdown-item" href="#" @click.prevent="goTo('Progression')">Progression</a></li>
+                <li><a class="dropdown-item" href="#" @click.prevent="goTo('FavorisView')">Vos favoris</a></li>
                 <li><a class="dropdown-item" href="#" @click.prevent="goTo('Parametres')">Paramètres</a></li>
                 <li><a class="dropdown-item" href="#" @click.prevent="goTo('LoginView')">Connexion</a></li>
               </ul>

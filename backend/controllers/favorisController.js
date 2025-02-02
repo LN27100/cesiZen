@@ -29,6 +29,7 @@ exports.getFavoritesByUser = (req, res) => {
   });
 };
 
+
 // Récupérer tous les favoris
 exports.getAllFavorites = (req, res) => {
   Favoris.findAll((err, favorites) => {
