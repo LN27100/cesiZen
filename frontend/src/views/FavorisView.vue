@@ -77,27 +77,26 @@ export default {
 
 <style scoped>
 .favoris-container {
-  max-width: 30%;
-  margin: 0 auto;
+  max-width: 40%;
+  width: 100%;
+  margin: 2rem auto;
   background-color: #a06db6;
   border: solid 3px #a9b66d;
   border-radius: 10px;
   padding: 2rem;
-  margin-bottom: 1rem;
   color: white;
+  text-align: center;
 }
 
 h1 {
   font-family: "Nunito", sans-serif;
-  font-size: 24px;
-  text-align: center;
-  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
 }
 
 .no-favorites {
-  margin-top: 20px;
   font-size: 1.2rem;
-  color: #888;
+  color: #eee;
 }
 
 .favorite-item {
@@ -105,24 +104,88 @@ h1 {
   align-items: center;
   justify-content: space-between;
   font-size: 1.2rem;
+  background: white;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 0.8rem;
   color: black;
+  transition: transform 0.2s ease-in-out;
+}
+
+.favorite-item:hover {
+  transform: scale(1.02);
 }
 
 .favorite-name {
   cursor: pointer;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+}
+
+.favorite-name:hover {
+  color: #a06db6;
 }
 
 .delete-button {
   background-color: red;
+  border: none;
   border-radius: 5px;
   color: white;
-  padding: 5px 5px;
+  padding: 8px 10px;
   cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
   display: flex;
   align-items: center;
 }
 
+.delete-button:hover {
+  background-color: darkred;
+}
+
 .delete-button i {
   font-size: 1rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .favoris-container {
+    max-width: 60%;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .favoris-container {
+    max-width: 80%;
+  }
+
+  .favorite-item {
+    font-size: 1rem;
+    padding: 0.6rem;
+  }
+
+  .delete-button {
+    padding: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .favoris-container {
+    max-width: 90%;
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .favorite-item {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+
+  .delete-button {
+    padding: 5px;
+  }
 }
 </style>

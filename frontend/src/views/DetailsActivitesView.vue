@@ -1,20 +1,25 @@
 <template>
   <div class="activity-details" v-if="activity">
-    <button class="back-button" @click="goBack">
-      <img src="@/assets/icones/back.png" alt="Retour" />
-    </button>
-    <button class="favorite-button" @click="addToFavorites">
-      <img src="@/assets/icones/heart.png" alt="Ajouter aux favoris" />
-    </button>
-    <h1>{{ activity.nom_activite }}</h1>
+    <div class="header-container">
+      <button class="back-button" @click="goBack">
+        <img src="@/assets/icones/back.png" alt="Retour" />
+      </button>
+      <h1>{{ activity.nom_activite }}</h1>
+      <button class="favorite-button" @click="addToFavorites">
+        <img src="@/assets/icones/heart.png" alt="Ajouter aux favoris" />
+      </button>
+    </div>
+    
     <p>Durée: {{ activity.duree_minutes }} minutes</p>
     <p>{{ activity.description_activite }}</p>
     <img v-if="activity.nom_image" :src="getImagePath(activity.nom_image)" :alt="activity.nom_activite" class="activity-image">
+    
     <div v-if="activity.lien_video" class="video-container">
-      <iframe :src="activity.lien_video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <iframe :src="activity.lien_video" frameborder="0" allowfullscreen></iframe>
     </div>
   </div>
 </template>
+
 
 <script>
 import axios from 'axios';
@@ -90,49 +95,67 @@ export default {
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Open+Sans:wght@400;600&display=swap");
 
-.back-button {
-  position: absolute;
-  top: 2rem;
-  left: 2rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.back-button img {
-  margin-top: 8rem;
-  width: 2rem;
-  height: 2rem;
-  background-color: #a9b66d;
-  border-radius: 50%;
-}
-
-.favorite-button {
-  position: absolute;
-  top: 10rem;
-  right: 2rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.favorite-button img {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-}
-
 .activity-details {
   text-align: center;
   margin-top: 50px;
   padding: 0 1rem;
   font-family: 'Open Sans', sans-serif;
+  position: relative;
+}
+
+/* Conteneur boutons */
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Bouton Retour */
+.back-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.back-button img {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #a9b66d;
+  border-radius: 50%;
+  padding: 0.3rem;
+}
+
+/* Bouton Favoris */
+.favorite-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.favorite-button img {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  padding: 0.3rem;
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   color: black;
   font-family: "Nunito", sans-serif;
+  margin-top: 1rem;
+  word-wrap: break-word;
+  max-width: 90%;
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
 
 p {
@@ -140,6 +163,7 @@ p {
   margin: 1rem 0;
 }
 
+/* Images et vidéos */
 .activity-image,
 .video-container {
   max-width: 100%;
@@ -152,27 +176,41 @@ p {
   height: 315px;
 }
 
-@media (max-width: 576px) {
-  .back-button img {
-    margin-top: 7rem;
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .header-container {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    max-width: 100%;
+  }
+
+  .back-button img,
+  .favorite-button img {
+    width: 2rem;
+    height: 2rem;
     padding: 0.2rem;
-    background-color: #a9b66d;
-    border-radius: 50%;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-container {
+    flex-direction: row;
+    justify-content: space-between;
   }
 
-  .back-button {
-    position: absolute;
-    top: 2rem;
-    left: 0.7rem;
-    background: none;
-    border: none;
-    cursor: pointer;
+  h1 {
+    font-size: 1.6rem;
   }
 
-  .favorite-button {
-  position: absolute;
-  top: 10rem;
-  right: 2rem;
+  .back-button img,
+  .favorite-button img {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
 }
-}
+
 </style>
