@@ -80,8 +80,8 @@ export default {
             alert('Activité ajoutée aux favoris');
           })
           .catch(error => {
-            console.error('Erreur lors de l\'ajout aux favoris:', error);
-            alert('Erreur lors de l\'ajout aux favoris');
+            console.error('Vous devez être connecté pour ajouter aux favoris !:', error);
+            alert('Vous devez être connecté pour ajouter aux favoris !');
           });
       }
     })
