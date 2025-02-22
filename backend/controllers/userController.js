@@ -98,15 +98,15 @@ exports.login = async (req, res) => {
 
 // Mettre à jour le statut du compte
 exports.updateStatus = async (req, res) => {
-  const { id } = req.params;
-  const { statut_compte } = req.body;
-
-  try {
-    const sql = 'UPDATE utilisateur SET statut_compte = ? WHERE id_utilisateur = ?';
-    await User.query(sql, [statut_compte, id]);
-    res.send({ message: 'Statut du compte mis à jour' });
-  } catch (error) {
-    console.error('Erreur lors de la mise à jour du statut du compte:', error);
-    res.status(500).send({ error: 'Erreur lors de la mise à jour du statut du compte' });
-  }
-};
+    const { id } = req.params;
+    const { statut_compte } = req.body;
+  
+    try {
+      const sql = 'UPDATE utilisateur SET statut_compte = ? WHERE id_utilisateur = ?';
+      await User.query(sql, [statut_compte, id]);
+      res.send({ message: 'Statut du compte mis à jour' });
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour du statut du compte:', error);
+      res.status(500).send({ error: 'Erreur lors de la mise à jour du statut du compte' });
+    }
+  };

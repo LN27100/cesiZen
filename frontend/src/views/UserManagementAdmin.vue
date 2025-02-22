@@ -17,7 +17,7 @@
           <td>{{ user.email }}</td>
           <td>{{ user.role }}</td>
           <td>
-            <button 
+            <button
               :class="{ 'actif': user.statut_compte === 'actif', 'suspendu': user.statut_compte === 'suspendu' }"
               @click="toggleStatus(user)"
             >
@@ -65,8 +65,8 @@ export default {
     async toggleStatus(user) {
       const newStatus = user.statut_compte === 'actif' ? 'suspendu' : 'actif';
       try {
-        await axios.put(`http://localhost:3000/api/users/${user.id_utilisateur}/status`, 
-          { statut_compte: newStatus }, 
+        await axios.put(`http://localhost:3000/api/users/${user.id_utilisateur}/status`,
+          { statut_compte: newStatus },
           {
             headers: { 'x-access-token': localStorage.getItem('token') }
           }
