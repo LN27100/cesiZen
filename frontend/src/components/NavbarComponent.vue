@@ -32,7 +32,11 @@
                 <li><a class="dropdown-item disabled" href="#">Tracker d'émotions</a></li>
                 <li><a class="dropdown-item" href="#" @click.prevent="goTo('FavorisView')">Vos favoris</a></li>
                 <li><a class="dropdown-item" href="#" @click.prevent="goTo('Parametres')">Paramètres</a></li>
-                <li><a class="dropdown-item" href="#" @click.prevent="goTo('LoginView')">Connexion</a></li>
+                <li>
+                  <a class="dropdown-item" href="#" @click.prevent="isLoggedIn ? logout() : goTo('LoginView')">
+                    {{ isLoggedIn ? 'Déconnexion' : 'Connexion' }}
+                  </a>
+                </li>
               </ul>
             </li>
           </ul>
@@ -64,10 +68,38 @@
 <script>
 export default {
   name: "NavbarComponent",
+  data() {
+    return {
+      isLoggedIn: false,
+    };
+  },
+  created() {
+    this.checkLoginStatus();
+  },
   methods: {
     goTo(page) {
       this.$router.push({ name: page });
     },
+    logout() {
+      // Supprimer le token du localStorage
+      localStorage.removeItem('token');
+      localStorage.removeItem('userId');
+      localStorage.removeItem('userRole');
+
+      // Réinitialise le rôle dans le composant App
+      this.$parent.checkUserRole();
+
+      // Redirige vers la page de connexion
+      this.$router.push({ name: 'LoginView' });
+    },
+    checkLoginStatus() {
+      const token = localStorage.getItem('token');
+      this.isLoggedIn = !!token;
+    },
+  },
+  watch: {
+    // Surveille les changements de route pour mettre à jour le statut de connexion
+    $route: 'checkLoginStatus',
   },
 };
 </script>
