@@ -25,7 +25,7 @@
             </button>
           </td>
           <td>
-            <button @click="deleteUser(user.id_utilisateur)">Supprimer</button>
+            <button class="supprimer" @click="deleteUser(user.id_utilisateur)">Supprimer</button>
           </td>
         </tr>
       </tbody>
@@ -94,32 +94,111 @@ export default {
 </script>
 
 <style scoped>
+h3 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 32px;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 20px;
+}
+
 table {
-  width: 100%;
+  width: 80%; /* Réduire la largeur du tableau */
   border-collapse: collapse;
+  font-family: 'Open Sans', sans-serif;
+  margin: 0 auto; /* Centrer le tableau */
 }
 
 th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-
-th {
-  background-color: #f2f2f2;
+  border: 1px solid #A9B66D;
+  padding: 12px;
   text-align: left;
 }
 
+th {
+  background-color: #A06DB6;
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 600; /* Semi-gras */
+}
+
+td {
+  font-size: 16px;
+  color: #000000;
+}
+
 button {
-  margin-right: 5px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  padding: 10px 20px; /* Ajuster le padding pour une taille uniforme */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 120px; /* Largeur fixe pour tous les boutons */
+  text-align: center; /* Centrer le texte dans le bouton */
+  box-sizing: border-box; /* Inclure le padding et la bordure dans la largeur totale */
 }
 
-.actif {
-  background-color: green;
-  color: white;
+button.actif {
+  background-color: #28A745;
+  color: #FFFFFF;
 }
 
-.suspendu {
-  background-color: red;
-  color: white;
+button.suspendu {
+  background-color: #D0021B;
+  color: #FFFFFF;
+}
+
+button.actif:hover {
+  background-color: #7bc28b;
+}
+
+button.suspendu:hover {
+  background-color: #c74454;
+}
+
+button.supprimer {
+  background-color: #8850A1;
+  color: #FFFFFF;
+}
+
+button.supprimer:hover {
+  background-color: #5F3870;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  h3 {
+    font-size: 24px;
+  }
+
+  th, td {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  button {
+    padding: 8px 15px;
+    font-size: 14px;
+    width: 100px; /* Ajuster la largeur pour les petits écrans */
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  h3 {
+    font-size: 28px;
+  }
+
+  th, td {
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    width: 110px; /* Ajuster la largeur pour les tablettes */
+  }
 }
 </style>
