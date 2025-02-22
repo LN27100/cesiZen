@@ -39,6 +39,13 @@
         />
       </div>
       <div class="form-group">
+        <label for="role">Rôle</label>
+        <select id="role" v-model="role" required>
+          <option value="Utilisateur">Utilisateur</option>
+          <option value="Admin">Admin</option>
+        </select>
+      </div>
+      <div class="form-group">
         <input
           type="checkbox"
           id="acceptTerms"
@@ -65,35 +72,32 @@ export default {
       email: "",
       password: "",
       confirmPassword: "",
+      role: "Utilisateur",
       acceptTerms: false,
     };
   },
   methods: {
-    // Fonction exécutée lors de la soumission du formulaire
     async handleSubmit() {
-      // Vérifie que les mots de passe correspondent
       if (this.password !== this.confirmPassword) {
         alert("Les mots de passe ne correspondent pas.");
         return;
       }
 
-      // Vérifie que l'utilisateur a accepté les termes
       if (!this.acceptTerms) {
         alert("Vous devez accepter les conditions générales d'utilisation.");
         return;
       }
 
-      // Données utilisateur à envoyer au serveur
       const userData = {
         prenom: this.firstName,
         nom: this.lastName,
         email: this.email,
         mot_de_passe: this.password,
         pseudo: this.username,
+        role: this.role,
       };
 
       try {
-        // Envoie une requête POST au serveur pour enregistrer l'utilisateur
         const response = await fetch("http://localhost:3000/api/users/register", {
           method: "POST",
           headers: {
@@ -105,7 +109,6 @@ export default {
         const text = await response.text();
         let data;
 
-        // Tente de parser la réponse JSON du serveur
         try {
           data = JSON.parse(text);
         } catch {
@@ -114,16 +117,12 @@ export default {
 
         if (response.ok) {
           console.log("User registered:", data);
-
-          // Redirige vers la page de connexion
           this.$router.push({ name: "LoginView" });
         } else {
-          // Gère les erreurs retournées par le serveur
           alert(`Erreur lors de l'inscription: ${data.error || data.message || "Erreur inconnue"}`);
           console.error("Error registering user:", data);
         }
       } catch (error) {
-        // Gère les erreurs liées à la requête ou au réseau
         alert("Une erreur est survenue lors de l'inscription.");
         console.error("Error:", error);
       }
@@ -135,7 +134,6 @@ export default {
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Open+Sans:wght@400;600&display=swap");
 
-/* Style du conteneur principal */
 .register-container {
   max-width: 400px;
   margin: 0 auto;
@@ -145,7 +143,6 @@ export default {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Style du titre */
 h1 {
   text-align: center;
   font-family: "Nunito", sans-serif;
@@ -153,27 +150,24 @@ h1 {
   font-weight: bold;
 }
 
-/* Style des groupes de formulaire */
 .form-group {
   margin-bottom: 15px;
 }
 
-/* Style des étiquettes */
 label {
   display: block;
   margin-bottom: 5px;
 }
 
-/* Style des champs de saisie */
 input[type="text"],
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+select {
   width: 100%;
   padding: 8px;
   box-sizing: border-box;
 }
 
-/* Style du bouton */
 button {
   width: 100%;
   padding: 10px;

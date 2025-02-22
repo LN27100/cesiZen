@@ -3,8 +3,8 @@ const db = require('../config/db');
 const User = {
     // Créer un nouvel utilisateur
     create: (user, callback) => {
-        const sql = 'INSERT INTO utilisateur (prenom, nom, email, mot_de_passe, pseudo) VALUES (?, ?, ?, ?, ?)';
-        db.query(sql, [user.prenom, user.nom, user.email, user.mot_de_passe, user.pseudo], callback);
+        const sql = 'INSERT INTO utilisateur (prenom, nom, email, mot_de_passe, pseudo, role) VALUES (?, ?, ?, ?, ?, ?)';
+        db.query(sql, [user.prenom, user.nom, user.email, user.mot_de_passe, user.pseudo, user.role], callback);
     },
 
     // Récupérer tous les utilisateurs
@@ -30,8 +30,8 @@ const User = {
 
     // Mettre à jour un utilisateur par ID
     update: (id, user, callback) => {
-        const sql = 'UPDATE utilisateur SET prenom = ?, nom = ?, email = ?, mot_de_passe = ?, pseudo = ? WHERE id_utilisateur = ?';
-        db.query(sql, [user.prenom, user.nom, user.email, user.mot_de_passe, user.pseudo, id], callback);
+        const sql = 'UPDATE utilisateur SET prenom = ?, nom = ?, email = ?, mot_de_passe = ?, pseudo = ?, role = ? WHERE id_utilisateur = ?';
+        db.query(sql, [user.prenom, user.nom, user.email, user.mot_de_passe, user.pseudo, user.role, id], callback);
     },
 
     // Supprimer un utilisateur par ID

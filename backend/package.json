@@ -18,5 +18,10 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.9"
   }
 }

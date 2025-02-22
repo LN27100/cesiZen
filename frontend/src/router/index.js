@@ -13,8 +13,31 @@ import FavorisView from '../views/FavorisView.vue';
 import ActivitesDetenteView from '../views/ActivitesDetenteView.vue';
 import CategoriesView from '../views/CategoriesView.vue';
 import DetailsActivitesView from '../views/DetailsActivitesView.vue';
+import ActivitiesManagementAdmin from '../views/ActivitiesManagementAdmin.vue';
+import UserManagementAdmin from '../views/UserManagementAdmin.vue';
+import ProfilAdmin from '@/views/ProfilAdmin.vue';
+import DashboardAdmin from '@/views/DashboardAdmin.vue';
 
 const routes = [
+  {
+    path: '/ActivitiesManagementAdmin',
+    name: 'ActivitiesManagementAdmin',
+    component: ActivitiesManagementAdmin
+  },
+  {
+    path: '/DashboardAdmin',
+    name: 'DashboardAdmin',
+    component: DashboardAdmin
+  }, {
+    path: '/UserManagementAdmin',
+    name: 'UserManagementAdmin',
+    component: UserManagementAdmin
+  },
+  {
+    path: '/ProfilAdmin',
+    name: 'ProfilAdmin',
+    component: ProfilAdmin
+  },
   {
     path: '/',
     name: 'HomeView',

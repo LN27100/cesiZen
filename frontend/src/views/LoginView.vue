@@ -9,6 +9,7 @@
           id="email"
           v-model="email"
           placeholder="Entrez votre adresse email"
+          autocomplete="email"
         />
       </div>
       <div>
@@ -18,6 +19,7 @@
           id="password"
           v-model="password"
           placeholder="Entrez votre mot de passe"
+          autocomplete="current-password"
         />
       </div>
       <button type="submit">Se connecter</button>
@@ -28,6 +30,7 @@
     </p>
   </div>
 </template>
+
 
 <script>
 import axios from 'axios';
@@ -57,6 +60,7 @@ export default {
             // Décoder le token pour obtenir l'ID utilisateur
             const decodedToken = jwtDecode(response.data.token);
             localStorage.setItem("userId", decodedToken.id);
+            localStorage.setItem("role", decodedToken.role);
 
             console.log("Connexion réussie pour:", this.email);
 

@@ -5,10 +5,10 @@ const userService = require('../services/userService');
 
 // Créer un nouvel utilisateur
 exports.register = async (req, res) => {
-    const { prenom, nom, email, mot_de_passe, pseudo } = req.body;
+    const { prenom, nom, email, mot_de_passe, pseudo, role } = req.body;
 
     try {
-        const user = await userService.creerUtilisateur({ prenom, nom, email, mot_de_passe, pseudo });
+        const user = await userService.creerUtilisateur({ prenom, nom, email, mot_de_passe, pseudo, role });
         res.status(201).json({ message: 'Utilisateur créé', user });
     } catch (err) {
         res.status(500).json({ error: 'Une erreur est survenue lors de la création de l\'utilisateur', details: err.message });
@@ -35,10 +35,10 @@ exports.findById = (req, res) => {
 // Mettre à jour un utilisateur par ID
 exports.update = (req, res) => {
     const id = req.params.id;
-    const { prenom, nom, email, mot_de_passe, pseudo } = req.body;
+    const { prenom, nom, email, mot_de_passe, pseudo, role } = req.body;
 
     // Vérifiez si le mot de passe est fourni et hachez-le si nécessaire
-    const updatedUser = { prenom, nom, email, pseudo };
+    const updatedUser = { prenom, nom, email, pseudo, role };
     if (mot_de_passe) {
         updatedUser.mot_de_passe = bcrypt.hashSync(mot_de_passe, 8);
     } else {
