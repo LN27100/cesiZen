@@ -43,10 +43,20 @@ export default {
     checkUserRole() {
       const token = localStorage.getItem('token');
       if (token) {
-        const decodedToken = jwtDecode(token);
-        this.userRole = decodedToken.role;
+        try {
+          const decodedToken = jwtDecode(token);
+          this.userRole = decodedToken.role;
+        } catch (error) {
+          console.error("Erreur lors du décodage du token:", error);
+        }
+      } else {
+        this.userRole = null; // Réinitialiser le rôle si aucun token n'est présent
       }
     },
+  },
+  watch: {
+    // Surveiller les changements de route pour mettre à jour le rôle de l'utilisateur
+    $route: 'checkUserRole',
   },
 };
 </script>

@@ -19,6 +19,9 @@
             <li class="nav-item3 nav-item-margin">
               <a class="nav-link" href="#" @click.prevent="goTo('ProfilAdmin')">Profil</a>
             </li>
+            <li class="nav-item3 nav-item-margin">
+              <a class="nav-link" href="#" @click.prevent="logout">Déconnexion</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -35,6 +38,15 @@ export default {
   methods: {
     goTo(page) {
       this.$router.push({ name: page });
+    },
+    logout() {
+      // Supprimer le token du localStorage
+      localStorage.removeItem('token');
+      localStorage.removeItem('userId');
+      localStorage.removeItem('userRole');
+
+      // Rediriger vers la page de connexion
+      this.$router.push({ name: 'LoginView' });
     },
   },
 };
