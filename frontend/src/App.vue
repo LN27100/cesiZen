@@ -3,7 +3,7 @@
     <!-- Header affiché sur toutes les pages -->
     <Header />
 
-    <!-- Navbar affichée en fonction du rôle de l'utilisateur -->
+    <!-- Navbar conditionnelle -->
     <component :is="navbarComponent" />
 
     <!-- Contenu de la page -->
@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import { markRaw } from 'vue';
 import NavbarComponent from './components/NavbarComponent.vue';
 import NavbarAdmin from './components/NavbarAdmin.vue';
 import Header from './components/HeaderComponent.vue';
+import { jwtDecode } from 'jwt-decode';
 
 export default {
   name: 'App',
@@ -28,57 +28,46 @@ export default {
   },
   data() {
     return {
-      navbarComponent: null,
+      userRole: null,
     };
   },
-  async created() {
-    this.NavbarComponent = markRaw((await import('./components/NavbarComponent.vue')).default);
-    this.NavbarAdmin = markRaw((await import('./components/NavbarAdmin.vue')).default);
-    this.checkUserAuthentication();
+  computed: {
+    navbarComponent() {
+      return this.userRole === 'Admin' ? 'NavbarAdmin' : 'NavbarComponent';
+    },
+  },
+  created() {
+    this.checkUserRole();
   },
   methods: {
-    checkUserAuthentication() {
+    checkUserRole() {
       const token = localStorage.getItem('token');
-      const role = localStorage.getItem('role');
-
-
       if (token) {
-        if (role === 'Admin') {
-          console.log('Admin detected, setting NavbarAdmin');
-          this.navbarComponent = this.NavbarAdmin; // Affiche la Navbar pour les admins
-        } else {
-          console.log('User detected, setting NavbarComponent');
-          this.navbarComponent = this.NavbarComponent;  // Affiche la Navbar pour les utilisateurs
-        }
-      } else {
-        console.log('No token, setting NavbarComponent');
-        this.navbarComponent = this.NavbarComponent;  // Affiche la Navbar pour les utilisateurs
+        const decodedToken = jwtDecode(token);
+        this.userRole = decodedToken.role;
       }
     },
-    handleLogout() {
-      localStorage.removeItem('token');
-      localStorage.removeItem('role');
-      this.checkUserAuthentication();
-      this.$router.push('/');
-    }
   },
-  watch: {
-    '$route'() {
-      this.checkUserAuthentication();
-    }
-  }
 };
 </script>
 
-
 <style>
-.app-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+#app {
+  font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: black;
 }
 
 .content {
-  flex: 1;
+  margin-top: 8rem;
+  margin-bottom: 5rem;
+}
+
+@media (min-width: 1024px) {
+  .content {
+    margin-top: 2rem;
+  }
 }
 </style>
