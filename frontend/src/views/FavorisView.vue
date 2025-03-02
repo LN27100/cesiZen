@@ -125,7 +125,7 @@ h1 {
 }
 
 .delete-button {
-  background-color: rgb(210, 25, 25);
+  background-color:#CC0000;
   border: none;
   border-radius: 5px;
   color: white;

@@ -7,8 +7,8 @@
           <th>Pseudo</th>
           <th>Email</th>
           <th>Rôle</th>
-          <th>Statut</th>
-          <th>Actions</th>
+          <th class="statut-column">Statut</th>
+          <th class="actions-column">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -16,16 +16,21 @@
           <td>{{ user.pseudo }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.role }}</td>
-          <td>
+          <td class="statut-column">
             <button
-              :class="{ 'actif': user.statut_compte === 'actif', 'suspendu': user.statut_compte === 'suspendu' }"
+              :class="{
+                actif: user.statut_compte === 'actif',
+                suspendu: user.statut_compte === 'suspendu',
+              }"
               @click="toggleStatus(user)"
             >
               {{ user.statut_compte }}
             </button>
           </td>
-          <td>
-            <button class="supprimer" @click="deleteUser(user.id_utilisateur)">Supprimer</button>
+          <td class="actions-column">
+            <button class="supprimer" @click="deleteUser(user.id_utilisateur)">
+              <i class="fas fa-trash-can"></i>
+            </button>
           </td>
         </tr>
       </tbody>
@@ -34,13 +39,13 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   name: "UserManagementAdmin",
   data() {
     return {
-      users: []
+      users: [],
     };
   },
   created() {
@@ -49,29 +54,33 @@ export default {
   methods: {
     async fetchUsers() {
       try {
-        const response = await axios.get('http://localhost:3000/api/users', {
-          headers: { 'x-access-token': localStorage.getItem('token') }
+        const response = await axios.get("http://localhost:3000/api/users", {
+          headers: { "x-access-token": localStorage.getItem("token") },
         });
         if (response.status === 200) {
           this.users = response.data;
         } else {
-          console.error('Unexpected status code:', response.status);
+          console.error("Unexpected status code:", response.status);
         }
       } catch (error) {
-        console.error("Erreur lors de la récupération des utilisateurs:", error);
+        console.error(
+          "Erreur lors de la récupération des utilisateurs:",
+          error
+        );
       }
     },
 
     async toggleStatus(user) {
-      const newStatus = user.statut_compte === 'actif' ? 'suspendu' : 'actif';
+      const newStatus = user.statut_compte === "actif" ? "suspendu" : "actif";
       try {
-        await axios.put(`http://localhost:3000/api/users/${user.id_utilisateur}/status`,
+        await axios.put(
+          `http://localhost:3000/api/users/${user.id_utilisateur}/status`,
           { statut_compte: newStatus },
           {
-            headers: { 'x-access-token': localStorage.getItem('token') }
+            headers: { "x-access-token": localStorage.getItem("token") },
           }
         );
-        user.statut_compte = newStatus; // Mettre à jour localement après succès
+        user.statut_compte = newStatus;
       } catch (error) {
         console.error("Erreur lors de la mise à jour du statut:", error);
       }
@@ -81,21 +90,24 @@ export default {
       if (confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ?")) {
         try {
           await axios.delete(`http://localhost:3000/api/users/${userId}`, {
-            headers: { 'x-access-token': localStorage.getItem('token') }
+            headers: { "x-access-token": localStorage.getItem("token") },
           });
           this.fetchUsers(); // Recharger la liste des utilisateurs après suppression
         } catch (error) {
-          console.error("Erreur lors de la suppression de l'utilisateur:", error);
+          console.error(
+            "Erreur lors de la suppression de l'utilisateur:",
+            error
+          );
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
 h3 {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 32px;
   font-weight: bold;
   color: #000000;
@@ -103,21 +115,22 @@ h3 {
 }
 
 table {
-  width: 80%; 
+  width: 80%;
   border-collapse: collapse;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   margin: 0 auto;
 }
 
-th, td {
-  border: 1px solid #A9B66D;
+th,
+td {
+  border: 1px solid #a9b66d;
   padding: 12px;
   text-align: left;
 }
 
 th {
-  background-color: #A06DB6;
-  color: #FFFFFF;
+  background-color: #a06db6;
+  color: #ffffff;
   font-size: 16px;
   font-weight: 600; /* Semi-gras */
 }
@@ -128,26 +141,26 @@ td {
 }
 
 button {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 16px;
-  padding: 10px 20px; 
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   width: 120px;
-  text-align: center; 
-  box-sizing: border-box; 
+  text-align: center;
+  box-sizing: border-box;
 }
 
 button.actif {
-  background-color: #28A745;
-  color: #FFFFFF;
+  background-color: #28a745;
+  color: #ffffff;
 }
 
 button.suspendu {
-  background-color: #D0021B;
-  color: #FFFFFF;
+  background-color: #d0021b;
+  color: #ffffff;
 }
 
 button.actif:hover {
@@ -159,12 +172,34 @@ button.suspendu:hover {
 }
 
 button.supprimer {
-  background-color: #8850A1;
-  color: #FFFFFF;
+  background-color: darkred;
+  color: #ffffff;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
 }
 
 button.supprimer:hover {
-  background-color: #5F3870;
+  background-color: #d52f2f;
+}
+
+button.supprimer i {
+  font-weight: 300;
+}
+
+th.actions-column,
+td.actions-column {
+  width: 50px;
+  text-align: center;
+}
+
+th.statut-column,
+td.statut-column {
+  width: 50px;
+  text-align: center;
 }
 
 /* RESPONSIVE */
@@ -173,7 +208,8 @@ button.supprimer:hover {
     font-size: 24px;
   }
 
-  th, td {
+  th,
+  td {
     padding: 10px;
     font-size: 14px;
   }
@@ -190,7 +226,8 @@ button.supprimer:hover {
     font-size: 28px;
   }
 
-  th, td {
+  th,
+  td {
     padding: 12px;
     font-size: 16px;
   }
