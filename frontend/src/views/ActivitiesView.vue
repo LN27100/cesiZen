@@ -4,23 +4,32 @@
     <div class="card mt-4">
       <div class="card-body">
         <p class="card-text">
-          Prenez soin de vous à votre rythme ! Explorez des outils simples et pratiques pour vous aider à vous relaxer et à recentrer vos pensées.
+          Prenez soin de vous à votre rythme ! Explorez des outils simples et
+          pratiques pour vous aider à vous relaxer et à recentrer vos pensées.
         </p>
       </div>
     </div>
-    <img src="../assets/images/lotus_2.png" alt="Activité" class="lotus">
+    <img src="../assets/images/lotus_2.png" alt="Activité" class="lotus" />
     <div class="buttons">
       <div class="button-container">
         <button class="action-button" @click="handleClick">
-          <img src="../assets/icones/activités_détentes.png" alt="Activités détente" class="icon">
+          <img
+            src="../assets/icones/activités_détentes.png"
+            alt="Activités détente"
+            class="icon"
+          />
         </button>
-        <p class="button-label">Activités<br>détente</p>
+        <p class="button-label">Activités<br />détente</p>
       </div>
       <div class="button-container">
         <button class="action-button" disabled>
-          <img src="../assets/icones/exercices_respi.png" alt="Exercices de respiration" class="icon">
+          <img
+            src="../assets/icones/exercices_respi.png"
+            alt="Exercices de respiration"
+            class="icon"
+          />
         </button>
-        <p class="button-label">Exercices<br>de respiration</p>
+        <p class="button-label">Exercices<br />de respiration</p>
       </div>
     </div>
   </div>
@@ -28,12 +37,12 @@
 
 <script>
 export default {
-  name: 'ActivitiesView',
+  name: "ActivitiesView",
   methods: {
     handleClick() {
-      this.$router.push({ name: 'CategoriesView' });
-    }
-  }
+      this.$router.push({ name: "CategoriesView" });
+    },
+  },
 };
 </script>
 
@@ -46,9 +55,10 @@ export default {
 }
 
 h1 {
-  font-size: 32px;
   margin-top: 9rem;
-  color: black;
+  font-size: 32px;
+  font-weight: bold;
+  color: #000000;
   font-family: "Nunito", sans-serif;
 }
 
@@ -60,7 +70,9 @@ h1 {
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 1rem;
-  color: white;
+  color: #ffffff;
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
 }
 
 .lotus {
@@ -82,8 +94,8 @@ h1 {
 }
 
 .action-button {
-  background-color: #8850A1;
-  color: white;
+  background-color: #8850a1;
+  color: #ffffff;
   border: none;
   border-radius: 50%;
   width: 90px;
@@ -96,11 +108,11 @@ h1 {
 }
 
 .action-button:hover {
-  background-color: #5F3870;
+  background-color: #5f3870;
 }
 
 .action-button:disabled {
-  background-color: #8850A1;
+  background-color: #8850a1;
   cursor: not-allowed;
 }
 
@@ -111,11 +123,34 @@ h1 {
 .button-label {
   margin-top: 10px;
   font-size: 1rem;
-  color: black;
+  color: #000000;
+  font-family: "Open Sans", sans-serif;
 }
 
 .icon {
   width: 50px;
   height: 50px;
+}
+
+/* Tablette : entre 768px et 1024px */
+@media (min-width: 768px) {
+  h1 {
+    margin-top: 6rem;
+  }
+
+  .buttons {
+    flex-direction: row;
+  }
+
+  .card {
+    max-width: 80%;
+  }
+}
+
+/* Bureau : au-dessus de 1024px */
+@media (min-width: 1024px) {
+  .card {
+    max-width: 600px;
+  }
 }
 </style>

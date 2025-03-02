@@ -103,10 +103,10 @@ h3 {
 }
 
 table {
-  width: 80%; /* Réduire la largeur du tableau */
+  width: 80%; 
   border-collapse: collapse;
   font-family: 'Open Sans', sans-serif;
-  margin: 0 auto; /* Centrer le tableau */
+  margin: 0 auto;
 }
 
 th, td {
@@ -130,14 +130,14 @@ td {
 button {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
-  padding: 10px 20px; /* Ajuster le padding pour une taille uniforme */
+  padding: 10px 20px; 
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 120px; /* Largeur fixe pour tous les boutons */
-  text-align: center; /* Centrer le texte dans le bouton */
-  box-sizing: border-box; /* Inclure le padding et la bordure dans la largeur totale */
+  width: 120px;
+  text-align: center; 
+  box-sizing: border-box; 
 }
 
 button.actif {
@@ -167,7 +167,7 @@ button.supprimer:hover {
   background-color: #5F3870;
 }
 
-/* Responsive Design */
+/* RESPONSIVE */
 @media (max-width: 768px) {
   h3 {
     font-size: 24px;
@@ -181,7 +181,7 @@ button.supprimer:hover {
   button {
     padding: 8px 15px;
     font-size: 14px;
-    width: 100px; /* Ajuster la largeur pour les petits écrans */
+    width: 100px;
   }
 }
 
@@ -198,7 +198,7 @@ button.supprimer:hover {
   button {
     padding: 10px 20px;
     font-size: 16px;
-    width: 110px; /* Ajuster la largeur pour les tablettes */
+    width: 110px;
   }
 }
 </style>

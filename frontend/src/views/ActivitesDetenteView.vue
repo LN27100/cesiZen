@@ -105,18 +105,19 @@ export default {
   }
 };
 </script>
-
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Open+Sans:wght@400;600&display=swap");
 
 .activities {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 20px;
+  padding: 10px;
 }
 
 h1 {
-  font-size: 2.5rem;
-  color: black;
+  font-size: 32px;
+  font-weight: bold;
+  color: #000000;
   font-family: "Nunito", sans-serif;
 }
 
@@ -124,12 +125,12 @@ h1 {
   background-color: #8850A1;
   padding: 1rem;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   margin-bottom: 2rem;
-  border: solid 2px #a9b66d;
+  border: solid 2px #A9B66D;
   border-radius: 4px;
-  width: 60%;
+  width: 90%;
   margin: 0 auto;
 }
 
@@ -137,53 +138,68 @@ h1 {
   display: flex;
   align-items: center;
   position: relative;
+  width: 100%;
+  margin-bottom: 1rem;
 }
 
 .search-icon {
   position: absolute;
   left: 10px;
-  color: #ccc;
+  color: #CCC;
 }
 
 .search-input {
   padding: 0.5rem 0.5rem 0.5rem 30px;
-  margin-right: 1rem;
-  border: 1px solid #ccc;
+  width: 100%;
+  border: 1px solid #CCC;
   border-radius: 4px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
 }
 
 .filter-select {
   padding: 0.5rem;
-  margin-right: 1rem;
-  border: 1px solid #ccc;
+  width: 100%;
+  margin-bottom: 1rem;
+  border: 1px solid #CCC;
   border-radius: 4px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
 }
 
 .card {
-  max-width: 800px;
-  margin: 0 auto;
-  background-color: #a06db6;
-  border: solid 2px #a9b66d;
+  max-width: 90%;
+  margin: 20px auto;
+  background-color: #A06DB6;
+  border: solid 2px #A9B66D;
   padding: 2rem;
   box-sizing: border-box;
 }
 
 .card-body {
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
 }
 
 .activity-card {
   margin-bottom: 1rem;
   padding: 1rem;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  background-color: #FFFFFF;
+  border: 1px solid #CCC;
   border-radius: 4px;
   cursor: pointer;
 }
 
 .activity-card h3 {
   margin-top: 0;
+  font-size: 24px;
+  font-weight: 600;
+  font-family: "Nunito", sans-serif;
+}
+
+.activity-card p {
+  font-size: 16px;
+  font-family: "Open Sans", sans-serif;
 }
 
 .no-results {
@@ -191,6 +207,7 @@ h1 {
   margin-top: 2rem;
   font-size: 1.2rem;
   color: #8850A1;
+  font-family: "Open Sans", sans-serif;
 }
 
 .icone {
@@ -210,88 +227,47 @@ h1 {
 }
 
 .back-button img {
-  margin-top: 8rem;
   width: 2rem;
   height: 2rem;
-  background-color: #a9b66d;
+  background-color: #A9B66D;
   border-radius: 50%;
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
+.back-button:hover img {
+  background-color: #5F3870;
+}
+
+.activity-card:hover {
+  background-color: #69A050;
+}
+
+/* Tablette : entre 768px et 1024px */
+@media (min-width: 768px) {
+  .filter-bar {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80%;
+  }
+
+  .search-container,
+  .filter-select {
+    width: 30%;
+    margin-bottom: 0;
+  }
+
+  .card {
+    max-width: 80%;
+  }
+}
+
+/* Bureau : au-dessus de 1024px */
+@media (min-width: 1024px) {
   .filter-bar {
     width: 70%;
   }
 
   .card {
     max-width: 700px;
-  }
-}
-
-@media (max-width: 992px) {
-  .filter-bar {
-    width: 90%;
-  }
-
-  .card {
-    max-width: 600px;
-  }
-}
-
-@media (max-width: 768px) {
-  .filter-bar {
-    width: 90%;
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .search-container {
-    width: 100%;
-    margin-bottom: 1rem;
-  }
-
-  .search-input {
-    width: 100%;
-  }
-
-  .filter-select {
-    width: 100%;
-    margin-bottom: 1rem;
-  }
-
-  .card {
-    max-width: 500px;
-  }
-}
-
-@media (max-width: 576px) {
-  .icone {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    width: 20%;
-    height: auto;
-  }
-
-  .back-button img {
-    margin-top: 7rem;
-    width: 2rem;
-    height: 2rem;
-    padding: 0.2rem;
-    background-color: #a9b66d;
-    border-radius: 50%;
-  }
-
-  .filter-bar {
-    width: 80%;
-  }
-
-  .card {
-    max-width: 90%;
-    padding: 1rem;
-  }
-
-  .card-body {
-    width: 100%;
   }
 }
 </style>

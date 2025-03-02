@@ -171,6 +171,8 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Open+Sans:wght@400;600&display=swap");
+
 .profile {
   max-width: 90%;
   margin: 0 auto;
@@ -184,8 +186,9 @@ export default {
 
 h1 {
   font-family: "Nunito", sans-serif;
-  font-size: 24px;
+  font-size: 32px;
   text-align: center;
+  margin-top: 9rem;
   margin-bottom: 1rem;
 }
 
@@ -197,12 +200,12 @@ h1 {
 
 .profile-details p {
   font-size: 1.1rem;
-  color: black;
+  color: white;
   text-align: left;
 }
 
 .label {
-  color: black;
+  color: white;
 }
 
 .value {
@@ -249,6 +252,7 @@ label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
+  color: white;
 }
 
 input {
@@ -302,13 +306,21 @@ input:focus {
   margin: 2rem 1rem;
 }
 
-@media (max-width: 768px) {
+/* Tablette : entre 768px et 1024px */
+@media (min-width: 768px) {
   h1 {
-  font-family: "Nunito", sans-serif;
-  font-size: 24px;
-  text-align: center;
-  margin-top: 9rem;
-  margin-bottom: 1rem;
+margin-top: 6rem;
+  }
+
+  .profile {
+    max-width: 80%;
+  }
 }
+
+/* Bureau : au-dessus de 1024px */
+@media (min-width: 1024px) {
+  .profile {
+    max-width: 600px;
+  }
 }
 </style>

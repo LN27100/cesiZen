@@ -102,41 +102,84 @@ export default {
 </script>
 
 <style scoped>
-/* Import de la police Nunito */
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Open+Sans:wght@400;600&display=swap");
 
 .home {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 20px; 
+  padding: 10px;
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 32px; 
   color: black;
   font-family: "Nunito", sans-serif;
 }
 
+p {
+  font-size: 16px;
+  color: black;
+  font-family: "Open Sans", sans-serif;
+}
+
 .card {
-  max-width: 600px;
-  margin: 0 auto;
+  width: 90%; 
+  margin: 20px auto;
   background-color: #a06db6;
   border: solid 2px #a9b66d;
+  border-radius: 10px;
+  padding: 15px;
 }
 
 .carousel {
-  max-width: 60%;
-  margin: 0 auto;
+  width: 100%; 
+  margin: 20px auto;
   background-color: #a06db6;
 }
 
 .carousel-row {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap; /* Permet aux éléments de s'empiler verticalement sur les petits écrans */
+  justify-content: center;
 }
 
 .carousel-item img {
-  width: 200px;
-  height: 200px;
-  margin: 1rem;
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+}
+
+/* RESPONSIVE */
+/* Tablette : entre 768px et 1024px */
+@media (min-width: 768px) {
+  h1 {
+    margin-top: 2rem;
+    font-size: 32px;
+  }
+
+  .card {
+    width: 80%;
+  }
+
+  .carousel-item img {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/* Bureau : au-dessus de 1024px */
+@media (min-width: 1024px) {
+  .card {
+    max-width: 600px;
+  }
+
+  .carousel {
+    max-width: 60%;
+  }
+
+  .carousel-item img {
+    width: 200px;
+    height: 200px;
+  }
 }
 </style>

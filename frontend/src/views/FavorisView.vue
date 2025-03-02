@@ -1,6 +1,7 @@
 <template>
+      <h1>Vos favoris</h1>
+
   <div class="favoris-container">
-    <h1>Vos favoris</h1>
     <div v-if="favorites.length === 0" class="no-favorites">
       <p>Aucun favori trouvé</p>
     </div>
@@ -8,7 +9,7 @@
       <div v-for="favorite in favorites" :key="favorite.id_favori" class="favorite-item">
         <p @click="goToActivity(favorite.id_activite)" class="favorite-name">{{ favorite.nom_activite }}</p>
         <button @click="confirmDelete(favorite.id_favori)" class="delete-button">
-          <i class="fas fa-trash-alt"></i>
+          <i class="fas fa-trash-can"></i>
         </button>
       </div>
     </div>
@@ -91,6 +92,7 @@ export default {
 h1 {
   font-family: "Nunito", sans-serif;
   font-size: 1.8rem;
+  margin-top: 2rem;
   margin-bottom: 1.5rem;
 }
 
@@ -122,12 +124,8 @@ h1 {
   transition: color 0.3s ease-in-out;
 }
 
-.favorite-name:hover {
-  color: #a06db6;
-}
-
 .delete-button {
-  background-color: red;
+  background-color: rgb(210, 25, 25);
   border: none;
   border-radius: 5px;
   color: white;
@@ -143,7 +141,12 @@ h1 {
 }
 
 .delete-button i {
-  font-size: 1rem;
+  font-weight: 300; 
+}
+
+.favorite-item:hover {
+  color: white;
+  background-color: #69A050;
 }
 
 /* RESPONSIVE */
@@ -176,7 +179,8 @@ h1 {
   }
 
   h1 {
-    font-size: 1.5rem;
+    font-size: 32px;
+    margin-top: 9rem;
   }
 
   .favorite-item {

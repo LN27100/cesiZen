@@ -53,8 +53,10 @@ export default {
 }
 
 h1 {
-  font-size: 2.5rem;
-  color: black;
+  font-size: 32px;
+  font-weight: bold;
+  color: #000000;
+  font-family: "Nunito", sans-serif;
 }
 
 .button-container {
@@ -69,10 +71,11 @@ button {
   height: 5rem;
   width: 15rem;
   background-color: #84B66D;
-  border: solid 1px white;
+  border: solid 1px #FFFFFF;
   border-radius: 5px;
-  color: white;
+  color: #FFFFFF;
   font-size: 16px;
+  font-family: "Open Sans", sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -100,11 +103,30 @@ button span {
 }
 
 button:disabled {
-  background-color: #ccc;
+  background-color: #CCC;
   cursor: not-allowed;
 }
 
 button:disabled:hover {
-  background-color: #ccc;
+  background-color: #CCC;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  h1 {
+    margin-top: 9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    margin-top: 9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    margin-top: 9rem;
+  }
 }
 </style>

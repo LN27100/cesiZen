@@ -1,24 +1,25 @@
 <template>
+  <h1>Inscription</h1>
+
   <div class="register-container">
-    <h1>Inscription</h1>
     <form @submit.prevent="handleSubmit">
-      <div class="form-group">
+      <div class="input-group">
         <label for="firstName">Prénom</label>
         <input type="text" id="firstName" v-model="firstName" required />
       </div>
-      <div class="form-group">
+      <div class="input-group">
         <label for="lastName">Nom</label>
         <input type="text" id="lastName" v-model="lastName" required />
       </div>
-      <div class="form-group">
+      <div class="input-group">
         <label for="username">Pseudo</label>
         <input type="text" id="username" v-model="username" required />
       </div>
-      <div class="form-group">
+      <div class="input-group">
         <label for="email">Email</label>
         <input type="email" id="email" v-model="email" required />
       </div>
-      <div class="form-group">
+      <div class="input-group">
         <label for="password">Mot de passe</label>
         <input
           type="password"
@@ -28,7 +29,7 @@
           autocomplete="new-password"
         />
       </div>
-      <div class="form-group">
+      <div class="input-group">
         <label for="confirmPassword">Confirmer le mot de passe</label>
         <input
           type="password"
@@ -38,28 +39,36 @@
           autocomplete="new-password"
         />
       </div>
-      <div class="form-group">
+      <div class="input-group">
         <label for="role">Rôle</label>
         <select id="role" v-model="role" required>
           <option value="Utilisateur">Utilisateur</option>
           <option value="Admin">Admin</option>
         </select>
       </div>
-      <div class="form-group">
+      <div>
         <input
+        class= "checkMargin"
           type="checkbox"
           id="acceptTerms"
           v-model="acceptTerms"
           required
         />
-        <label for="acceptTerms"
-          >J'accepte les conditions générales d'utilisation</label
-        >
+        <label for="acceptTerms">J'accepte les conditions générales d'utilisation</label>
       </div>
       <button type="submit">S'inscrire</button>
     </form>
+
+    <div class="divider"></div>
+
+    <p>
+      Vous avez déjà un compte ?
+      <a href="/login" class="login-button">Connectez-vous</a>
+    </p>
   </div>
 </template>
+
+
 
 <script>
 export default {
@@ -136,9 +145,10 @@ export default {
 
 .register-container {
   max-width: 400px;
-  margin: 0 auto;
+  margin: auto; 
   padding: 20px;
-  border: 1px solid #ccc;
+  background-color: #A06DB6; 
+  border: 2px solid #A9B66D; 
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -146,7 +156,7 @@ export default {
 h1 {
   text-align: center;
   font-family: "Nunito", sans-serif;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: bold;
 }
 
@@ -157,6 +167,7 @@ h1 {
 label {
   display: block;
   margin-bottom: 5px;
+  color: #FFFFFF;
 }
 
 input[type="text"],
@@ -166,19 +177,49 @@ select {
   width: 100%;
   padding: 8px;
   box-sizing: border-box;
+  border: 1px solid #CCC;
+  border-radius: 5px;
 }
 
 button {
   width: 100%;
   padding: 10px;
-  background-color: #84b66d;
-  color: white;
+  background-color: #84B66D;
+  color: #FFFFFF;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
 button:hover {
+  background-color: #69A050;
+}
+
+.login-button {
+  display: inline-block;
+  padding: 2px 7px;
+  background-color: #84b66d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.login-button:hover {
   background-color: #69a050;
+}
+
+/* Trait blanc */
+.divider {
+  width: 50%; 
+  height: 2px;
+  background-color: white;
+  margin: 20px auto;
+}
+
+.checkMargin {
+  margin-top: 1rem;
 }
 </style>

@@ -6,7 +6,6 @@ import ActivitiesView from '../views/ActivitiesView.vue';
 import InfoView from '../views/InfoView.vue';
 import UserView from '../views/UserView.vue';
 import ProfilView from '../views/ProfilView.vue';
-import ProgressionView from '../views/ProgressionView.vue';
 import ParametresView from '../views/ParametresView.vue';
 import LogoutView from '../views/LogoutView.vue';
 import FavorisView from '../views/FavorisView.vue';
@@ -77,12 +76,6 @@ const routes = [
     path: '/profil',
     name: 'Profil',
     component: ProfilView,
-    meta: { requiresAuth: true }
-  },
-  {
-    path: '/progression',
-    name: 'Progression',
-    component: ProgressionView,
     meta: { requiresAuth: true }
   },
   {

@@ -98,47 +98,46 @@ export default {
 
 .activity-details {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 20px;
   padding: 0 1rem;
   font-family: 'Open Sans', sans-serif;
   position: relative;
 }
 
-/* Conteneur boutons */
 .header-container {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: space-between;
   position: relative;
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
 }
 
-/* Bouton Retour */
 .back-button {
   background: none;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
+  margin-bottom: 1rem;
 }
 
 .back-button img {
-  width: 2.5rem;
-  height: 2.5rem;
-  background-color: #a9b66d;
+  width: 2rem;
+  height: 2rem;
+  background-color: #A9B66D;
   border-radius: 50%;
   padding: 0.3rem;
 }
 
-/* Bouton Favoris */
 .favorite-button {
   background: none;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
+  margin-top: 1rem;
 }
 
 .favorite-button img {
@@ -150,21 +149,20 @@ export default {
 
 h1 {
   font-size: 2.2rem;
-  color: black;
+  font-weight: bold;
+  color: #000000;
   font-family: "Nunito", sans-serif;
   margin-top: 1rem;
   word-wrap: break-word;
   max-width: 90%;
-  margin-left: 2rem;
-  margin-right: 2rem;
 }
 
 p {
   font-size: 1.2rem;
   margin: 1rem 0;
+  font-family: "Open Sans", sans-serif;
 }
 
-/* Images et vidéos */
 .activity-image,
 .video-container {
   max-width: 100%;
@@ -177,16 +175,15 @@ p {
   height: 315px;
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
+/* Tablette : entre 768px et 1024px */
+@media (min-width: 768px) {
   .header-container {
-    max-width: 100%;
-    padding: 0 1rem;
+    flex-direction: row;
+    justify-content: space-between;
   }
 
   h1 {
     font-size: 1.8rem;
-    max-width: 100%;
   }
 
   .back-button img,
@@ -197,12 +194,8 @@ p {
   }
 }
 
-@media (max-width: 480px) {
-  .header-container {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
+/* Bureau : au-dessus de 1024px */
+@media (min-width: 1024px) {
   h1 {
     font-size: 1.6rem;
   }
@@ -213,5 +206,4 @@ p {
     height: 2.2rem;
   }
 }
-
 </style>

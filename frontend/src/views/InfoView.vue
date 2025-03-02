@@ -151,7 +151,7 @@ li {
 /* Media Queries */
 @media (max-width: 1200px) {
   h1 {
-    font-size: 2rem;
+    margin-top: 8rem;
   }
 
   h2.article-title {
@@ -161,7 +161,7 @@ li {
 
 @media (max-width: 768px) {
   h1 {
-    font-size: 1.75rem;
+margin-top: 8rem;
   }
 
   h2.article-title {
@@ -175,8 +175,8 @@ li {
 
 @media (max-width: 480px) {
   h1 {
-    margin-top: 10rem;
-    font-size: 1.5rem;
+    margin-top: 9rem;
+    margin-bottom: 1.5rem;
   }
 
   h2.article-title {
