@@ -15,7 +15,7 @@
     </div>
 
     <br>
-    <h3>Les plus consultées</h3>
+    <h3>Activités à la une !</h3>
 
     <!-- Carrousel -->
     <div
@@ -24,52 +24,18 @@
       data-bs-ride="carousel"
     >
       <div class="carousel-inner">
-        <div class="carousel-item active">
+        <div
+          v-for="(category, index) in categories"
+          :key="category.id_categorie"
+          :class="['carousel-item', { active: index === 0 }]"
+        >
           <div class="carousel-row">
-            <img
-              src="../assets/images/flower.jpg"
-              class="d-block"
-              alt="Slide 1"
-            />
-            <img
-              src="../assets/images/flower.jpg"
-              class="d-block"
-              alt="Slide 2"
-            />
-            <img
-              src="../assets/images/flower.jpg"
-              class="d-block"
-              alt="Slide 3"
-            />
-            <img
-              src="../assets/images/flower.jpg"
-              class="d-block"
-              alt="Slide 4"
-            />
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="carousel-row">
-            <img
-              src="../assets/images/flower.jpg"
-              class="d-block"
-              alt="Slide 4"
-            />
-            <img
-              src="../assets/images/flower.jpg"
-              class="d-block"
-              alt="Slide 5"
-            />
-            <img
-              src="../assets/images/flower.jpg"
-              class="d-block"
-              alt="Slide 6"
-            />
-            <img
-              src="../assets/images/flower.jpg"
-              class="d-block"
-              alt="Slide 1"
-            />
+            <div
+              class="category-item"
+              @click="navigateToActivities(category.id_categorie, category.nom_categorie)"
+            >
+              {{ category.nom_categorie }}
+            </div>
           </div>
         </div>
       </div>
@@ -96,8 +62,36 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
-  name: 'HomeView'
+  name: 'HomeView',
+  data() {
+    return {
+      categories: [],
+    };
+  },
+  mounted() {
+    this.fetchCategories();
+  },
+  methods: {
+    fetchCategories() {
+      axios.get("http://localhost:3000/api/categories")
+        .then(response => {
+          // Limiter à seulement les 3 premières catégories
+          this.categories = response.data.slice(0, 3);
+        })
+        .catch(error => {
+          console.error('Erreur lors de la récupération des catégories :', error);
+        });
+    },
+    navigateToActivities(categoryId, categoryName) {
+      this.$router.push({
+        name: 'ActivitesDetenteView',
+        params: { id: categoryId, category: categoryName }
+      });
+    }
+  },
 };
 </script>
 
@@ -106,12 +100,12 @@ export default {
 
 .home {
   text-align: center;
-  margin-top: 20px; 
+  margin-top: 20px;
   padding: 10px;
 }
 
 h1 {
-  font-size: 32px; 
+  font-size: 32px;
   color: black;
   font-family: "Nunito", sans-serif;
 }
@@ -123,7 +117,7 @@ p {
 }
 
 .card {
-  width: 90%; 
+  width: 90%;
   margin: 20px auto;
   background-color: #a06db6;
   border: solid 2px #a9b66d;
@@ -132,21 +126,36 @@ p {
 }
 
 .carousel {
-  width: 100%; 
+  width: 100%;
   margin: 20px auto;
   background-color: #a06db6;
 }
 
 .carousel-row {
   display: flex;
-  flex-wrap: wrap; /* Permet aux éléments de s'empiler verticalement sur les petits écrans */
   justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
-.carousel-item img {
-  width: 100px;
-  height: 100px;
-  margin: 10px;
+.category-item {
+  width: 80%;
+  max-width: 400px;
+  height: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin: 20px;
+}
+
+.category-item:hover {
+  background-color: #69a050;
+  color: #fff;
 }
 
 /* RESPONSIVE */
@@ -160,11 +169,6 @@ p {
   .card {
     width: 80%;
   }
-
-  .carousel-item img {
-    width: 150px;
-    height: 150px;
-  }
 }
 
 /* Bureau : au-dessus de 1024px */
@@ -175,11 +179,6 @@ p {
 
   .carousel {
     max-width: 60%;
-  }
-
-  .carousel-item img {
-    width: 200px;
-    height: 200px;
   }
 }
 </style>

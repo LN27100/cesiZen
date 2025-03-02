@@ -13,6 +13,7 @@ import ActivitesDetenteView from '../views/ActivitesDetenteView.vue';
 import CategoriesView from '../views/CategoriesView.vue';
 import DetailsActivitesView from '../views/DetailsActivitesView.vue';
 import ActivitiesManagementAdmin from '../views/ActivitiesManagementAdmin.vue';
+import InfosManagementAdmin from '../views/InfosManagementAdmin.vue';
 import UserManagementAdmin from '../views/UserManagementAdmin.vue';
 import ProfilAdmin from '@/views/ProfilAdmin.vue';
 import DashboardAdmin from '@/views/DashboardAdmin.vue';
@@ -22,6 +23,11 @@ const routes = [
     path: '/ActivitiesManagementAdmin',
     name: 'ActivitiesManagementAdmin',
     component: ActivitiesManagementAdmin
+  },
+  {
+    path: '/InfosManagementAdmin',
+    name: 'InfosManagementAdmin',
+    component: InfosManagementAdmin
   },
   {
     path: '/DashboardAdmin',

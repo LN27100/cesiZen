@@ -11,10 +11,13 @@
               <a class="nav-link active" aria-current="page" href="#" @click.prevent="goTo('DashboardAdmin')">Dashboard</a>
             </li>
             <li class="nav-item3 nav-item-margin">
-              <a class="nav-link" href="#" @click.prevent="goTo('ActivitiesManagementAdmin')">Gestion Activités</a>
+              <a class="nav-link" href="#" @click.prevent="goTo('UserManagementAdmin')">Gestion Utilisateurs</a>
             </li>
             <li class="nav-item3 nav-item-margin">
-              <a class="nav-link" href="#" @click.prevent="goTo('UserManagementAdmin')">Gestion Utilisateurs</a>
+              <a class="nav-link" href="#" @click.prevent="goTo('InfosManagementAdmin')">Gestion Informations</a>
+            </li>
+            <li class="nav-item3 nav-item-margin">
+              <a class="nav-link" href="#" @click.prevent="goTo('ActivitiesManagementAdmin')">Gestion Activités</a>
             </li>
             <li class="nav-item3 nav-item-margin">
               <a class="nav-link" href="#" @click.prevent="goTo('ProfilAdmin')">Profil</a>

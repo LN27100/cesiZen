@@ -1,12 +1,12 @@
 <template>
     <div>
-      <h1>Gestion des activités proposées</h1>
+      <h1>Gestion des infos santé mentale</h1>
     </div>
   </template>
   
   <script>
   export default {
-    name: "ActivitiesManagementAdmin",
+    name: "InfosManagementAdmin",
 
     methods: {
   
