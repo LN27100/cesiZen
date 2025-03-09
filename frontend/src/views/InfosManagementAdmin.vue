@@ -1,20 +1,287 @@
 <template>
-    <div>
-      <h1>Gestion des infos santé mentale</h1>
+  <div class="admin-container">
+    <div class="header">
+      <h1>Gestion des Articles</h1>
+      <button class="add-btn" @click="openAddForm">
+        <i class="fas fa-plus"></i> Ajouter
+      </button>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    name: "InfosManagementAdmin",
 
-    methods: {
-  
+    <table class="info-table">
+      <thead>
+        <tr>
+          <th>Titre</th>
+          <th>Contenu</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(article) in paginatedArticles" :key="article.id_information">
+          <td>{{ article.titre }}</td>
+          <td v-html="article.description"></td>
+          <td>
+            <button class="edit-btn" @click="openEditForm(article)">
+              <i class="fas fa-edit"></i> Modifier
+            </button>
+            <button class="delete-btn" @click="deleteArticle(article.id_information)">
+              <i class="fas fa-trash-alt"></i> Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pagination">
+      <button @click="prevPage" :disabled="currentPage === 1">Précédent</button>
+      <button @click="nextPage" :disabled="currentPage === totalPages">Suivant</button>
+    </div>
+
+    <!-- Modal d'édition / ajout -->
+    <div v-if="showForm" class="modal">
+      <div class="modal-content">
+        <h2>{{ isEditing ? "Modifier l'article" : "Ajouter un article" }}</h2>
+        <label>Titre:</label>
+        <input v-model="articleForm.titre" type="text" required />
+
+        <label>Contenu:</label>
+        <textarea v-model="articleForm.description" required></textarea>
+
+
+        <div class="modal-actions">
+          <button @click="saveArticle">{{ isEditing ? "Modifier" : "Ajouter" }}</button>
+          <button @click="closeForm">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+
+export default {
+  name: "InfosManagementAdmin",
+  data() {
+    return {
+      articles: [],
+      currentPage: 1,
+      articlesPerPage: 5,
+      showForm: false,
+      isEditing: false,
+      articleForm: { id_information: null, titre: "", description: "", nom_image: "" }
+    };
+  },
+  created() {
+    this.fetchArticles();
+  },
+  computed: {
+    paginatedArticles() {
+      const start = (this.currentPage - 1) * this.articlesPerPage;
+      return this.articles.slice(start, start + this.articlesPerPage);
     },
-  };
-  </script>
-  
-  <style scoped>
- 
-  </style>
-  
+    totalPages() {
+      return Math.ceil(this.articles.length / this.articlesPerPage);
+    }
+  },
+  methods: {
+    async fetchArticles() {
+      try {
+        const response = await axios.get("http://localhost:3000/api/info");
+        this.articles = response.data.map(article => ({
+          id_information: article.id_information,
+          titre: article.titre,
+          description: article.content,
+          nom_image: article.image
+        }));
+      } catch (error) {
+        console.error("Erreur lors de la récupération des articles:", error);
+      }
+    },
+
+    async deleteArticle(articleId) {
+      if (confirm("Êtes-vous sûr de vouloir supprimer cet article ?")) {
+        try {
+          await axios.delete(`http://localhost:3000/api/info/${articleId}`);
+          this.fetchArticles(); // Rafraîchir la liste après suppression
+        } catch (error) {
+          console.error("Erreur lors de la suppression de l'article:", error);
+        }
+      }
+    },
+
+    openEditForm(article) {
+      this.articleForm = { ...article };
+      this.isEditing = true;
+      this.showForm = true;
+    },
+
+    openAddForm() {
+      this.articleForm = { id_information: null, titre: "", description: "", nom_image: "" };
+      this.isEditing = false;
+      this.showForm = true;
+    },
+
+    async saveArticle() {
+      try {
+        if (this.isEditing) {
+          await axios.put(`http://localhost:3000/api/info/${this.articleForm.id_information}`, this.articleForm);
+        } else {
+          await axios.post("http://localhost:3000/api/info", this.articleForm);
+        }
+        this.closeForm();
+        this.fetchArticles();
+      } catch (error) {
+        console.error("Erreur lors de la sauvegarde de l'article:", error);
+      }
+    },
+
+    closeForm() {
+      this.showForm = false;
+      this.articleForm = { id_information: null, titre: "", description: "", nom_image: "" };
+    },
+
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+        window.scrollTo(0, 0);
+      }
+    },
+
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+        window.scrollTo(0, 0);
+      }
+    }
+  }
+};
+</script>
+
+
+<style scoped>
+.admin-container {
+  padding: 20px;
+  font-family: "Open Sans", sans-serif;
+  margin: 0 5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.add-btn {
+  background-color: #A06DB6;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.add-btn:hover {
+  background-color: #5F3870;
+}
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #b0afaf;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+img {
+  max-width: 80px;
+  height: auto;
+}
+
+
+.edit-btn {
+  background-color: #A06DB6;
+  color: white;
+  border: none;
+  padding: 5px 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.edit-btn:hover {
+  background-color: #5F3870;
+}
+
+.delete-btn {
+  background-color: darkred;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 10px;
+  margin: 0 5px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 50%;
+}
+
+.modal-actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+</style>
