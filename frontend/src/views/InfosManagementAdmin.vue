@@ -1,10 +1,9 @@
 <template>
   <div class="admin-container">
     <div class="header">
-      <h1>Gestion des Articles</h1>
+      <h1>Gestion des information</h1>
       <button class="add-btn" @click="openAddForm">
-        <i class="fas fa-plus"></i> Ajouter
-      </button>
+        <i class="fas fa-plus"></i> Ajouter</button>
     </div>
 
     <table class="info-table">
@@ -167,22 +166,27 @@ export default {
 
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content:center;
   align-items: center;
 }
 
 h1 {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: bold;
+  color: #000000;
+  font-family: "Nunito", sans-serif; 
 }
 
 .add-btn {
+  margin-left: 1rem;
   background-color: #A06DB6;
   color: white;
   border: none;
   padding: 10px 15px;
   cursor: pointer;
   border-radius: 5px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: semi-bold;
 }
 
 .add-btn:hover {
@@ -202,24 +206,25 @@ th, td {
 }
 
 th {
-  background-color: #4CAF50;
+  background-color: #A06DB6;
   color: white;
+  font-size: 16px; 
+  font-weight: semi-bold; 
 }
 
-img {
-  max-width: 80px;
-  height: auto;
+td {
+  font-size: 16px;
+  color: #000000; 
 }
-
 
 .edit-btn {
-  background-color: #A06DB6;
+  background-color: #A06DB6; 
   color: white;
   border: none;
   padding: 5px 16px;
   cursor: pointer;
   border-radius: 5px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .edit-btn:hover {
@@ -227,7 +232,7 @@ img {
 }
 
 .delete-btn {
-  background-color: darkred;
+  background-color: #D0021B;
   color: white;
   border: none;
   padding: 5px 10px;
@@ -236,7 +241,7 @@ img {
 }
 
 .delete-btn:hover {
-  background-color: #d32f2f;
+  background-color: #d32f2f; 
 }
 
 .pagination {
@@ -248,7 +253,7 @@ img {
 .pagination button {
   padding: 10px;
   margin: 0 5px;
-  background-color: #4CAF50;
+  background-color: #84B66D;
   color: white;
   border: none;
   cursor: pointer;
@@ -259,7 +264,6 @@ img {
   cursor: not-allowed;
 }
 
-/* Modal */
 .modal {
   position: fixed;
   top: 0;
@@ -279,9 +283,59 @@ img {
   width: 50%;
 }
 
+h2 {
+  font-size: 24px; 
+  font-weight: semi-bold; 
+  color: #000000; 
+}
+
+label {
+  font-size: 16px;
+  font-weight: normal;
+  color: #000000; 
+}
+
+input, textarea {
+  font-size: 16px;
+  padding: 8px;
+  width: 100%;
+  margin-bottom: 10px;
+  border: 1px solid #b0afaf;
+  border-radius: 5px;
+}
+
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
 .modal-actions {
   margin-top: 10px;
   display: flex;
   justify-content: space-between;
 }
+
+.modal-actions button {
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+.modal-actions button:first-child {
+  background-color: #84B66D; 
+  color: white;
+}
+
+.modal-actions button:first-child:hover {
+  background-color: #69A050; 
+}
+
+.modal-actions button:last-child {
+  background-color: #D0021B;
+  color: white;
+}
+
+.modal-actions button:last-child:hover {
+  background-color: #d32f2f; 
+}
+
 </style>

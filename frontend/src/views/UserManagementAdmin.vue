@@ -1,8 +1,11 @@
 <template>
+    <div class="admin-container">
+  <div class="header">
+    <h1>Gestion des utilisateurs</h1>
+    <button class="add-user-button" @click="openModal"><i class="fas fa-plus"></i> Ajouter</button>
+    </div>
   <div>
-    <h3>Gestion des utilisateurs
-      <button class="add-user-button" @click="openModal">Ajouter un utilisateur</button>
-    </h3>
+   
 
     <!-- Modal pour ajouter un utilisateur -->
     <div v-if="showModal" class="modal">
@@ -102,6 +105,7 @@
         </tr>
       </tbody>
     </table>
+  </div>
   </div>
 </template>
 
@@ -239,34 +243,43 @@ export default {
 </script>
 
 <style scoped>
-h3 {
-  font-family: "Nunito", sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Open+Sans:wght@400;600&display=swap");
+
+.admin-container {
+  padding: 20px;
+  font-family: "Open Sans", sans-serif;
+  margin: 0 5rem;
+}
+
+.header {
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+h1 {
   font-size: 32px;
   font-weight: bold;
   color: #000000;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  font-family: "Nunito", sans-serif; 
 }
 
 .add-user-button {
-  font-family: "Open Sans", sans-serif;
-  font-size: 16px;
-  padding: 10px 20px;
+  margin-left: 1rem;
+  background-color: #A06DB6;
+  color: white;
   border: none;
-  border-radius: 5px;
+  padding: 10px 15px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  background-color: #84B66D;
-  color: #ffffff;
+  border-radius: 5px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: semi-bold;
 }
 
 .add-user-button:hover {
-  background-color: #69A050;
+  background-color: #5F3870;
 }
-
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Open+Sans:wght@400;600&display=swap");
 
 body {
   font-family: "Open Sans", sans-serif;
@@ -289,7 +302,7 @@ body {
   background-color: #ffffff;
   padding: 20px;
   border-radius: 10px;
-  width: 500px; /* Largeur augmentée pour correspondre au formulaire */
+  width: 500px;
   max-height: 80vh; /* Limite la hauteur à 80% de la fenêtre */
   overflow-y: auto; /* Ajoute une barre de défilement si nécessaire */
   border: 2px solid #a9b66d;
@@ -529,3 +542,5 @@ td.statut-column {
   }
 }
 </style>
+max-height: 80vh; /* Limite la hauteur à 80% de la fenêtre */
+overflow-y: auto; /* Ajoute une barre de défilement si nécessaire */
