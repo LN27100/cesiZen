@@ -77,7 +77,7 @@ export default {
   methods: {
     fetchCategories() {
       axios.get("http://localhost:3000/api/categories")
-        .then(response => {
+      .then(response => {
           // Limiter à seulement les 3 premières catégories
           this.categories = response.data.slice(0, 3);
         })

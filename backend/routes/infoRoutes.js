@@ -6,3 +6,5 @@ router.post('/', infoController.create);
 router.get('/', infoController.findAll);
 
 module.exports = router;
+
+

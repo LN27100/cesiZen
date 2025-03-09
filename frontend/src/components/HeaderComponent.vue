@@ -1,9 +1,7 @@
 <template>
   <header class="header">
     <div class="header-content">
-      <!-- Image à gauche, plus grande -->
       <img src="../assets/images/flower.jpg" alt="Background Image" class="header-image" />
-      <!-- Logo à droite avec fond vert, superposé sur l'image -->
       <div class="logo-container">
         <img src="../assets/icones/logoCesiZen.png" alt="Logo" class="logo" />
       </div>
@@ -59,7 +57,7 @@ export default {
   height: auto;
 }
 
-/* Media Queries pour écrans plus petits */
+/* RESPONSIVE */
 @media (max-width: 1024px) {
   .header {
     height: 140px;

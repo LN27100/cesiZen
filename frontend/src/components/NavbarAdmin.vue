@@ -56,53 +56,16 @@ export default {
 </script>
 
 <style scoped>
+/* Styles pour les mobiles */
 .navbar {
   background-color: #84B66D;
-  margin-top:6.2rem;
-}
-
-.desktop-navbar {
-  display: block;
-}
-
-.mobile-navbar {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  background-color: #A06DB6;
-  padding: 10px 0;
-  z-index: 1000;
-  margin-left: -8px;
-  font-family: 'Open Sans', sans-serif;
+  margin-top: 7.5rem;
 }
 
 .nav-item {
   display: flex;
   width: 56px;
   height: 56px;
-  justify-content: center;
-  align-items: center;
-  background-color: #84B66D;
-  cursor: pointer;
-  border-radius: 10px;
-  transition: background-color 0.3s ease;
-}
-
-.nav-item2 {
-  display: flex;
-  width: 56px;
-  height: 56px;
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(198, 191, 191);
-  border-radius: 10px;
-  transition: background-color 0.3s ease;
-}
-
-.nav-item3 {
-  display: flex;
   justify-content: center;
   align-items: center;
   background-color: #84B66D;
@@ -120,19 +83,31 @@ export default {
   height: 47px;
 }
 
-.nav-icon2 {
-  width: 55px;
-  height: 55px;
-}
-
-.nav-icon3 {
-  width: 45px;
-  height: 45px;
-}
-
 .nav-item span {
   display: block;
   font-size: 14px;
   color: white;
+}
+
+/* Styles pour les tablettes */
+@media (min-width: 768px) {
+  .navbar {
+    margin-top: 8.7rem; 
+  }
+
+  .desktop-navbar {
+    display: block;
+  }
+}
+
+/* Styles pour ordi bureaux */
+@media (min-width: 1024px) {
+  .navbar {
+    margin-top: 6.2rem;
+  }
+
+  .desktop-navbar {
+    display: block; 
+  }
 }
 </style>

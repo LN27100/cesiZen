@@ -9,9 +9,9 @@
     </div>
 
     <div v-for="(article, index) in paginatedArticles" :key="index" class="article">
-      <h2 class="article-title">{{ article.title }}</h2>
+      <h2 class="article-title">{{ article.titre }}</h2>
       <p v-html="article.content"></p>
-      <img v-if="article.image" :src="require(`@/assets/images/${article.image}`)" :alt="article.title">
+      <img v-if="article.image" :src="require(`@/assets/images/${article.image}`)" :alt="article.titre">
       <p class="article-source">Sources croixrouge.ca et coeuretavc.ca</p>
     </div>
 
@@ -23,16 +23,19 @@
 </template>
 
 <script>
-import articles from '@/assets/articles.json';
+import axios from 'axios';
 
 export default {
   name: "InfoView",
   data() {
     return {
-      articles: articles,
+      articles: [],
       currentPage: 1,
       articlesPerPage: 5
     };
+  },
+  created() {
+    this.fetchArticles();
   },
   computed: {
     paginatedArticles() {
@@ -45,6 +48,18 @@ export default {
     }
   },
   methods: {
+    async fetchArticles() {
+      try {
+        const response = await axios.get("http://localhost:3000/api/info");
+        this.articles = response.data.map(article => ({
+          titre: article.titre,
+          content: article.content,
+          image: article.image
+        }));
+      } catch (error) {
+        console.error('Erreur lors de la récupération des articles:', error);
+      }
+    },
     nextPage() {
       if (this.currentPage < this.totalPages) {
         this.currentPage++;
