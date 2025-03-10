@@ -28,7 +28,13 @@
         <div v-if="filteredActivities.length === 0" class="no-results">
           <p>Aucun résultat</p>
         </div>
-        <div v-for="activity in filteredActivities" :key="activity.id_activite" class="activity-card" @click="viewDetails(activity.id_activite)">
+        <div 
+          v-for="activity in filteredActivities" 
+          :key="activity.id_activite" 
+          class="activity-card"
+          :class="{ 'suspended': activity.status_activite_détente === 'suspendue' }"
+          @click="handleActivityClick(activity)"
+        >
           <h3>{{ activity.nom_activite }}</h3>
           <p>Durée: {{ activity.duree_minutes }} minutes</p>
         </div>
@@ -99,12 +105,17 @@ export default {
     goBack() {
       this.$router.push({ name: 'CategoriesView' });
     },
-    viewDetails(activityId) {
-      this.$router.push({ name: 'DetailsActivitesView', params: { id: activityId } });
+    handleActivityClick(activity) {
+      if (activity.status_activite_détente === 'suspendue') {
+        alert("Cette activité est suspendue.");
+      } else {
+        this.$router.push({ name: 'DetailsActivitesView', params: { id: activity.id_activite } });
+      }
     }
   }
 };
 </script>
+
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Open+Sans:wght@400;600&display=swap");
 
@@ -202,6 +213,17 @@ h1 {
   font-family: "Open Sans", sans-serif;
 }
 
+/* Style spécifique aux activités suspendues */
+.suspended {
+  background-color: red !important;
+  color: white;
+  cursor: not-allowed;
+}
+
+.suspended:hover {
+  background-color: darkred !important;
+}
+
 .no-results {
   text-align: center;
   margin-top: 2rem;
@@ -239,35 +261,5 @@ h1 {
 
 .activity-card:hover {
   background-color: #69A050;
-}
-
-/* Tablette : entre 768px et 1024px */
-@media (min-width: 768px) {
-  .filter-bar {
-    flex-direction: row;
-    justify-content: space-between;
-    width: 80%;
-  }
-
-  .search-container,
-  .filter-select {
-    width: 30%;
-    margin-bottom: 0;
-  }
-
-  .card {
-    max-width: 80%;
-  }
-}
-
-/* Bureau : au-dessus de 1024px */
-@media (min-width: 1024px) {
-  .filter-bar {
-    width: 70%;
-  }
-
-  .card {
-    max-width: 700px;
-  }
 }
 </style>
