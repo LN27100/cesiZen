@@ -12,7 +12,7 @@ router.get('/', authMiddleware, userController.findAll);
 router.get('/:id', authMiddleware, userController.findById);
 router.put('/:id', authMiddleware, userController.update);
 router.delete('/:id', authMiddleware, userController.delete);
-
+router.post('/:id/resetPassword', authMiddleware, userController.resetPassword);
 router.put('/:id/status', authMiddleware, userController.updateStatus);
 
 module.exports = router;

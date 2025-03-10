@@ -34,6 +34,13 @@ const User = {
     db.query(sql, [user.prenom, user.nom, user.email, user.mot_de_passe, user.pseudo, user.role, id], callback);
   },
 
+  // Mettre à jour le mot de passe de l'utilisateur
+  updatePassword: (id, newPassword, callback) => {
+    const sql = 'UPDATE utilisateur SET mot_de_passe = ? WHERE id_utilisateur = ?';
+    db.query(sql, [newPassword, id], callback);
+  },
+
+
   // Supprimer un utilisateur par ID
   delete: (id, callback) => {
     const sql = 'DELETE FROM utilisateur WHERE id_utilisateur = ?';

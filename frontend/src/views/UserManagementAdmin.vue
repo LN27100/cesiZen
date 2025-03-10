@@ -542,5 +542,3 @@ td.statut-column {
   }
 }
 </style>
-max-height: 80vh; /* Limite la hauteur à 80% de la fenêtre */
-overflow-y: auto; /* Ajoute une barre de défilement si nécessaire */

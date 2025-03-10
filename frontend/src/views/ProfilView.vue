@@ -1,3 +1,4 @@
+<!-- ProfileView.vue -->
 <template>
   <h1>Mon Profil</h1>
   <div class="profile">
@@ -9,6 +10,7 @@
       <div class="buttons">
         <button @click="editUser">Modifier</button>
         <button @click="deleteUser">Supprimer</button>
+        <button @click="showResetPasswordForm">Réinitialiser le mot de passe</button>
       </div>
     </div>
     <div v-else class="loading">
@@ -37,6 +39,25 @@
         <button type="button" @click="cancelEdit" class="btn-cancel">Annuler</button>
       </form>
     </div>
+    <div v-if="resettingPassword" class="reset-password-form">
+      <hr class="separator" />
+      <form @submit.prevent="resetPassword">
+        <div class="form-group">
+          <label for="oldPassword">Ancien mot de passe :</label>
+          <input type="password" id="oldPassword" v-model="passwords.oldPassword" />
+        </div>
+        <div class="form-group">
+          <label for="newPassword">Nouveau mot de passe :</label>
+          <input type="password" id="newPassword" v-model="passwords.newPassword" />
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirmer le nouveau mot de passe :</label>
+          <input type="password" id="confirmPassword" v-model="passwords.confirmPassword" />
+        </div>
+        <button type="submit" class="btn-submit">Réinitialiser le mot de passe</button>
+        <button type="button" @click="cancelResetPassword" class="btn-cancel">Annuler</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -49,11 +70,17 @@ export default {
     return {
       user: null,
       editing: false,
+      resettingPassword: false,
       editedUser: {
         prenom: "",
         nom: "",
         email: "",
         pseudo: "",
+      },
+      passwords: {
+        oldPassword: "",
+        newPassword: "",
+        confirmPassword: "",
       },
     };
   },
@@ -166,9 +193,46 @@ export default {
         }
       }
     },
+    showResetPasswordForm() {
+      this.resettingPassword = true;
+    },
+    async resetPassword() {
+  if (this.passwords.newPassword !== this.passwords.confirmPassword) {
+    alert("Les nouveaux mots de passe ne correspondent pas.");
+    return;
+  }
+
+  try {
+    await axios.post(`/users/${this.user.id_utilisateur}/resetPassword`, {
+  oldPassword: this.passwords.oldPassword,
+  newPassword: this.passwords.newPassword,
+});
+
+    alert("Mot de passe réinitialisé avec succès !");
+    this.resettingPassword = false;
+  } catch (error) {
+    console.error(
+      "Erreur lors de la réinitialisation du mot de passe:",
+      error.response || error
+    );
+    alert(
+      error.response?.data?.message ||
+        "Une erreur s'est produite. Veuillez réessayer."
+    );
+  }
+},
+    cancelResetPassword() {
+      this.resettingPassword = false;
+      this.passwords = {
+        oldPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      };
+    },
   },
 };
 </script>
+
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Open+Sans:wght@400;600&display=swap");

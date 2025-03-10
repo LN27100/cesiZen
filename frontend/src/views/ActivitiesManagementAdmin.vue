@@ -12,7 +12,7 @@
           <th>Nom de l'activité</th>
           <th>Description</th>
           <th>Catégorie</th>
-          <th>Status</th>
+          <th>Statut</th>
           <th>Durée (minutes)</th>
           <th>Actions</th>
         </tr>
