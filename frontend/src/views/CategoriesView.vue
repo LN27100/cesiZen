@@ -7,6 +7,10 @@
     />
     <h1>Activités détente</h1>
 
+    <button class="back-button" @click="goBack">
+      <img src="@/assets/icones/back.png" alt="Retour" />
+    </button>
+
     <div class="button-container">
       <button
         v-for="category in categories"
@@ -35,6 +39,9 @@ export default {
     };
   },
   methods: {
+    goBack() {
+      this.$router.push({ name: 'ActivitiesView' });
+    },
     goToCategory(categoryId, categoryName) {
       this.$router.push({
         name: "ActivitesDetenteView",
@@ -111,6 +118,7 @@ h1 {
   margin-top: 2rem;
 }
 
+/* Styles généraux pour les boutons */
 button {
   height: 5rem;
   width: 100%;
@@ -153,6 +161,31 @@ button:disabled {
 
 button:disabled:hover {
   background-color: #ccc;
+}
+
+/* Styles spécifiques pour le bouton "retour" */
+.back-button {
+  position: absolute;
+  top: 11rem;
+  left: 4rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  height: auto; 
+  width: auto;
+  padding: 0; 
+  box-shadow: none;
+}
+
+.back-button img {
+  width: 2rem;
+  height: 2rem;
+  background-color: #A9B66D;
+  border-radius: 50%;
+}
+
+.back-button:hover img {
+  background-color: #5F3870;
 }
 
 /* RESPONSIVE */

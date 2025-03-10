@@ -1,5 +1,6 @@
 <template>
   <div class="activities">
+    
     <img :src="iconPath" alt="icone activités détente" class="icone">
     <h1>{{ categoryName }}</h1>
     <button class="back-button" @click="goBack">
@@ -213,9 +214,8 @@ h1 {
   font-family: "Open Sans", sans-serif;
 }
 
-/* Style spécifique aux activités suspendues */
 .suspended {
-  background-color: red !important;
+  background-color: #D0021B !important;
   color: white;
   cursor: not-allowed;
 }
@@ -241,7 +241,7 @@ h1 {
 
 .back-button {
   position: absolute;
-  top: 2rem;
+  top: 10rem;
   left: 2rem;
   background: none;
   border: none;
