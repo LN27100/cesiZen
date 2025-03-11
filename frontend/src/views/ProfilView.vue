@@ -3,14 +3,30 @@
   <h1>Mon Profil</h1>
   <div class="profile">
     <div v-if="user" class="profile-details">
-      <p><strong class="label">Prénom :</strong> <span class="value">{{ user.prenom }}</span></p>
-      <p><strong class="label">Nom :</strong> <span class="value">{{ user.nom }}</span></p>
-      <p><strong class="label">Email :</strong> <span class="value">{{ user.email }}</span></p>
-      <p><strong class="label">Pseudo :</strong> <span class="value">{{ user.pseudo }}</span></p>
+      <p>
+        <strong class="label">Prénom :</strong>
+        <span class="value">{{ user.prenom }}</span>
+      </p>
+      <p>
+        <strong class="label">Nom :</strong>
+        <span class="value">{{ user.nom }}</span>
+      </p>
+      <p>
+        <strong class="label">Email :</strong>
+        <span class="value">{{ user.email }}</span>
+      </p>
+      <p>
+        <strong class="label">Pseudo :</strong>
+        <span class="value">{{ user.pseudo }}</span>
+      </p>
       <div class="buttons">
         <button @click="editUser">Modifier</button>
         <button @click="deleteUser">Supprimer</button>
-        <button @click="showResetPasswordForm">Réinitialiser le mot de passe</button>
+      </div>
+      <div class="buttons">
+        <button class="reinitialButton" @click="showResetPasswordForm">
+          Réinitialiser le mot de passe
+        </button>
       </div>
     </div>
     <div v-else class="loading">
@@ -35,8 +51,12 @@
           <label for="pseudo">Pseudo :</label>
           <input type="text" id="pseudo" v-model="editedUser.pseudo" />
         </div>
-        <button type="submit" class="btn-submit">Mettre à jour</button>
-        <button type="button" @click="cancelEdit" class="btn-cancel">Annuler</button>
+        <div class="buttons">
+        <button type="submit">Mettre à jour</button>
+        <button type="button" @click="cancelEdit">
+          Annuler
+        </button>
+      </div>
       </form>
     </div>
     <div v-if="resettingPassword" class="reset-password-form">
@@ -44,18 +64,38 @@
       <form @submit.prevent="resetPassword">
         <div class="form-group">
           <label for="oldPassword">Ancien mot de passe :</label>
-          <input type="password" id="oldPassword" v-model="passwords.oldPassword" />
+          <input
+            type="password"
+            id="oldPassword"
+            v-model="passwords.oldPassword"
+          />
         </div>
         <div class="form-group">
           <label for="newPassword">Nouveau mot de passe :</label>
-          <input type="password" id="newPassword" v-model="passwords.newPassword" />
+          <input
+            type="password"
+            id="newPassword"
+            v-model="passwords.newPassword"
+          />
         </div>
         <div class="form-group">
-          <label for="confirmPassword">Confirmer le nouveau mot de passe :</label>
-          <input type="password" id="confirmPassword" v-model="passwords.confirmPassword" />
+          <label for="confirmPassword"
+            >Confirmer le nouveau mot de passe :</label
+          >
+          <input
+            type="password"
+            id="confirmPassword"
+            v-model="passwords.confirmPassword"
+          />
         </div>
-        <button type="submit" class="btn-submit">Réinitialiser le mot de passe</button>
-        <button type="button" @click="cancelResetPassword" class="btn-cancel">Annuler</button>
+        <div class="buttons">
+        <button type="submit">
+          Réinitialiser
+        </button>
+        <button type="button" @click="cancelResetPassword">
+          Annuler
+        </button>
+      </div>
       </form>
     </div>
   </div>
@@ -197,30 +237,30 @@ export default {
       this.resettingPassword = true;
     },
     async resetPassword() {
-  if (this.passwords.newPassword !== this.passwords.confirmPassword) {
-    alert("Les nouveaux mots de passe ne correspondent pas.");
-    return;
-  }
+      if (this.passwords.newPassword !== this.passwords.confirmPassword) {
+        alert("Les nouveaux mots de passe ne correspondent pas.");
+        return;
+      }
 
-  try {
-    await axios.post(`/users/${this.user.id_utilisateur}/resetPassword`, {
-  oldPassword: this.passwords.oldPassword,
-  newPassword: this.passwords.newPassword,
-});
+      try {
+        await axios.post(`/users/${this.user.id_utilisateur}/resetPassword`, {
+          oldPassword: this.passwords.oldPassword,
+          newPassword: this.passwords.newPassword,
+        });
 
-    alert("Mot de passe réinitialisé avec succès !");
-    this.resettingPassword = false;
-  } catch (error) {
-    console.error(
-      "Erreur lors de la réinitialisation du mot de passe:",
-      error.response || error
-    );
-    alert(
-      error.response?.data?.message ||
-        "Une erreur s'est produite. Veuillez réessayer."
-    );
-  }
-},
+        alert("Mot de passe réinitialisé avec succès !");
+        this.resettingPassword = false;
+      } catch (error) {
+        console.error(
+          "Erreur lors de la réinitialisation du mot de passe:",
+          error.response || error
+        );
+        alert(
+          error.response?.data?.message ||
+            "Une erreur s'est produite. Veuillez réessayer."
+        );
+      }
+    },
     cancelResetPassword() {
       this.resettingPassword = false;
       this.passwords = {
@@ -232,7 +272,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Open+Sans:wght@400;600&display=swap");
@@ -252,7 +291,7 @@ h1 {
   font-family: "Nunito", sans-serif;
   font-size: 32px;
   text-align: center;
-  margin-top: 9rem;
+  margin-top: 11rem;
   margin-bottom: 1rem;
 }
 
@@ -292,6 +331,20 @@ h1 {
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin: 0 0.5rem;
+  width:10rem;
+}
+
+#app > div.content > div > div > div:nth-child(6) > button {
+  padding: 0.3rem 0.8rem;
+  background-color: #84b66d;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0 0.5rem;
+  width: 21.1rem;
 }
 
 .buttons button:hover {
@@ -332,38 +385,6 @@ input:focus {
   outline: none;
 }
 
-.btn-submit {
-  padding: 0.3rem 0.8rem;
-  background-color: #84b66d;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin: 0 0.5rem;
-}
-
-.btn-submit:hover {
-  background-color: #69a050;
-}
-
-.btn-cancel {
-  padding: 0.3rem 0.8rem;
-  background-color: #84b66d;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin: 0 0.5rem;
-}
-
-.btn-cancel:hover {
-  background-color: #69a050;
-}
-
 .separator {
   border: 0;
   border-top: 2px solid white;
@@ -373,7 +394,7 @@ input:focus {
 /* Tablette : entre 768px et 1024px */
 @media (min-width: 768px) {
   h1 {
-margin-top: 6rem;
+    margin-top: 6rem;
   }
 
   .profile {
