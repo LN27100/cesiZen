@@ -75,21 +75,19 @@ exports.update = (req, res) => {
   });
 };
 
+// Réinitialiser le mot de passe
 exports.resetPassword = async (req, res) => {
     const { id } = req.params;
     const { oldPassword, newPassword } = req.body;
-  
-    console.log("ID utilisateur:", id);
-    console.log("Ancien mot de passe reçu:", oldPassword);
-    console.log("Nouveau mot de passe reçu:", newPassword);
-  
+
     try {
-      await userService.resetPassword(id, oldPassword, newPassword);
-      res.status(200).send({ message: 'Mot de passe réinitialisé avec succès.' });
+        await userService.resetPassword(id, oldPassword, newPassword);
+        res.status(200).send({ message: 'Mot de passe réinitialisé avec succès.' });
     } catch (err) {
-      res.status(400).send({ error: err.message });
+        res.status(400).send({ error: err.message });
     }
-  };
+};
+
   
 
 // Supprimer un utilisateur par ID

@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
@@ -59,26 +60,29 @@ exports.authentifierUtilisateur = async (email, mot_de_passe) => {
     });
   };
   
-  exports.resetPassword = async (id, oldPassword, newPassword) => {
+
+exports.resetPassword = async (id, oldPassword, newPassword) => {
     return new Promise((resolve, reject) => {
-      User.findById(id, (err, user) => {
-        if (err) return reject(err);
-        if (!user) return reject(new Error('Utilisateur non trouvé.'));
-  
-        bcrypt.compare(oldPassword, user.mot_de_passe, (err, valid) => {
-          if (err) return reject(err);
-          if (!valid) return reject(new Error('Ancien mot de passe incorrect.'));
-  
-          bcrypt.hash(newPassword, 10, (err, hash) => {
+        User.findById(id, (err, user) => {
             if (err) return reject(err);
-  
-            User.updatePassword(id, hash, (err, result) => {
-              if (err) return reject(err);
-              resolve(result);
+            if (!user) return reject(new Error('Utilisateur non trouvé.'));
+
+            bcrypt.compare(oldPassword, user.mot_de_passe, (err, valid) => {
+                if (err) return reject(err);
+                if (!valid) return reject(new Error('Ancien mot de passe incorrect.'));
+
+                bcrypt.hash(newPassword, 10, (err, hash) => {
+                    if (err) return reject(err);
+                    if (!hash) return reject(new Error('Erreur lors du hachage du mot de passe.'));
+
+                    User.updatePassword(id, hash, (err, result) => {
+                        if (err) return reject(err);
+                        resolve(result);
+                    });
+                });
             });
-          });
         });
-      });
     });
-  };
+};
+
   

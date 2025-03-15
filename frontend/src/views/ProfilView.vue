@@ -1,4 +1,3 @@
-<!-- ProfileView.vue -->
 <template>
   <h1>Mon Profil</h1>
   <div class="profile">
@@ -52,11 +51,9 @@
           <input type="text" id="pseudo" v-model="editedUser.pseudo" />
         </div>
         <div class="buttons">
-        <button type="submit">Mettre à jour</button>
-        <button type="button" @click="cancelEdit">
-          Annuler
-        </button>
-      </div>
+          <button type="submit">Mettre à jour</button>
+          <button type="button" @click="cancelEdit">Annuler</button>
+        </div>
       </form>
     </div>
     <div v-if="resettingPassword" class="reset-password-form">
@@ -64,38 +61,20 @@
       <form @submit.prevent="resetPassword">
         <div class="form-group">
           <label for="oldPassword">Ancien mot de passe :</label>
-          <input
-            type="password"
-            id="oldPassword"
-            v-model="passwords.oldPassword"
-          />
+          <input type="password" id="oldPassword" v-model="passwords.oldPassword" />
         </div>
         <div class="form-group">
           <label for="newPassword">Nouveau mot de passe :</label>
-          <input
-            type="password"
-            id="newPassword"
-            v-model="passwords.newPassword"
-          />
+          <input type="password" id="newPassword" v-model="passwords.newPassword" />
         </div>
         <div class="form-group">
-          <label for="confirmPassword"
-            >Confirmer le nouveau mot de passe :</label
-          >
-          <input
-            type="password"
-            id="confirmPassword"
-            v-model="passwords.confirmPassword"
-          />
+          <label for="confirmPassword">Confirmer le nouveau mot de passe :</label>
+          <input type="password" id="confirmPassword" v-model="passwords.confirmPassword" />
         </div>
         <div class="buttons">
-        <button type="submit">
-          Réinitialiser
-        </button>
-        <button type="button" @click="cancelResetPassword">
-          Annuler
-        </button>
-      </div>
+          <button type="submit">Réinitialiser</button>
+          <button type="button" @click="cancelResetPassword">Annuler</button>
+        </div>
       </form>
     </div>
   </div>
@@ -237,30 +216,38 @@ export default {
       this.resettingPassword = true;
     },
     async resetPassword() {
-      if (this.passwords.newPassword !== this.passwords.confirmPassword) {
-        alert("Les nouveaux mots de passe ne correspondent pas.");
-        return;
-      }
+  if (!this.passwords.oldPassword || !this.passwords.newPassword || !this.passwords.confirmPassword) {
+    alert("Tous les champs de mot de passe sont requis.");
+    return;
+  }
 
-      try {
-        await axios.post(`/users/${this.user.id_utilisateur}/resetPassword`, {
-          oldPassword: this.passwords.oldPassword,
-          newPassword: this.passwords.newPassword,
-        });
+  if (this.passwords.newPassword !== this.passwords.confirmPassword) {
+    alert("Les nouveaux mots de passe ne correspondent pas.");
+    return;
+  }
 
-        alert("Mot de passe réinitialisé avec succès !");
-        this.resettingPassword = false;
-      } catch (error) {
-        console.error(
-          "Erreur lors de la réinitialisation du mot de passe:",
-          error.response || error
-        );
-        alert(
-          error.response?.data?.message ||
-            "Une erreur s'est produite. Veuillez réessayer."
-        );
+  try {
+    const response = await axios.post(
+      `/users/${this.user.id_utilisateur}/resetPassword`,
+      {
+        oldPassword: this.passwords.oldPassword,
+        newPassword: this.passwords.newPassword,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       }
-    },
+    );
+
+    console.log("Réponse de la réinitialisation du mot de passe:", response.data);
+    alert("Mot de passe réinitialisé avec succès !");
+    this.resettingPassword = false;
+  } catch (error) {
+    console.error("Erreur lors de la réinitialisation du mot de passe:", error.response || error);
+    alert(error.response?.data?.message || "Une erreur s'est produite. Veuillez réessayer.");
+  }
+},
     cancelResetPassword() {
       this.resettingPassword = false;
       this.passwords = {
@@ -331,7 +318,7 @@ h1 {
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin: 0 0.5rem;
-  width:10rem;
+  width: 10rem;
 }
 
 #app > div.content > div > div > div:nth-child(6) > button {
