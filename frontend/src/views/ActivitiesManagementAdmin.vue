@@ -235,8 +235,6 @@ export default {
 
     async submitForm() {
       try {
-        console.log("Données envoyées :", this.newActivity); 
-
         await axios.post("http://localhost:3000/api/activities", this.newActivity);
         this.fetchActivities();
         this.closeModal();
@@ -385,9 +383,10 @@ td {
   position: fixed;
   z-index: 1;
   left: 0;
-  top: 0;
+  top: 5rem;
   width: 100%;
   height: 100%;
+  overflow: auto; /* Permet le défilement si le contenu dépasse la hauteur de la fenêtre */
   background-color: rgba(0, 0, 0, 0.4);
 }
 
@@ -399,11 +398,10 @@ td {
   border-radius: 5px;
   width: 80%;
   max-width: 500px;
-  max-height: 70%; 
-  overflow-y: auto; 
+  max-height: 70%; /* Limite la hauteur maximale de la modal */
+  overflow-y: auto; /* Ajoute un défilement vertical si nécessaire */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
-
 
 .modal h2 {
   color: #A06DB6;
