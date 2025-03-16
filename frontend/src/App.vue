@@ -7,12 +7,13 @@
     <component :is="navbarComponent" />
 
     <!-- Contenu de la page -->
-    <div class="content">
-      <router-view />
+    <div class="content-wrapper">
+      <div class="content">
+        <router-view />
+      </div>
+      <!-- Footer affiché sur les versions desktop -->
+      <FooterComponent />
     </div>
-
-    <!-- Footer affiché sur les versions desktop -->
-    <FooterComponent />
   </div>
 </template>
 
@@ -73,11 +74,21 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: black;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .content {
+  flex: 1;
   margin-top: 8rem;
-  margin-bottom: 5rem;
+  margin-bottom: 2rem;
 }
 
 @media (min-width: 1024px) {

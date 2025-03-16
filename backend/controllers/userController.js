@@ -23,6 +23,7 @@ exports.findAll = (req, res) => {
     });
 };
 
+
 // Récupérer un utilisateur par ID
 exports.findById = (req, res) => {
     const id = req.params.id;
@@ -89,7 +90,6 @@ exports.resetPassword = async (req, res) => {
 };
 
   
-
 // Supprimer un utilisateur par ID
 exports.delete = (req, res) => {
     const id = req.params.id;
@@ -125,3 +125,12 @@ exports.updateStatus = async (req, res) => {
       res.status(500).send({ error: 'Erreur lors de la mise à jour du statut du compte' });
     }
   };
+
+  // Compter les utilisateurs
+  exports.countUsers = (req, res) => {
+    User.query("SELECT COUNT(*) AS userCount FROM utilisateur", [], (err, result) => {
+        if (err) return res.status(500).send(err);
+        res.send(result[0]);
+    });
+
+};

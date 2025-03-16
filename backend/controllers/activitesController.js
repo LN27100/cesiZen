@@ -38,6 +38,7 @@ exports.create = (req, res) => {
     });
 };
 
+
 exports.findAll = (req, res) => {
     Activity.findAll((err, activities) => {
         if (err) return res.status(500).send(err);

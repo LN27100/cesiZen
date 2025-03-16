@@ -51,6 +51,21 @@ const User = {
   query: (sql, params, callback) => {
     db.query(sql, params, callback);
   },
+
+
+  // Compter le nombre total d'utilisateurs
+  countUsers: (callback) => {
+    const sql = 'SELECT COUNT(*) AS userCount FROM utilisateur';
+    db.query(sql, (err, results) => {
+      if (err) return callback(err);
+      console.log("Résultat SQL:", results); // <-- Vérification ici
+      if (results && results.length > 0) {
+        callback(null, results[0].userCount);
+      } else {
+        callback(null, 0);
+      }
+    });
+  }
 };
 
 module.exports = User;
