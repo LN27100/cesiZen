@@ -46,20 +46,23 @@ exports.findByCategory = (req, res) => {
 
 // Mettre à jour une activité
 exports.update = (req, res) => {
-    const { nom, description, statut, id_categorie, duree_minutes, sous_categorie } = req.body;
+    const { nom, description, statut, id_categorie, duree_minutes, sous_categorie, nom_image, nom_image_2, lien_video } = req.body;
     const id = req.params.id;
 
     if (!['actif', 'suspendue'].includes(statut)) {
         return res.status(400).send({ message: "Le statut doit être 'actif' ou 'suspendue'." });
     }
 
-    const updatedActivity = { 
-        nom_activite: nom, 
-        description_activite: description, 
-        status_activite_detente: statut, 
-        id_categorie, 
-        duree_minutes, 
-        sous_categorie 
+    const updatedActivity = {
+        nom_activite: nom,
+        description_activite: description,
+        status_activite_detente: statut,
+        id_categorie,
+        duree_minutes,
+        sous_categorie,
+        nom_image,
+        nom_image_2,
+        lien_video
     };
 
     Activity.update(id, updatedActivity, (err, result) => {

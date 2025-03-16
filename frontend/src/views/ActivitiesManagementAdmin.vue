@@ -3,17 +3,21 @@
     <div class="header">
       <h1>Gestion des activités</h1>
       <button class="add-btn" @click="openAddForm">
-        <i class="fas fa-plus"></i> Ajouter</button>
+        <i class="fas fa-plus"></i> Ajouter
+      </button>
     </div>
 
     <table class="info-table">
       <thead>
         <tr>
-          <th>Nom de l'activité</th>
+          <th>Nom</th>
           <th>Description</th>
           <th>Catégorie</th>
           <th>Statut</th>
           <th>Durée (minutes)</th>
+          <th>Image</th>
+          <th>Image 2</th>
+          <th>Vidéo</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -24,6 +28,9 @@
           <td>{{ activite.id_categorie }}</td>
           <td>{{ activite.status_activite_détente }}</td>
           <td>{{ activite.duree_minutes }}</td>
+          <td>{{ activite.nom_image }}</td>
+          <td>{{ activite.nom_image_2 }}</td>
+          <td>{{ activite.lien_video }}</td>
           <td>
             <button class="edit-btn" @click="openEditForm(activite)">
               <i class="fas fa-edit"></i> Modifier
@@ -44,6 +51,9 @@
     <!-- Modal d'édition / ajout -->
     <div v-if="showForm" class="modal">
       <div class="modal-content">
+        <button class="close-btn" @click="closeForm">
+          <i class="fas fa-times"></i>
+        </button>
         <h2>{{ isEditing ? "Modifier l'activité" : "Ajouter une activité" }}</h2>
         <label>Nom de l'activité:</label>
         <input v-model="activiteForm.nom_activite" type="text" required />
@@ -74,6 +84,15 @@
 
         <label>Durée (minutes):</label>
         <input v-model="activiteForm.duree_minutes" type="number" required />
+
+        <label>Nom de l'image:</label>
+        <input v-model="activiteForm.nom_image" type="text" />
+
+        <label>Nom de l'image 2:</label>
+        <input v-model="activiteForm.nom_image_2" type="text" />
+
+        <label>Lien vidéo:</label>
+        <input v-model="activiteForm.lien_video" type="text" />
 
         <div class="modal-actions">
           <button @click="saveActivity">{{ isEditing ? "Modifier" : "Ajouter" }}</button>
@@ -113,7 +132,18 @@ export default {
       activitiesPerPage: 5,
       showForm: false,
       isEditing: false,
-      activiteForm: { id_activite: null, nom_activite: "", description_activite: "", status_activite_détente: "", id_categorie: "", duree_minutes: "", sous_categorie: "" }
+      activiteForm: {
+        id_activite: null,
+        nom_activite: "",
+        description_activite: "",
+        status_activite_détente: "",
+        id_categorie: "",
+        duree_minutes: "",
+        sous_categorie: "",
+        nom_image: "",
+        nom_image_2: "",
+        lien_video: ""
+      }
     };
   },
   created() {
@@ -162,7 +192,18 @@ export default {
       this.showForm = true;
     },
     openAddForm() {
-      this.activiteForm = { id_activite: null, nom_activite: "", description_activite: "", status_activite_détente: "", id_categorie: "", duree_minutes: "", sous_categorie: "" };
+      this.activiteForm = {
+        id_activite: null,
+        nom_activite: "",
+        description_activite: "",
+        status_activite_détente: "",
+        id_categorie: "",
+        duree_minutes: "",
+        sous_categorie: "",
+        nom_image: "",
+        nom_image_2: "",
+        lien_video: ""
+      };
       this.isEditing = false;
       this.showForm = true;
     },
@@ -181,7 +222,18 @@ export default {
     },
     closeForm() {
       this.showForm = false;
-      this.activiteForm = { id_activite: null, nom_activite: "", description_activite: "", status_activite_détente: "", id_categorie: "", duree_minutes: "", sous_categorie: "" };
+      this.activiteForm = {
+        id_activite: null,
+        nom_activite: "",
+        description_activite: "",
+        status_activite_détente: "",
+        id_categorie: "",
+        duree_minutes: "",
+        sous_categorie: "",
+        nom_image: "",
+        nom_image_2: "",
+        lien_video: ""
+      };
     },
     nextPage() {
       if (this.currentPage < this.totalPages) {
@@ -209,7 +261,7 @@ export default {
 
 .header {
   display: flex;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
 }
 
@@ -330,35 +382,68 @@ td {
   background: white;
   padding: 20px;
   border-radius: 5px;
-  width: 50%;
+  width: 30%;
+  max-height: 95%;
+  overflow-y: auto;
   font-family: "Open Sans", sans-serif;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #A06DB6;
+}
+
+.close-btn:hover {
+  color: #5F3870;
 }
 
 .modal-content h2 {
   font-size: 24px;
   font-weight: semi-bold;
-  color: #000000;
+  color: #A06DB6;
+  text-align: center;
 }
 
 .modal label {
   font-size: 16px;
   color: #000000;
+  text-align: left;
+  display: block;
+  margin-top: 10px;
 }
 
 .modal input,
-.modal textarea,
 .modal select {
   width: 100%;
   padding: 8px;
   margin: 10px 0;
   border: 1px solid #A9B66D;
   border-radius: 5px;
+  height: 36px;
+}
+
+.modal textarea {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #A9B66D;
+  border-radius: 5px;
+  min-height: 100px;
+  resize: vertical;
 }
 
 .modal-actions {
-  margin-top: 10px;
+  margin-top: 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 10px;
 }
 
 .modal-actions button {
