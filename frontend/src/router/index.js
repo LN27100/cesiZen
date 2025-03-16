@@ -19,6 +19,8 @@ import ProfilAdmin from '@/views/ProfilAdmin.vue';
 import DashboardAdmin from '@/views/DashboardAdmin.vue';
 import FaqsView from '@/views/faqsView.vue';
 import TermsView from '@/views/TermsView.vue';
+import LegalView from '@/views/LegalView.vue';
+import PrivacyView from '@/views/PrivacyView.vue';
 
 const routes = [
   {
@@ -101,7 +103,16 @@ const routes = [
     name: 'TermsView',
     component: TermsView,
   },
-
+  {
+    path: '/legalView',
+    name: 'LegalView',
+    component: LegalView,
+  },
+  {
+    path: '/privacyView',
+    name: 'PrivacyView',
+    component: PrivacyView,
+  },
   {
     path: '/deconnexion',
     name: 'Deconnexion',
