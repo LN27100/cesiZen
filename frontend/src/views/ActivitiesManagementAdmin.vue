@@ -77,8 +77,8 @@
 
         <label>Statut:</label>
         <select v-model="activiteForm.status_activite_détente" required>
-          <option v-for="statut in statuts" :key="statut">
-            {{ statut }}
+          <option v-for="status_activite_détente in statuts" :key="status_activite_détente">
+            {{ status_activite_détente }}
           </option>
         </select>
 
@@ -127,7 +127,7 @@ export default {
         "Création de mandalas personnalisés",
         "Postures de yoga doux"
       ],
-      statuts: ["actif", "suspendue"], // Options pour le statut
+      statuts: ["actif", "suspendue"],
       currentPage: 1,
       activitiesPerPage: 5,
       showForm: false,

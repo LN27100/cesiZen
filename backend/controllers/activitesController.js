@@ -2,30 +2,39 @@ const Activity = require('../models/Activites');
 
 exports.create = (req, res) => {
     const {
-        nom, description, statut, id_categorie, duree_minutes,
-        sous_categorie, nom_image, nom_image_2, lien_video
+        nom_activite, description_activite, status_activite_détente,
+        id_categorie, duree_minutes, sous_categorie, nom_image,
+        nom_image_2, lien_video
     } = req.body;
 
+    // Vérification des champs obligatoires
+    if (!description_activite || !status_activite_détente || !id_categorie) {
+        return res.status(400).json({ message: "Les champs description_activite, status_activite_détente et id_categorie sont obligatoires." });
+    }
+
     // Vérification du statut
-    if (!['actif', 'suspendue'].includes(statut)) {
-        return res.status(400).send({ message: "Le statut doit être 'actif' ou 'suspendue'." });
+    if (!['actif', 'suspendue'].includes(status_activite_détente)) {
+        return res.status(400).json({ message: "Le statut doit être 'actif' ou 'suspendue'." });
     }
 
     const newActivity = {
-        nom_activite: nom,
-        description_activite: description,
-        status_activite_detente: statut,
+        nom_activite: nom_activite || null,
+        description_activite,
+        status_activite_détente,
         id_categorie,
-        duree_minutes,
-        sous_categorie,
-        nom_image,
-        nom_image_2,
-        lien_video
+        duree_minutes: duree_minutes || null,
+        sous_categorie: sous_categorie || null,
+        nom_image: nom_image || null,
+        nom_image_2: nom_image_2 || null,
+        lien_video: lien_video || null
     };
 
-    Activity.create(newActivity, (err, activity) => {
-        if (err) return res.status(500).send(err);
-        res.status(201).send({ message: 'Activité créée avec succès' });
+    Activity.create(newActivity, (err, result) => {
+        if (err) {
+            console.error("Erreur lors de l'insertion de l'activité:", err);
+            return res.status(500).json({ message: "Erreur serveur lors de la création de l'activité." });
+        }
+        res.status(201).json({ message: 'Activité créée avec succès', id: result.insertId });
     });
 };
 
