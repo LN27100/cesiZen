@@ -3,8 +3,7 @@
     <div class="header">
       <h1>Gestion des activités</h1>
       <button class="add-btn" @click="openAddForm">
-        <i class="fas fa-plus"></i> Ajouter
-      </button>
+        <i class="fas fa-plus"></i> Ajouter</button>
     </div>
 
     <table class="info-table">
@@ -23,14 +22,7 @@
           <td>{{ activite.nom_activite }}</td>
           <td>{{ activite.description_activite }}</td>
           <td>{{ activite.id_categorie }}</td>
-          <td>
-            <button
-              :class="activite.status_activite_détente === 'actif' ? 'active-status' : 'suspended-status'"
-              @click="toggleStatus(activite)"
-            >
-              {{ activite.status_activite_détente === 'actif' ? 'Actif' : 'Suspendue' }}
-            </button>
-          </td>
+          <td>{{ activite.status_activite_détente }}</td>
           <td>{{ activite.duree_minutes }}</td>
           <td>
             <button class="edit-btn" @click="openEditForm(activite)">
@@ -49,54 +41,44 @@
       <button @click="nextPage" :disabled="currentPage === totalPages">Suivant</button>
     </div>
 
-    <!-- Modale pour ajouter une activité -->
-    <div v-if="showModal" class="modal">
+    <!-- Modal d'édition / ajout -->
+    <div v-if="showForm" class="modal">
       <div class="modal-content">
-        <h2>Ajouter une nouvelle activité</h2>
-        <form @submit.prevent="submitForm">
-          <label for="nom">Nom de l'activité:</label>
-          <input type="text" id="nom" v-model="newActivity.nom_activite" required>
+        <h2>{{ isEditing ? "Modifier l'activité" : "Ajouter une activité" }}</h2>
+        <label>Nom de l'activité:</label>
+        <input v-model="activiteForm.nom_activite" type="text" required />
 
-          <label for="description">Description:</label>
-          <input type="text" id="description" v-model="newActivity.description_activite" required>
+        <label>Description:</label>
+        <textarea v-model="activiteForm.description_activite" required></textarea>
 
-          <label for="statut">Statut:</label>
-          <select id="statut" v-model="newActivity.status_activite_détente" required>
-            <option value="actif">Actif</option>
-            <option value="suspendue">Suspendue</option>
-          </select>
+        <label>Catégorie:</label>
+        <select v-model="activiteForm.id_categorie" required>
+          <option v-for="categorie in categories" :key="categorie.id_categorie" :value="categorie.id_categorie">
+            {{ categorie.nom_categorie }}
+          </option>
+        </select>
 
-          <label for="categorie">Catégorie:</label>
-          <select id="categorie" v-model="newActivity.id_categorie" required>
-            <option v-for="categorie in categories" :key="categorie.id_categorie" :value="categorie.id_categorie">
-              {{ categorie.nom_categorie }}
-            </option>
-          </select>
+        <label>Sous-catégorie:</label>
+        <select v-model="activiteForm.sous_categorie" required>
+          <option v-for="sousCategorie in sousCategories" :key="sousCategorie">
+            {{ sousCategorie }}
+          </option>
+        </select>
 
-          <label for="duree">Durée (minutes):</label>
-          <input type="number" id="duree" v-model="newActivity.duree_minutes" required>
+        <label>Statut:</label>
+        <select v-model="activiteForm.status_activite_détente" required>
+          <option v-for="statut in statuts" :key="statut">
+            {{ statut }}
+          </option>
+        </select>
 
-          <label for="sous_categorie">Sous-catégorie:</label>
-          <select id="sous_categorie" v-model="newActivity.sous_categorie" required>
-            <option v-for="sousCategorie in sousCategories" :key="sousCategorie">
-              {{ sousCategorie }}
-            </option>
-          </select>
+        <label>Durée (minutes):</label>
+        <input v-model="activiteForm.duree_minutes" type="number" required />
 
-          <label for="nom_image">Nom de l'image:</label>
-          <input type="text" id="nom_image" v-model="newActivity.nom_image">
-
-          <label for="nom_image_2">Nom de l'image 2:</label>
-          <input type="text" id="nom_image_2" v-model="newActivity.nom_image_2">
-
-          <label for="lien_video">Lien vidéo:</label>
-          <input type="text" id="lien_video" v-model="newActivity.lien_video">
-
-          <div class="modal-buttons">
-            <button type="submit">Ajouter</button>
-            <button type="button" @click="closeModal">Annuler</button>
-          </div>
-        </form>
+        <div class="modal-actions">
+          <button @click="saveActivity">{{ isEditing ? "Modifier" : "Ajouter" }}</button>
+          <button @click="closeForm">Annuler</button>
+        </div>
       </div>
     </div>
   </div>
@@ -110,20 +92,6 @@ export default {
   data() {
     return {
       activities: [],
-      currentPage: 1,
-      activitiesPerPage: 5,
-      showModal: false,
-      newActivity: {
-        nom_activite: '',
-        description_activite: '',
-        status_activite_détente: 'actif',
-        id_categorie: '',
-        duree_minutes: '',
-        sous_categorie: '',
-        nom_image: '',
-        nom_image_2: '',
-        lien_video: ''
-      },
       categories: [],
       sousCategories: [
         "Méditation de pleine conscience",
@@ -139,11 +107,18 @@ export default {
         "Exercices",
         "Création de mandalas personnalisés",
         "Postures de yoga doux"
-      ]
+      ],
+      statuts: ["actif", "suspendue"], // Options pour le statut
+      currentPage: 1,
+      activitiesPerPage: 5,
+      showForm: false,
+      isEditing: false,
+      activiteForm: { id_activite: null, nom_activite: "", description_activite: "", status_activite_détente: "", id_categorie: "", duree_minutes: "", sous_categorie: "" }
     };
   },
   created() {
     this.fetchActivities();
+    this.fetchCategories();
   },
   computed: {
     paginatedActivities() {
@@ -163,7 +138,6 @@ export default {
         console.error("Erreur lors de la récupération des activités:", error);
       }
     },
-
     async fetchCategories() {
       try {
         const response = await axios.get("http://localhost:3000/api/categories");
@@ -172,74 +146,53 @@ export default {
         console.error("Erreur lors de la récupération des catégories:", error);
       }
     },
-
-    async toggleStatus(activity) {
-      const newStatus = activity.status_activite_détente === "actif" ? "suspendue" : "actif";
-
-      try {
-        await axios.put(`http://localhost:3000/api/activities/${activity.id_activite}`, {
-          ...activity,
-          status_activite_détente: newStatus
-        });
-
-        activity.status_activite_détente = newStatus;
-      } catch (error) {
-        console.error("Erreur lors du changement de statut:", error);
-      }
-    },
-
     async deleteActivity(activityId) {
       if (confirm("Êtes-vous sûr de vouloir supprimer cette activité ?")) {
         try {
           await axios.delete(`http://localhost:3000/api/activities/${activityId}`);
-          this.fetchActivities();
+          this.fetchActivities(); // Rafraîchir la liste après suppression
         } catch (error) {
           console.error("Erreur lors de la suppression de l'activité:", error);
         }
       }
     },
-
+    openEditForm(activity) {
+      this.activiteForm = { ...activity };
+      this.isEditing = true;
+      this.showForm = true;
+    },
+    openAddForm() {
+      this.activiteForm = { id_activite: null, nom_activite: "", description_activite: "", status_activite_détente: "", id_categorie: "", duree_minutes: "", sous_categorie: "" };
+      this.isEditing = false;
+      this.showForm = true;
+    },
+    async saveActivity() {
+      try {
+        if (this.isEditing) {
+          await axios.put(`http://localhost:3000/api/activities/${this.activiteForm.id_activite}`, this.activiteForm);
+        } else {
+          await axios.post("http://localhost:3000/api/activities", this.activiteForm);
+        }
+        this.closeForm();
+        this.fetchActivities();
+      } catch (error) {
+        console.error("Erreur lors de la sauvegarde de l'activité:", error);
+      }
+    },
+    closeForm() {
+      this.showForm = false;
+      this.activiteForm = { id_activite: null, nom_activite: "", description_activite: "", status_activite_détente: "", id_categorie: "", duree_minutes: "", sous_categorie: "" };
+    },
     nextPage() {
       if (this.currentPage < this.totalPages) {
         this.currentPage++;
         window.scrollTo(0, 0);
       }
     },
-
     prevPage() {
       if (this.currentPage > 1) {
         this.currentPage--;
         window.scrollTo(0, 0);
-      }
-    },
-
-    openAddForm() {
-      this.fetchCategories();
-      this.showModal = true;
-    },
-
-    closeModal() {
-      this.showModal = false;
-      this.newActivity = {
-        nom_activite: '',
-        description_activite: '',
-        status_activite_détente: 'actif',
-        id_categorie: '',
-        duree_minutes: '',
-        sous_categorie: '',
-        nom_image: '',
-        nom_image_2: '',
-        lien_video: ''
-      };
-    },
-
-    async submitForm() {
-      try {
-        await axios.post("http://localhost:3000/api/activities", this.newActivity);
-        this.fetchActivities();
-        this.closeModal();
-      } catch (error) {
-        console.error("Erreur lors de la création de l'activité:", error);
       }
     }
   }
@@ -256,7 +209,7 @@ export default {
 
 .header {
   display: flex;
-  justify-content: center;
+  justify-content:center;
   align-items: center;
 }
 
@@ -264,6 +217,7 @@ h1 {
   font-size: 32px;
   font-weight: bold;
   color: #000000;
+  font-family: "Nunito", sans-serif;
 }
 
 .add-btn {
@@ -274,6 +228,8 @@ h1 {
   padding: 10px 15px;
   cursor: pointer;
   border-radius: 5px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: semi-bold;
 }
 
 .add-btn:hover {
@@ -290,43 +246,19 @@ th, td {
   border: 1px solid #A9B66D;
   padding: 10px;
   text-align: left;
+  font-family: "Open Sans", sans-serif;
 }
 
 th {
   background-color: #A06DB6;
   color: white;
   font-size: 16px;
+  font-weight: semi-bold;
 }
 
 td {
   font-size: 16px;
   color: #000000;
-}
-
-.active-status {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.suspended-status {
-  background-color: #D0021B;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.active-status:hover {
-  background-color: #388E3C;
-}
-
-.suspended-status:hover {
-  background-color: #B71C1C;
 }
 
 .edit-btn {
@@ -336,6 +268,8 @@ td {
   padding: 5px 16px;
   cursor: pointer;
   border-radius: 5px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: semi-bold;
   margin-bottom: 0.5rem;
 }
 
@@ -350,6 +284,8 @@ td {
   padding: 5px 10px;
   cursor: pointer;
   border-radius: 5px;
+  font-family: "Open Sans", sans-serif;
+  font-weight: semi-bold;
 }
 
 .delete-btn:hover {
@@ -369,6 +305,8 @@ td {
   color: white;
   border: none;
   cursor: pointer;
+  font-family: "Open Sans", sans-serif;
+  font-weight: semi-bold;
 }
 
 .pagination button:disabled {
@@ -377,83 +315,75 @@ td {
 }
 
 .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 5rem;
-  width: 100%;
-  height: 100%;
-  overflow: auto; /* Permet le défilement si le contenu dépasse la hauteur de la fenêtre */
-  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
-  background-color: #FFFFFF;
-  margin: auto;
+  background: white;
   padding: 20px;
-  border: 1px solid #A9B66D;
   border-radius: 5px;
-  width: 80%;
-  max-width: 500px;
-  max-height: 70%; /* Limite la hauteur maximale de la modal */
-  overflow-y: auto; /* Ajoute un défilement vertical si nécessaire */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  width: 50%;
+  font-family: "Open Sans", sans-serif;
 }
 
-.modal h2 {
-  color: #A06DB6;
+.modal-content h2 {
   font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.modal form {
-  display: flex;
-  flex-direction: column;
+  font-weight: semi-bold;
+  color: #000000;
 }
 
 .modal label {
-  margin-bottom: 5px;
-  color: #000000;
   font-size: 16px;
+  color: #000000;
 }
 
 .modal input,
+.modal textarea,
 .modal select {
-  margin-bottom: 15px;
-  padding: 10px;
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
   border: 1px solid #A9B66D;
   border-radius: 5px;
-  font-size: 16px;
 }
 
-.modal-buttons {
+.modal-actions {
+  margin-top: 10px;
   display: flex;
   justify-content: space-between;
 }
 
-.modal button {
-  background-color: #A06DB6;
-  color: white;
+.modal-actions button {
+  padding: 10px 20px;
   border: none;
-  padding: 10px;
-  border-radius: 5px;
+  font-weight: semi-bold;
   cursor: pointer;
-  font-size: 16px;
-  width: 48%;
+  font-family: "Open Sans", sans-serif;
 }
 
-.modal button:hover {
+.modal-actions button:first-child {
+  background-color: #A06DB6;
+  color: white;
+}
+
+.modal-actions button:first-child:hover {
   background-color: #5F3870;
 }
 
-.modal button[type="button"] {
-  background-color: #D0021B;
+.modal-actions button:last-child {
+  background-color: #84B66D;
+  color: white;
 }
 
-.modal button[type="button"]:hover {
-  background-color: #B71C1C;
+.modal-actions button:last-child:hover {
+  background-color: #69A050;
 }
 </style>
