@@ -12,13 +12,13 @@
       <span>Mentions légales</span>
       <img src="../assets/icones/legal.png" alt="icone mentions légales" />
     </button>
-    <button class="faqs-button" @click="goTo('faqsView')">
-      <span>FAQs</span>
-      <img src="../assets/icones/help.png" alt="icone faqs" />
-    </button>
     <button class="privacy-button" @click="goTo('PrivacyView')">
       <span>Politique de confidentialité</span>
       <img src="../assets/icones/privacy.png" alt="icone politique de confidentialité" />
+    </button>
+    <button class="faqs-button" @click="goTo('faqsView')">
+      <span>FAQs</span>
+      <img src="../assets/icones/help.png" alt="icone faqs" />
     </button>
   </div>
 </template>
