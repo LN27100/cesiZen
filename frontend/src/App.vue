@@ -10,6 +10,9 @@
     <div class="content">
       <router-view />
     </div>
+
+    <!-- Footer affiché sur les versions desktop -->
+    <FooterComponent />
   </div>
 </template>
 
@@ -17,6 +20,7 @@
 import NavbarComponent from './components/NavbarComponent.vue';
 import NavbarAdmin from './components/NavbarAdmin.vue';
 import Header from './components/HeaderComponent.vue';
+import FooterComponent from './components/FooterComponent.vue';
 import { jwtDecode } from 'jwt-decode';
 
 export default {
@@ -25,6 +29,7 @@ export default {
     NavbarComponent,
     NavbarAdmin,
     Header,
+    FooterComponent,
   },
   data() {
     return {

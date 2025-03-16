@@ -30,11 +30,7 @@ export default {
     goTo(page) {
       this.$router.push({ name: page });
     },
-    toggleDarkMode() {
-      // Logique pour activer/désactiver le mode sombre
-      document.body.classList.toggle('dark-mode');
-    }
-  }
+  },
 };
 </script>
 
@@ -103,22 +99,9 @@ button:disabled:hover {
   background-color: #CCC;
 }
 
-/* RESPONSIVE */
-@media (max-width: 1024px) {
-  h1 {
-    margin-top: 9rem;
-  }
-}
-
-@media (max-width: 768px) {
-  h1 {
-    margin-top: 9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  h1 {
-    margin-top: 9rem;
+@media (min-width: 1024px) {
+  .button-container {
+    display: none;
   }
 }
 </style>

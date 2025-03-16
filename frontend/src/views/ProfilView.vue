@@ -171,6 +171,9 @@ export default {
         alert("Profil mis à jour avec succès !");
         this.user = response.data;
         this.editing = false;
+
+        // rafraichi la page pour actualiser après la modif
+        window.location.reload();
       } catch (error) {
         console.error(
           "Erreur lors de la mise à jour du profil:",
@@ -216,38 +219,38 @@ export default {
       this.resettingPassword = true;
     },
     async resetPassword() {
-  if (!this.passwords.oldPassword || !this.passwords.newPassword || !this.passwords.confirmPassword) {
-    alert("Tous les champs de mot de passe sont requis.");
-    return;
-  }
-
-  if (this.passwords.newPassword !== this.passwords.confirmPassword) {
-    alert("Les nouveaux mots de passe ne correspondent pas.");
-    return;
-  }
-
-  try {
-    const response = await axios.post(
-      `/users/${this.user.id_utilisateur}/resetPassword`,
-      {
-        oldPassword: this.passwords.oldPassword,
-        newPassword: this.passwords.newPassword,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      if (!this.passwords.oldPassword || !this.passwords.newPassword || !this.passwords.confirmPassword) {
+        alert("Tous les champs de mot de passe sont requis.");
+        return;
       }
-    );
 
-    console.log("Réponse de la réinitialisation du mot de passe:", response.data);
-    alert("Mot de passe réinitialisé avec succès !");
-    this.resettingPassword = false;
-  } catch (error) {
-    console.error("Erreur lors de la réinitialisation du mot de passe:", error.response || error);
-    alert(error.response?.data?.message || "Une erreur s'est produite. Veuillez réessayer.");
-  }
-},
+      if (this.passwords.newPassword !== this.passwords.confirmPassword) {
+        alert("Les nouveaux mots de passe ne correspondent pas.");
+        return;
+      }
+
+      try {
+        const response = await axios.post(
+          `/users/${this.user.id_utilisateur}/resetPassword`,
+          {
+            oldPassword: this.passwords.oldPassword,
+            newPassword: this.passwords.newPassword,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+
+        console.log("Réponse de la réinitialisation du mot de passe:", response.data);
+        alert("Mot de passe réinitialisé avec succès !");
+        this.resettingPassword = false;
+      } catch (error) {
+        console.error("Erreur lors de la réinitialisation du mot de passe:", error.response || error);
+        alert(error.response?.data?.message || "Une erreur s'est produite. Veuillez réessayer.");
+      }
+    },
     cancelResetPassword() {
       this.resettingPassword = false;
       this.passwords = {
