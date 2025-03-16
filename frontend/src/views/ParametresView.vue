@@ -4,10 +4,6 @@
   </div>
 
   <div class="button-container">
-    <button class="dark-mode-button" @click="toggleDarkMode">
-      <span>Mode sombre</span>
-      <img src="../assets/icones/dark_mode.png" alt="icone mode sombre" />
-    </button>
     <button class="terms-button" @click="goTo('TermsView')">
       <span>Conditions générales d'utilisation</span>
       <img src="../assets/icones/terms.png" alt="icone conditions générales" />
@@ -16,17 +12,13 @@
       <span>Mentions légales</span>
       <img src="../assets/icones/legal.png" alt="icone mentions légales" />
     </button>
-    <button class="cookies-button" @click="goTo('CookiesView')">
-      <span>Cookies</span>
-      <img src="../assets/icones/cookies.png" alt="icone cookies" />
+    <button class="faqs-button" @click="goTo('faqsView')">
+      <span>FAQs</span>
+      <img src="../assets/icones/help.png" alt="icone faqs" />
     </button>
     <button class="privacy-button" @click="goTo('PrivacyView')">
       <span>Politique de confidentialité</span>
       <img src="../assets/icones/privacy.png" alt="icone politique de confidentialité" />
-    </button>
-    <button class="languages-button" @click="goTo('LanguagesView')">
-      <span>Langues</span>
-      <img src="../assets/icones/languages.png" alt="icone langues" />
     </button>
   </div>
 </template>

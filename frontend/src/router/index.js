@@ -17,6 +17,7 @@ import InfosManagementAdmin from '../views/InfosManagementAdmin.vue';
 import UserManagementAdmin from '../views/UserManagementAdmin.vue';
 import ProfilAdmin from '@/views/ProfilAdmin.vue';
 import DashboardAdmin from '@/views/DashboardAdmin.vue';
+import FaqsView from '@/views/faqsView.vue';
 
 const routes = [
   {
@@ -88,6 +89,12 @@ const routes = [
     path: '/parametres',
     name: 'Parametres',
     component: ParametresView,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/faqsView',
+    name: 'faqsView',
+    component: FaqsView,
     meta: { requiresAuth: true }
   },
   {
