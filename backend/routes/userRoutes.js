@@ -14,6 +14,5 @@ router.put('/:id', authMiddleware, userController.update);
 router.delete('/:id', authMiddleware, userController.delete);
 router.post('/:id/resetPassword', authMiddleware, userController.resetPassword);
 router.put('/:id/status', authMiddleware, userController.updateStatus);
-router.get('/count', authMiddleware, userController.countUsers);
 
 module.exports = router;

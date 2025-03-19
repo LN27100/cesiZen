@@ -126,11 +126,3 @@ exports.updateStatus = async (req, res) => {
     }
   };
 
-  // Compter les utilisateurs
-  exports.countUsers = (req, res) => {
-    User.query("SELECT COUNT(*) AS userCount FROM utilisateur", [], (err, result) => {
-        if (err) return res.status(500).send(err);
-        res.send(result[0]);
-    });
-
-};
