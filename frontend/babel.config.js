@@ -1,5 +1,12 @@
 module.exports = {
-  presets: [
-    '@vue/cli-plugin-babel/preset'
+  "presets": ["@babel/preset-env"],
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+        "@components": "./src/components",
+        "@views": "./src/views"
+      }
+    }]
   ]
-}
+};

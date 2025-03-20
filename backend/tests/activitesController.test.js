@@ -5,9 +5,10 @@ jest.mock('../models/Activites');
 
 describe('Activites Controller', () => {
   afterEach(() => {
-    jest.clearAllMocks();
+    jest.clearAllMocks(); // Réinitialise tous les mocks après chaque test
   });
 
+  // Teste la création d'une nouvelle activité
   it('should create a new activity', async () => {
     const req = {
       body: {
@@ -26,10 +27,11 @@ describe('Activites Controller', () => {
 
     await create(req, res);
 
-    expect(res.status).toHaveBeenCalledWith(201);
-    expect(res.json).toHaveBeenCalledWith({ message: 'Activité créée avec succès', id: 1 });
+    expect(res.status).toHaveBeenCalledWith(201); // Vérifie que le statut HTTP est 201 (Created)
+    expect(res.json).toHaveBeenCalledWith({ message: 'Activité créée avec succès', id: 1 }); // Vérifie la réponse JSON
   });
 
+  // Teste la récupération de toutes les activités
   it('should return all activities', async () => {
     const req = {};
     const res = {
@@ -40,9 +42,10 @@ describe('Activites Controller', () => {
 
     await findAll(req, res);
 
-    expect(res.send).toHaveBeenCalledWith([{ id_activite: 1, nom_activite: 'Yoga' }]);
+    expect(res.send).toHaveBeenCalledWith([{ id_activite: 1, nom_activite: 'Yoga' }]); // Vérifie que toutes les activités sont retournées
   });
 
+  // Teste la mise à jour d'une activité existante
   it('should update an activity', async () => {
     const req = {
       params: { id: 1 },
@@ -56,9 +59,10 @@ describe('Activites Controller', () => {
 
     await update(req, res);
 
-    expect(res.send).toHaveBeenCalledWith({ message: 'Activité mise à jour avec succès' });
+    expect(res.send).toHaveBeenCalledWith({ message: 'Activité mise à jour avec succès' }); // Vérifie que l'activité est mise à jour
   });
 
+  // Teste la suppression d'une activité
   it('should delete an activity', async () => {
     const req = {
       params: { id: 1 },
@@ -71,9 +75,10 @@ describe('Activites Controller', () => {
 
     await deleteActivity(req, res);
 
-    expect(res.send).toHaveBeenCalledWith({ message: 'Activité supprimée avec succès' });
+    expect(res.send).toHaveBeenCalledWith({ message: 'Activité supprimée avec succès' }); // Vérifie que l'activité est supprimée
   });
 
+  // Teste la récupération des activités par catégorie
   it('should return activities by category', async () => {
     const req = {
       params: { id: 1 },
@@ -86,6 +91,6 @@ describe('Activites Controller', () => {
 
     await findByCategory(req, res);
 
-    expect(res.send).toHaveBeenCalledWith([{ id_activite: 1, nom_activite: 'Yoga' }]);
+    expect(res.send).toHaveBeenCalledWith([{ id_activite: 1, nom_activite: 'Yoga' }]); // Vérifie que les activités sont retournées par catégorie
   });
 });

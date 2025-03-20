@@ -66,7 +66,10 @@ Importe db.js, synchronise les modèles, et crée les routes API.
 ## Lancer le serveur
 npm start
 
-
+## Lancer les Tests Backend
+Pour exécuter les tests du backend, assurez-vous d'être dans le répertoire backend (cd backend
+) et exécutez :
+npm test
 
 ## FRONTEND
 
@@ -90,6 +93,8 @@ npm install vuex
 
 ## DEMARRER le serveur de développement Vue.js :
 npm run serve
+
+
 
 
 ## GITHUB
