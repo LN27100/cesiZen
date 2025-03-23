@@ -8,7 +8,7 @@
       <span>Votre profil</span>
       <img src="../assets/icones/setting_profil.png" alt="icone profil" />
     </button>
-    <button class="emotion-tracker-button" disabled>
+    <button class="emotion-tracker-button" @click="goTo('EmotionTrackerView')">
       <span>Tracker d'émotions</span>
       <img src="../assets/icones/tracker_emo_blanc.png" alt="icone tracker émotions" />
     </button>
