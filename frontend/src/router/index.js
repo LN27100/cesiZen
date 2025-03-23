@@ -21,6 +21,7 @@ import FaqsView from '@/views/faqsView.vue';
 import TermsView from '@/views/TermsView.vue';
 import LegalView from '@/views/LegalView.vue';
 import PrivacyView from '@/views/PrivacyView.vue';
+import EmotionTrackerView from '@/views/EmotionTracker.vue';
 
 const routes = [
   {
@@ -134,7 +135,13 @@ const routes = [
     path: '/details-activites/:id',
     name: 'DetailsActivitesView',
     component: DetailsActivitesView
-  }
+  },
+  {
+    path: '/emotion-tracker',
+    name: 'EmotionTrackerView',
+    component: EmotionTrackerView,
+    meta: { requiresAuth: true }
+  },
 ];
 
 const router = createRouter({

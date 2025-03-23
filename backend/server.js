@@ -26,14 +26,16 @@ const activityRoutes = require('./routes/activitesRoutes');
 const categoriesRoutes = require('./routes/categoriesRoutes');
 const infoRoutes = require('./routes/infoRoutes');
 const favorisRoutes = require('./routes/favorisRoutes');
+const emotionRoutes = require('./routes/emotionRoutes');
 
 app.use('/api/users', userRoutes);
 app.use('/api/categories', categoriesRoutes);
 app.use('/api/info', infoRoutes);
 app.use('/api/activities', activityRoutes);
 app.use('/api/favoris', favorisRoutes);
+app.use('/api', emotionRoutes);
 
-//  route protégée pour le profil
+// Route protégée pour le profil
 app.get('/api/users/profile', verifyToken, (req, res) => {
   res.send({ userId: req.userId });
 });
