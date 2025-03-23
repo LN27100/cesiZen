@@ -1,4 +1,3 @@
-<!-- ProfileView.vue -->
 <template>
   <h1>Mon Profil</h1>
   <div class="profile">
@@ -197,30 +196,35 @@ export default {
       this.resettingPassword = true;
     },
     async resetPassword() {
-  if (this.passwords.newPassword !== this.passwords.confirmPassword) {
-    alert("Les nouveaux mots de passe ne correspondent pas.");
-    return;
-  }
+      if (this.passwords.newPassword !== this.passwords.confirmPassword) {
+        alert("Les nouveaux mots de passe ne correspondent pas.");
+        return;
+      }
 
-  try {
-    await axios.post(`/users/${this.user.id_utilisateur}/resetPassword`, {
-  oldPassword: this.passwords.oldPassword,
-  newPassword: this.passwords.newPassword,
-});
+      try {
+        const response = await axios.post(`/users/${this.user.id_utilisateur}/resetPassword`, {
+          oldPassword: this.passwords.oldPassword,
+          newPassword: this.passwords.newPassword,
+        });
 
-    alert("Mot de passe réinitialisé avec succès !");
-    this.resettingPassword = false;
-  } catch (error) {
-    console.error(
-      "Erreur lors de la réinitialisation du mot de passe:",
-      error.response || error
-    );
-    alert(
-      error.response?.data?.message ||
-        "Une erreur s'est produite. Veuillez réessayer."
-    );
-  }
-},
+        alert("Mot de passe réinitialisé avec succès !");
+        this.resettingPassword = false;
+        this.passwords = {
+          oldPassword: "",
+          newPassword: "",
+          confirmPassword: "",
+        };
+      } catch (error) {
+        console.error(
+          "Erreur lors de la réinitialisation du mot de passe:",
+          error.response || error
+        );
+        alert(
+          error.response?.data?.message ||
+            "Une erreur s'est produite. Veuillez réessayer."
+        );
+      }
+    },
     cancelResetPassword() {
       this.resettingPassword = false;
       this.passwords = {
@@ -232,7 +236,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Open+Sans:wght@400;600&display=swap");
