@@ -1,15 +1,17 @@
 const TrackerEmotions = require('../models/TrackerEmotions');
 
 const TrackerEmotionsController = {
-  createTrackerEmotion: (req, res) => {
-    const trackerEmotion = req.body;
-    TrackerEmotions.create(trackerEmotion, (err, result) => {
-      if (err) {
-        return res.status(500).json({ error: err.message });
-      }
-      res.status(201).json(result);
-    });
-  },
+    createTrackerEmotion: (req, res) => {
+        const trackerEmotion = req.body;
+        TrackerEmotions.create(trackerEmotion, (err, result) => {
+          if (err) {
+            console.error("Erreur SQL :", err);
+            return res.status(500).json({ error: err.message });
+          }
+          res.status(201).json(result);
+        });
+      },
+      
 
   getAllTrackerEmotions: (req, res) => {
     TrackerEmotions.findAll((err, trackerEmotions) => {
@@ -19,6 +21,17 @@ const TrackerEmotionsController = {
       res.json(trackerEmotions);
     });
   },
+
+  getUserTrackerEmotions: (req, res) => {
+    const userId = req.user.id; 
+    TrackerEmotions.findByUserId(userId, (err, trackerEmotions) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.json(trackerEmotions);
+    });
+  },
+  
 
   // Récupérer un enregistrement de tracker d'émotions par ID
   getTrackerEmotionById: (req, res) => {

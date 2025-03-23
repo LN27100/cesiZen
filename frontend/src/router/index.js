@@ -140,7 +140,6 @@ const routes = [
     path: '/emotion-tracker',
     name: 'EmotionTrackerView',
     component: EmotionTrackerView,
-    meta: { requiresAuth: true }
   },
 ];
 

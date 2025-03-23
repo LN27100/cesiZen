@@ -16,11 +16,18 @@ const TrackerEmotions = {
     db.query(sql, callback);
   },
 
+  findByUserId: (userId, callback) => {
+    const sql = 'SELECT * FROM tracker_emotions WHERE user_id = ?';
+    db.query(sql, [userId], callback);
+  },
+  
+
   // Récupérer un enregistrement de tracker d'émotions par ID
   findById: (id, callback) => {
     const sql = 'SELECT * FROM tracker_emotions WHERE id_emotion = ?';
     db.query(sql, [id], callback);
   },
+
 
   // Mettre à jour un enregistrement de tracker d'émotions par ID
   update: (id, trackerEmotion, callback) => {

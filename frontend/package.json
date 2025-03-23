@@ -9,6 +9,7 @@
     "cypress:open": "cypress open"
   },
   "dependencies": {
+    "vue-cal": "^3.0.0",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "core-js": "^3.8.3",
