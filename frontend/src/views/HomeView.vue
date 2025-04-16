@@ -100,7 +100,7 @@ export default {
 
 .home {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 2rem;
   padding: 10px;
 }
 

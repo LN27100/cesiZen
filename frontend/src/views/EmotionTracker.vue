@@ -18,8 +18,8 @@
             <img
               :src="getIconPath(type.nom_type)"
               :alt="type.nom_type"
-              width="30"
-              height="30"
+              width="50"
+              height="50"
             />
           </h2>
           <ul>
@@ -43,8 +43,8 @@
               <img
                 :src="getIconPath(type.nom_type)"
                 :alt="type.nom_type"
-                width="30"
-                height="30"
+                width="40"
+                height="40"
               />
             </th>
           </tr>
@@ -75,7 +75,7 @@
         ></textarea>
         <button @click="saveEmotion">Enregistrer l'émotion</button>
       </div>
-<hr/>
+      <hr />
       <div class="emotion-history-card">
         <h3>Historique des émotions enregistrées</h3>
         <div v-if="trackerEmotions.length > 0">
@@ -255,16 +255,16 @@ export default {
       this.isAuthenticated = !!token;
     },
     redirectToLogin() {
-      this.$router.push({ name: "Login" });
+      this.$router.push({ name: "LoginView" });
     },
     getIconPath(nomType) {
       const iconMap = {
-        joie: "@/assets/icones/happiness.png",
-        colère: "@/assets/icones/angry.png",
-        peur: "@/assets/icones/peur.png",
-        tristesse: "@/assets/icones/sad-face.png",
-        surprise: "@/assets/icones/surprise.png",
-        dégoût: "@/assets/icones/nauseated.png",
+        Joie: require("@/assets/icones/happiness.png"),
+        Colère: require("@/assets/icones/angry.png"),
+        Peur: require("@/assets/icones/peur.png"),
+        Tristesse: require("@/assets/icones/sad-face.png"),
+        Surprise: require("@/assets/icones/surprise.png"),
+        Dégoût: require("@/assets/icones/nauseated.png"),
       };
       return iconMap[nomType] || "";
     },
@@ -465,7 +465,7 @@ textarea:focus {
   }
 
   .emotion-tracker {
-    max-width: 70%;
+    max-width: 90%;
   }
 
   th,
