@@ -91,6 +91,7 @@ h1 {
 
 .button-container {
   text-align: center;
+  margin-bottom: 4rem;
 }
 
 .action-button {

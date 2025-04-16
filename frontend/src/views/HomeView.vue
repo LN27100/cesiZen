@@ -105,6 +105,7 @@ export default {
 }
 
 h1 {
+  margin-top: 8rem;
   font-size: 32px;
   color: black;
   font-family: "Nunito", sans-serif;
@@ -129,6 +130,7 @@ p {
   width: 100%;
   margin: 20px auto;
   background-color: #a06db6;
+  margin-bottom: 6rem;
 }
 
 .carousel-row {

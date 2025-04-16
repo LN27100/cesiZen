@@ -1,4 +1,5 @@
 <template>
+  <div class="container">
   <h1>Connectez-vous</h1>
 
   <div class="login">
@@ -31,6 +32,7 @@
       <a href="/register" class="register-button">Inscrivez-vous</a>
     </p>
   </div>
+</div>
 </template>
 
 
@@ -96,6 +98,11 @@ export default {
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Open+Sans:wght@400;600&display=swap");
 
+.container {
+  margin-top: 10rem;
+  margin-bottom: 4rem;
+}
+
 .login {
   width: 100%;
   max-width: 400px;
@@ -112,7 +119,7 @@ h1 {
   font-family: "Nunito", sans-serif;
   font-size: 32px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
 }
 
 form div {

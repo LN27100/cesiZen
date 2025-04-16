@@ -152,7 +152,7 @@ h1 {
   font-weight: bold;
   color: #000000;
   font-family: "Nunito", sans-serif;
-  margin-top: 1rem;
+  margin-top: 14rem;
   word-wrap: break-word;
   max-width: 90%;
 }
@@ -168,6 +168,7 @@ p {
   max-width: 100%;
   height: auto;
   margin-top: 2rem;
+  margin-bottom:4rem;
 }
 
 .video-container iframe {

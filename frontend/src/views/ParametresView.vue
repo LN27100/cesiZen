@@ -37,7 +37,7 @@ export default {
 <style scoped>
 .settings {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 9rem;
 }
 
 h1 {
@@ -53,6 +53,7 @@ h1 {
   align-items: center;
   gap: 1rem;
   margin-top: 2rem;
+  margin-bottom: 5rem;
 }
 
 button {

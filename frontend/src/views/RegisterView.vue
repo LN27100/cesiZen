@@ -1,4 +1,5 @@
 <template>
+  <div class="container">
   <h1>Inscription</h1>
 
   <div class="register-container">
@@ -66,6 +67,7 @@
       <a href="/login" class="login-button">Connectez-vous</a>
     </p>
   </div>
+</div>
 </template>
 
 
@@ -142,6 +144,11 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Open+Sans:wght@400;600&display=swap");
+
+.container {
+  margin-top: 10rem;
+  margin-bottom: 4rem;
+}
 
 .register-container {
   max-width: 400px;

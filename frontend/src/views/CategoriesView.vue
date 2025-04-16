@@ -98,6 +98,7 @@ export default {
 }
 
 h1 {
+  margin-top:2rem;
   font-size: 32px;
   font-weight: bold;
   color: #000000;
@@ -116,6 +117,7 @@ h1 {
   align-items: center;
   gap: 1rem;
   margin-top: 2rem;
+  margin-bottom: 5rem;
 }
 
 /* Styles généraux pour les boutons */

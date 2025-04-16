@@ -87,7 +87,6 @@ export default {
 
 .content {
   flex: 1;
-  margin-top: 8rem;
   margin-bottom: 2rem;
 }
 

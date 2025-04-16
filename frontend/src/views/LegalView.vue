@@ -76,7 +76,8 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Open+Sans:wght@400;700&display=swap');
 
 .info {
-  margin-top: 50px;
+  margin-top: 10rem;
+  margin-bottom:4rem;
   padding: 0 1rem;
   font-family: 'Open Sans', sans-serif;
 }

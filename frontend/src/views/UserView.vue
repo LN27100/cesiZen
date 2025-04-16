@@ -1,7 +1,4 @@
 <template>
-  <div class="profile">
-    <h1>Nom utilisateur</h1>
-  </div>
 
   <div class="button-container">
     <button class="profile-button" @click="goTo('Profil')">
@@ -62,24 +59,16 @@ export default {
 </script>
 
 <style scoped>
-.profile {
-  text-align: center;
-  margin-top: 50px;
-}
-
-h1 {
-  font-size: 32px;
-  font-weight: bold;
-  color: #000000;
-  font-family: "Nunito", sans-serif;
-}
 
 .button-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  margin-top: 2rem;
+  margin-top: 10rem;
+  margin-bottom: 5rem;
+  overflow-y: auto;
+  max-height: calc(500vh - 150px); 
 }
 
 button {
@@ -126,22 +115,5 @@ button:disabled:hover {
   background-color: #CCC;
 }
 
-/* RESPONSIVE */
-@media (max-width: 1024px) {
-  h1 {
-    margin-top: 9rem;
-  }
-}
 
-@media (max-width: 768px) {
-  h1 {
-    margin-top: 9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  h1 {
-    margin-top: 9rem;
-  }
-}
 </style>

@@ -1,4 +1,5 @@
 <template>
+  <div class="container">
   <h1>Mon Profil</h1>
   <div class="profile">
     <div v-if="user" class="profile-details">
@@ -78,6 +79,7 @@
       </form>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -266,13 +268,18 @@ export default {
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Open+Sans:wght@400;600&display=swap");
 
+.container {
+  margin-top:10rem;
+  margin-bottom:4rem;
+}
+
 .profile {
-  max-width: 90%;
+  max-width: 92%;
   margin: 0 auto;
   background-color: #a06db6;
   border: solid 3px #a9b66d;
   border-radius: 10px;
-  padding: 2rem;
+  padding: 1rem;
   margin-bottom: 1rem;
   color: white;
 }
@@ -281,7 +288,7 @@ h1 {
   font-family: "Nunito", sans-serif;
   font-size: 32px;
   text-align: center;
-  margin-top: 11rem;
+  margin-top: 1rem;
   margin-bottom: 1rem;
 }
 

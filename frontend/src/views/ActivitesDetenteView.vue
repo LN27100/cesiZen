@@ -122,7 +122,7 @@ export default {
 
 .activities {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 7rem;
   padding: 10px;
 }
 
@@ -181,11 +181,12 @@ h1 {
 
 .card {
   max-width: 90%;
-  margin: 20px auto;
+  margin: 0 auto;
   background-color: #A06DB6;
   border: solid 2px #A9B66D;
   padding: 2rem;
   box-sizing: border-box;
+  margin-bottom: 4rem;
 }
 
 .card-body {
@@ -200,6 +201,10 @@ h1 {
   border: 1px solid #CCC;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.activity-card:hover {
+  background-color: #69A050;
 }
 
 .activity-card h3 {
@@ -259,7 +264,5 @@ h1 {
   background-color: #5F3870;
 }
 
-.activity-card:hover {
-  background-color: #69A050;
-}
+
 </style>
