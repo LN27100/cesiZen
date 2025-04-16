@@ -264,5 +264,13 @@ h1 {
   background-color: #5F3870;
 }
 
+/* Tablette : entre 768px et 1024px */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .activities {
+    margin-top: 10rem;
+  }
+
+}
 
 </style>
+

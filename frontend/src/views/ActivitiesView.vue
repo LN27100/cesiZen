@@ -51,7 +51,7 @@ export default {
 
 .activities {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 2rem;
 }
 
 h1 {
@@ -133,10 +133,11 @@ h1 {
   height: 50px;
 }
 
+/*  RESPONSIVE */
 /* Tablette : entre 768px et 1024px */
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   h1 {
-    margin-top: 6rem;
+    margin-top: 10rem;
   }
 
   .buttons {

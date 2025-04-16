@@ -366,7 +366,7 @@ textarea:focus {
 
 .selected-emotion h3 {
   font-size: 18px;
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
   color: white;
 }
 
@@ -409,12 +409,11 @@ textarea:focus {
 @media (min-width: 768px) {
   h1 {
     font-size: 28px;
-    margin-top: 4rem;
   }
 
   .emotion-tracker {
-    max-width: 80%;
-    padding: 2rem;
+    max-width: 100%;
+    padding: 1rem;
   }
 
   /* Masque la version liste pour afficher le tableau */
@@ -447,7 +446,7 @@ textarea:focus {
     display: table-cell;
     width: auto;
     text-align: center;
-    padding: 10px;
+    padding: 1rem;
     border: 1px solid #ccc;
   }
 
@@ -455,13 +454,25 @@ textarea:focus {
     color: white;
     font-size: 1rem;
   }
+
+  button {
+    width: 100%; 
+    padding: 0.5rem; 
+    font-size: 0.6rem; 
+    box-sizing: border-box; 
+  }
 }
 
 /* Ecran bureau (> 1024px) */
 @media (min-width: 1024px) {
+  .container {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
   h1 {
     font-size: 32px;
-    margin-top: 6rem;
+    margin-top: 3rem;
   }
 
   .emotion-tracker {

@@ -93,12 +93,12 @@ export default {
 
 .activities {
   text-align: center;
-  margin-top: 20px;
-  padding: 10px;
+  margin-top: 8rem;
+  padding: 1rem;
 }
 
 h1 {
-  margin-top:2rem;
+  margin-top:1rem;
   font-size: 32px;
   font-weight: bold;
   color: #000000;
@@ -192,10 +192,11 @@ button:disabled:hover {
 
 /* RESPONSIVE */
 /* Tablette : entre 768px et 1024px */
-@media (min-width: 768px) {
-  .icone {
-    margin-top: 2rem;
-  }
+@media (min-width: 768px) and (max-width: 1023px) {
+  .activities {
+    margin-top: 10rem;
+}
+
   .button-container {
     flex-direction: row;
     flex-wrap: wrap;
@@ -209,6 +210,10 @@ button:disabled:hover {
 
 /* Bureau : au-dessus de 1024px */
 @media (min-width: 1024px) {
+  .activities {
+    margin-top: 4rem;
+}
+
   .button-container {
     flex-direction: row;
   }

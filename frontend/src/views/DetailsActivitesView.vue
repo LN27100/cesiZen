@@ -98,7 +98,7 @@ export default {
 
 .activity-details {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 1rem;
   padding: 0 1rem;
   font-family: 'Open Sans', sans-serif;
   position: relative;
@@ -137,14 +137,12 @@ export default {
   cursor: pointer;
   display: flex;
   align-items: center;
-  margin-top: 1rem;
 }
 
 .favorite-button img {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
-  padding: 0.3rem;
 }
 
 h1 {
@@ -152,7 +150,7 @@ h1 {
   font-weight: bold;
   color: #000000;
   font-family: "Nunito", sans-serif;
-  margin-top: 14rem;
+  margin-top: 12rem;
   word-wrap: break-word;
   max-width: 90%;
 }
@@ -177,8 +175,9 @@ p {
 }
 
 /* Tablette : entre 768px et 1024px */
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .header-container {
+    margin-top: 5rem;
     flex-direction: row;
     justify-content: space-between;
   }
@@ -193,6 +192,20 @@ p {
     height: 2rem;
     padding: 0.2rem;
   }
+
+  .activity-image,
+.video-container {
+  max-width: 90%;
+  height: auto;
+  margin: 0 auto;
+  margin-top: 2rem;
+  margin-bottom:4rem;
+}
+
+.video-container iframe {
+  width: 100%;
+  height: 30rem;
+}
 }
 
 /* Bureau : au-dessus de 1024px */
@@ -206,5 +219,36 @@ p {
     width: 2.2rem;
     height: 2.2rem;
   }
+
+  .header-container {
+    justify-content: space-between; 
+  }
+
+  .back-button,
+  .favorite-button {
+    margin-top: 0.5rem; 
+  }
+
+  .back-button {
+    margin-right: 1rem; 
+  }
+
+  .favorite-button {
+    margin-left: 1rem; 
+  }
+  .activity-image,
+.video-container {
+  max-width: 70%;
+  height: auto;
+  margin: 0 auto;
+  margin-top: 2rem;
+  margin-bottom:4rem;
 }
+
+.video-container iframe {
+  width: 100%;
+  height: 40rem;
+}
+}
+
 </style>

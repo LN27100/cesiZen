@@ -229,4 +229,20 @@ button:hover {
 .checkMargin {
   margin-top: 1rem;
 }
+
+/*  RESPONSIVE */
+/* Tablette : entre 768px et 1024px */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container {
+  margin-top: 20rem;
+}
+}
+
+/* Bureau : au-dessus de 1024px */
+@media (min-width: 1024px) {
+  .container {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+}
 </style>

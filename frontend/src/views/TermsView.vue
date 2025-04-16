@@ -187,18 +187,15 @@ p {
   text-align: left;
 }
 
-@media (max-width: 1200px) {
-  h1 {
-    margin-top: 8rem;
-  }
-
-  h2 {
-    font-size: 20px;
-  }
+/*  RESPONSIVE */
+/* Tablette : entre 768px et 1024px */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .info {
+  margin-top: 12rem;
+  margin-bottom: 4rem;
 }
 
-@media (max-width: 768px) {
-  h1 {
+h1 {
     margin-top: 8rem;
   }
 
@@ -211,22 +208,19 @@ p {
   }
 }
 
-@media (max-width: 480px) {
-  h1 {
-    margin-top: 9rem;
-    margin-bottom: 1.5rem;
+/* Bureau : au-dessus de 1024px */
+@media (min-width: 1024px) {
+    .info {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+h1 {
+    margin-top: 8rem;
   }
 
   h2 {
-    font-size: 16px;
-  }
-
-  p {
-    margin: 0.5rem;
-  }
-
-  .info_container {
-    padding: 0.5rem;
+    font-size: 20px;
   }
 }
 </style>

@@ -165,10 +165,12 @@ li {
   cursor: not-allowed;
 }
 
-/* Media Queries */
-@media (max-width: 1200px) {
+/* RESPONSIVE */
+
+/* Bureau : au-dessus de 1024px */
+@media (min-width: 1024px) {  
   h1 {
-    margin-top: 8rem;
+    margin-top: 3rem;
   }
 
   h2.article-title {
@@ -176,9 +178,9 @@ li {
   }
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   h1 {
-margin-top: 8rem;
+margin-top: 12rem;
   }
 
   h2.article-title {

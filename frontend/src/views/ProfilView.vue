@@ -388,21 +388,27 @@ input:focus {
   margin: 2rem 1rem;
 }
 
-/* Tablette : entre 768px et 1024px */
-@media (min-width: 768px) {
-  h1 {
-    margin-top: 6rem;
-  }
 
-  .profile {
+/*  RESPONSIVE */
+/* Tablette : entre 768px et 1024px */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container {
+  margin-top: 20rem;
+}
+.profile {
     max-width: 80%;
   }
 }
 
 /* Bureau : au-dessus de 1024px */
 @media (min-width: 1024px) {
-  .profile {
-    max-width: 600px;
+  .container {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.profile {
+    max-width: 50%;
   }
 }
 </style>
