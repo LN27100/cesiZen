@@ -305,7 +305,7 @@ body {
   border-radius: 10px;
   width: 500px;
   max-height: 80vh; /* Limite la hauteur à 80% de la fenêtre */
-  overflow-y: auto; /* Ajoute une barre de défilement si nécessaire */
+  overflow-y: auto; 
   border: 2px solid #a9b66d;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }

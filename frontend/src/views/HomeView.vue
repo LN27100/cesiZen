@@ -76,7 +76,7 @@ export default {
   },
   methods: {
     fetchCategories() {
-      axios.get("http://localhost:3000/api/categories")
+      axios.get(`${process.env.VUE_APP_API_URL}/categories`)
       .then(response => {
           // Limiter à seulement les 3 premières catégories
           this.categories = response.data.slice(0, 3);

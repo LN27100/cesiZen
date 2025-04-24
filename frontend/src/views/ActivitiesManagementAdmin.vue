@@ -162,7 +162,7 @@ export default {
   methods: {
     async fetchActivities() {
       try {
-        const response = await axios.get("http://localhost:3000/api/activities");
+        const response = await axios.get(`${process.env.VUE_APP_API_URL}/activities`);
         this.activities = response.data;
       } catch (error) {
         console.error("Erreur lors de la récupération des activités:", error);
@@ -170,7 +170,7 @@ export default {
     },
     async fetchCategories() {
       try {
-        const response = await axios.get("http://localhost:3000/api/categories");
+        const response = await axios.get(`${process.env.VUE_APP_API_URL}/categories`);
         this.categories = response.data;
       } catch (error) {
         console.error("Erreur lors de la récupération des catégories:", error);
@@ -179,7 +179,7 @@ export default {
     async deleteActivity(activityId) {
       if (confirm("Êtes-vous sûr de vouloir supprimer cette activité ?")) {
         try {
-          await axios.delete(`http://localhost:3000/api/activities/${activityId}`);
+          await axios.delete(`${process.env.VUE_APP_API_URL}/activities/${activityId}`);
           this.fetchActivities(); // Rafraîchir la liste après suppression
         } catch (error) {
           console.error("Erreur lors de la suppression de l'activité:", error);

@@ -85,7 +85,7 @@ export default {
   methods: {
     async fetchArticles() {
       try {
-        const response = await axios.get("http://localhost:3000/api/info");
+        const response = await axios.get(`${process.env.VUE_APP_API_URL}/info`);
         this.articles = response.data.map(article => ({
           id_information: article.id_information,
           titre: article.titre,
@@ -100,7 +100,7 @@ export default {
     async deleteArticle(articleId) {
       if (confirm("Êtes-vous sûr de vouloir supprimer cet article ?")) {
         try {
-          await axios.delete(`http://localhost:3000/api/info/${articleId}`);
+          await axios.delete(`${process.env.VUE_APP_API_URL}/info/${articleId}`);
           this.fetchArticles(); // Rafraîchir la liste après suppression
         } catch (error) {
           console.error("Erreur lors de la suppression de l'article:", error);
