@@ -39,7 +39,7 @@ export default {
     fetchActivityDetails() {
       const activityId = this.$route.params.id;
       if (activityId) {
-        axios.get(`http://localhost:3000/api/activities/${activityId}`)
+        axios.get(`${process.env.VUE_APP_API_URL}/activities/${activityId}`)
           .then(response => {
             console.log('API Response:', response.data);
             if (Array.isArray(response.data) && response.data.length > 0) {
@@ -67,7 +67,7 @@ export default {
     id_exercice: null
   };
 
-  axios.get('http://localhost:3000/api/favoris')
+  axios.get(`${process.env.VUE_APP_API_URL}/favoris`)
     .then(response => {
       const favoris = response.data;
       const alreadyAdded = favoris.some(fav => fav.id_activite === this.activity.id_activite);
@@ -75,7 +75,7 @@ export default {
       if (alreadyAdded) {
         alert('Vous avez déjà ajouté cette activité à vos favoris');
       } else {
-        axios.post('http://localhost:3000/api/favoris', favorite)
+        axios.post(`${process.env.VUE_APP_API_URL}/favoris`, favorite)
           .then(() => {
             alert('Activité ajoutée aux favoris');
           })

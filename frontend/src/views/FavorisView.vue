@@ -32,7 +32,7 @@ export default {
   methods: {
     fetchFavorites() {
       const token = localStorage.getItem('token');
-      axios.get('http://localhost:3000/api/favoris/user', {
+      axios.get(`${process.env.VUE_APP_API_URL}/favoris/user`, {
         headers: {
           'x-access-token': token
         }
@@ -59,7 +59,7 @@ export default {
     },
     deleteFavorite(favoriteId) {
       const token = localStorage.getItem('token');
-      axios.delete(`http://localhost:3000/api/favoris/${favoriteId}`, {
+      axios.delete(`${process.env.VUE_APP_API_URL}/favoris/${favoriteId}`, {
         headers: {
           'x-access-token': token
         }

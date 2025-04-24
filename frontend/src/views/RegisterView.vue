@@ -109,7 +109,7 @@ export default {
       };
 
       try {
-        const response = await fetch("http://localhost:3000/api/users/register", {
+        const response = await fetch(`${process.env.VUE_APP_API_URL}/users/register`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

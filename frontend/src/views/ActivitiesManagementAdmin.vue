@@ -210,9 +210,9 @@ export default {
     async saveActivity() {
       try {
         if (this.isEditing) {
-          await axios.put(`http://localhost:3000/api/activities/${this.activiteForm.id_activite}`, this.activiteForm);
+          await axios.put(`${process.env.VUE_APP_API_URL}/activities/${this.activiteForm.id_activite}`, this.activiteForm);
         } else {
-          await axios.post("http://localhost:3000/api/activities", this.activiteForm);
+          await axios.post(`${process.env.VUE_APP_API_URL}/activities`, this.activiteForm);
         }
         this.closeForm();
         this.fetchActivities();

@@ -50,7 +50,7 @@ export default {
   methods: {
     async fetchArticles() {
       try {
-        const response = await axios.get("http://localhost:3000/api/info");
+        const response = await axios.get(`${process.env.VUE_APP_API_URL}/info`);
         this.articles = response.data.map(article => ({
           titre: article.titre,
           content: article.content,

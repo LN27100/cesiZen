@@ -93,7 +93,7 @@ export default {
   methods: {
     fetchActivities() {
       const categoryId = this.$route.params.id;
-      axios.get(`http://localhost:3000/api/activities/category/${categoryId}`)
+      axios.get(`${process.env.VUE_APP_API_URL}/activities/category/${categoryId}`)
         .then(response => {
           this.activities = response.data;
           this.subCategories = [...new Set(this.activities.map(activity => activity.sous_categorie))];

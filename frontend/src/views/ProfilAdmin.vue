@@ -108,18 +108,17 @@ export default {
         console.log("Réponse de l'API:", response.data);
         if (response.data.length > 0) {
           this.user = response.data[0];
-          console.log("État user mis à jour:", this.user);
         } else {
           alert("Aucun utilisateur trouvé.");
         }
       } catch (error) {
         console.error(
-          "Erreur lors de la récupération des informations utilisateur:",
+          "Erreur lors de la récupération des informations administrateur:",
           error
         );
         const message =
           error.response?.data?.message ||
-          "Impossible de récupérer les informations utilisateur.";
+          "Impossible de récupérer les informations dministrateur.";
         alert(message);
 
         if (error.response?.status === 401 || error.response?.status === 403) {
@@ -141,8 +140,6 @@ export default {
           delete updatedUser.mot_de_passe;
         }
 
-        console.log("Données envoyées pour la mise à jour:", updatedUser);
-
         const response = await axios.put(
           `/users/${this.user.id_utilisateur}`,
           updatedUser
@@ -151,6 +148,8 @@ export default {
         alert("Profil mis à jour avec succès !");
         this.user = response.data;
         this.editing = false;
+        
+        window.location.reload();
       } catch (error) {
         console.error(
           "Erreur lors de la mise à jour du profil:",

@@ -69,7 +69,7 @@ export default {
     },
     fetchCategories() {
       axios
-        .get("http://localhost:3000/api/categories")
+        .get(`${process.env.VUE_APP_API_URL}/categories`)
         .then((response) => {
           console.log("Catégories récupérées :", response.data);
           this.categories = response.data;

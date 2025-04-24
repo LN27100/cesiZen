@@ -130,7 +130,6 @@ export default {
         console.log("Réponse de l'API:", response.data);
         if (response.data.length > 0) {
           this.user = response.data[0];
-          console.log("État user mis à jour:", this.user);
         } else {
           alert("Aucun utilisateur trouvé.");
         }
@@ -162,8 +161,6 @@ export default {
         if (!updatedUser.mot_de_passe) {
           delete updatedUser.mot_de_passe;
         }
-
-        console.log("Données envoyées pour la mise à jour:", updatedUser);
 
         const response = await axios.put(
           `/users/${this.user.id_utilisateur}`,

@@ -123,9 +123,9 @@ export default {
     async saveArticle() {
       try {
         if (this.isEditing) {
-          await axios.put(`http://localhost:3000/api/info/${this.articleForm.id_information}`, this.articleForm);
+          await axios.put(`${process.env.VUE_APP_API_URL}/info/${this.articleForm.id_information}`, this.articleForm);
         } else {
-          await axios.post("http://localhost:3000/api/info", this.articleForm);
+          await axios.post(`${process.env.VUE_APP_API_URL}/info`, this.articleForm);
         }
         this.closeForm();
         this.fetchArticles();

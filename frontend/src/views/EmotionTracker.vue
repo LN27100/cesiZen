@@ -131,7 +131,7 @@ export default {
     },
     async fetchEmotions() {
       try {
-        const response = await fetch("http://localhost:3000/api/emotions");
+        const response = await fetch(`${process.env.VUE_APP_API_URL}/emotions`);
         const data = await response.json();
         if (Array.isArray(data)) {
           this.emotions = data;
@@ -145,7 +145,7 @@ export default {
     async fetchTypesEmotions() {
       try {
         const response = await fetch(
-          "http://localhost:3000/api/types-emotions"
+          `${process.env.VUE_APP_API_URL}/types-emotions`
         );
         const data = await response.json();
         if (Array.isArray(data)) {
@@ -173,7 +173,7 @@ export default {
       }
       try {
         const response = await fetch(
-          "http://localhost:3000/api/tracker-emotions",
+          `${process.env.VUE_APP_API_URL}/tracker-emotions`,
           {
             headers: {
               "x-access-token": token,
@@ -225,7 +225,7 @@ export default {
       };
       try {
         const response = await fetch(
-          "http://localhost:3000/api/tracker-emotions",
+          `${process.env.VUE_APP_API_URL}/tracker-emotions`,
           {
             method: "POST",
             headers: {

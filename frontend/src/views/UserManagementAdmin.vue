@@ -134,7 +134,7 @@ export default {
   methods: {
     async fetchUsers() {
       try {
-        const response = await axios.get("http://localhost:3000/api/users", {
+        const response = await axios.get(`${process.env.VUE_APP_API_URL}/users`, {
           headers: { "x-access-token": localStorage.getItem("token") },
         });
         if (response.status === 200) {
@@ -154,7 +154,7 @@ export default {
       const newStatus = user.statut_compte === "actif" ? "suspendu" : "actif";
       try {
         await axios.put(
-          `http://localhost:3000/api/users/${user.id_utilisateur}/status`,
+          `${process.env.VUE_APP_API_URL}/users/${user.id_utilisateur}/status`,
           { statut_compte: newStatus },
           {
             headers: { "x-access-token": localStorage.getItem("token") },
@@ -169,7 +169,7 @@ export default {
     async deleteUser(userId) {
       if (confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ?")) {
         try {
-          await axios.delete(`http://localhost:3000/api/users/${userId}`, {
+          await axios.delete(`${process.env.VUE_APP_API_URL}/users/${userId}`, {
             headers: { "x-access-token": localStorage.getItem("token") },
           });
           this.fetchUsers();
@@ -209,7 +209,7 @@ export default {
       };
 
       try {
-        const response = await fetch("http://localhost:3000/api/users/register", {
+        const response = await fetch(`${process.env.VUE_APP_API_URL}/users/register`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -228,8 +228,9 @@ export default {
 
         if (response.ok) {
           console.log("User registered:", data);
-          this.$router.push({ name: "LoginView" });
-        } else {
+          this.closeModal();
+          this.fetchUsers();
+                } else {
           alert(`Erreur lors de l'inscription: ${data.error || data.message || "Erreur inconnue"}`);
           console.error("Error registering user:", data);
         }
