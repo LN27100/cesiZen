@@ -1,76 +1,68 @@
 <template>
   <div class="container">
-  <h1>Inscription</h1>
-
-  <div class="register-container">
-    <form @submit.prevent="handleSubmit">
-      <div class="input-group">
-        <label for="firstName">Prénom</label>
-        <input type="text" id="firstName" v-model="firstName" required />
-      </div>
-      <div class="input-group">
-        <label for="lastName">Nom</label>
-        <input type="text" id="lastName" v-model="lastName" required />
-      </div>
-      <div class="input-group">
-        <label for="username">Pseudo</label>
-        <input type="text" id="username" v-model="username" required />
-      </div>
-      <div class="input-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" v-model="email" required />
-      </div>
-      <div class="input-group">
-        <label for="password">Mot de passe</label>
-        <input
-          type="password"
-          id="password"
-          v-model="password"
-          required
-          autocomplete="new-password"
-        />
-      </div>
-      <div class="input-group">
-        <label for="confirmPassword">Confirmer le mot de passe</label>
-        <input
-          type="password"
-          id="confirmPassword"
-          v-model="confirmPassword"
-          required
-          autocomplete="new-password"
-        />
-      </div>
-      <div class="input-group">
-        <label for="role">Rôle</label>
-        <select id="role" v-model="role" required>
-          <option value="Utilisateur">Utilisateur</option>
-          <option value="Admin">Admin</option>
-        </select>
-      </div>
-      <div>
-        <input
-        class= "checkMargin"
-          type="checkbox"
-          id="acceptTerms"
-          v-model="acceptTerms"
-          required
-        />
-        <label for="acceptTerms">J'accepte les conditions générales d'utilisation</label>
-      </div>
-      <button type="submit">S'inscrire</button>
-    </form>
-
-    <div class="divider"></div>
-
-    <p>
-      Vous avez déjà un compte ?
-      <a href="/login" class="login-button">Connectez-vous</a>
-    </p>
+    <h1>Inscription</h1>
+    <div class="register-container">
+      <form @submit.prevent="handleSubmit">
+        <div class="input-group">
+          <label for="firstName">Prénom</label>
+          <input type="text" id="firstName" v-model="firstName" required />
+        </div>
+        <div class="input-group">
+          <label for="lastName">Nom</label>
+          <input type="text" id="lastName" v-model="lastName" required />
+        </div>
+        <div class="input-group">
+          <label for="username">Pseudo</label>
+          <input type="text" id="username" v-model="username" required />
+        </div>
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" v-model="email" required />
+        </div>
+        <div class="input-group">
+          <label for="password">Mot de passe</label>
+          <input
+            type="password"
+            id="password"
+            v-model="password"
+            required
+            autocomplete="new-password"
+            @input="validatePassword"
+          />
+          <p v-if="passwordError" class="error-message">{{ passwordError }}</p>
+        </div>
+        <div class="input-group">
+          <label for="confirmPassword">Confirmer le mot de passe</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            v-model="confirmPassword"
+            required
+            autocomplete="new-password"
+            @input="validateConfirmPassword"
+          />
+          <p v-if="confirmPasswordError" class="error-message">{{ confirmPasswordError }}</p>
+        </div>
+        <div>
+          <input
+            class="checkMargin"
+            type="checkbox"
+            id="acceptTerms"
+            v-model="acceptTerms"
+            required
+          />
+          <label for="acceptTerms">J'accepte les conditions générales d'utilisation</label>
+        </div>
+        <button type="submit">S'inscrire</button>
+      </form>
+      <div class="divider"></div>
+      <p>
+        Vous avez déjà un compte ?
+        <a href="/login" class="login-button">Connectez-vous</a>
+      </p>
+    </div>
   </div>
-</div>
 </template>
-
-
 
 <script>
 export default {
@@ -85,12 +77,34 @@ export default {
       confirmPassword: "",
       role: "Utilisateur",
       acceptTerms: false,
+      passwordError: "",
+      confirmPasswordError: "",
     };
   },
   methods: {
-    async handleSubmit() {
+    validatePassword() {
+      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
+      if (!this.password) {
+        this.passwordError = "Le mot de passe est requis.";
+      } else if (!regex.test(this.password)) {
+        this.passwordError =
+          "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.";
+      } else {
+        this.passwordError = "";
+      }
+    },
+    validateConfirmPassword() {
       if (this.password !== this.confirmPassword) {
-        alert("Les mots de passe ne correspondent pas.");
+        this.confirmPasswordError = "Les mots de passe ne correspondent pas.";
+      } else {
+        this.confirmPasswordError = "";
+      }
+    },
+    async handleSubmit() {
+      this.validatePassword();
+      this.validateConfirmPassword();
+
+      if (this.passwordError || this.confirmPasswordError) {
         return;
       }
 
@@ -152,10 +166,10 @@ export default {
 
 .register-container {
   max-width: 400px;
-  margin: auto; 
+  margin: auto;
   padding: 20px;
-  background-color: #A06DB6; 
-  border: 2px solid #A9B66D; 
+  background-color: #A06DB6;
+  border: 2px solid #A9B66D;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -218,9 +232,8 @@ button:hover {
   background-color: #69a050;
 }
 
-/* Trait blanc */
 .divider {
-  width: 50%; 
+  width: 50%;
   height: 2px;
   background-color: white;
   margin: 20px auto;
@@ -230,19 +243,25 @@ button:hover {
   margin-top: 1rem;
 }
 
+.error-message {
+  color: red;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
 /*  RESPONSIVE */
 /* Tablette : entre 768px et 1024px */
 @media (min-width: 768px) and (max-width: 1023px) {
   .container {
-  margin-top: 20rem;
-}
+    margin-top: 20rem;
+  }
 }
 
 /* Bureau : au-dessus de 1024px */
 @media (min-width: 1024px) {
   .container {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
 }
 </style>

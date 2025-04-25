@@ -4,10 +4,10 @@ const TrackerEmotions = {
   // Créer un nouvel enregistrement de tracker d'émotions
   create: (trackerEmotion, callback) => {
     const sql = `
-      INSERT INTO tracker_emotions (id_emotion, commentaire, date_emotion)
-      VALUES (?, ?, ?)
+      INSERT INTO tracker_emotions (id_emotion, commentaire, date_emotion, user_id)
+      VALUES (?, ?, ?, ?)
     `;
-    db.query(sql, [trackerEmotion.id_emotion, trackerEmotion.commentaire, trackerEmotion.date_emotion], callback);
+    db.query(sql, [trackerEmotion.id_emotion, trackerEmotion.commentaire, trackerEmotion.date_emotion, trackerEmotion.user_id], callback);
   },
 
   // Récupérer tous les enregistrements de tracker d'émotions
@@ -16,11 +16,11 @@ const TrackerEmotions = {
     db.query(sql, callback);
   },
 
+  // Récupérer les enregistrements de tracker d'émotions par utilisateur
   findByUserId: (userId, callback) => {
     const sql = 'SELECT * FROM tracker_emotions WHERE user_id = ?';
     db.query(sql, [userId], callback);
   },
-  
 
   // Récupérer un enregistrement de tracker d'émotions par ID
   findById: (id, callback) => {
@@ -28,15 +28,14 @@ const TrackerEmotions = {
     db.query(sql, [id], callback);
   },
 
-
   // Mettre à jour un enregistrement de tracker d'émotions par ID
   update: (id, trackerEmotion, callback) => {
     const sql = `
       UPDATE tracker_emotions
-      SET id_emotion = ?, commentaire = ?, date_emotion = ?
+      SET id_emotion = ?, commentaire = ?, date_emotion = ?, user_id = ?
       WHERE id_emotion = ?
     `;
-    db.query(sql, [trackerEmotion.id_emotion, trackerEmotion.commentaire, trackerEmotion.date_emotion, id], callback);
+    db.query(sql, [trackerEmotion.id_emotion, trackerEmotion.commentaire, trackerEmotion.date_emotion, trackerEmotion.user_id, id], callback);
   },
 
   // Supprimer un enregistrement de tracker d'émotions par ID

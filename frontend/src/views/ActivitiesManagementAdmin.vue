@@ -26,12 +26,22 @@
           <td>{{ activite.nom_activite }}</td>
           <td>{{ activite.description_activite }}</td>
           <td>{{ activite.id_categorie }}</td>
-          <td>{{ activite.status_activite_détente }}</td>
+          <td class="center-cell">
+            <button
+              :class="{
+                actif: activite.status_activite_détente === 'actif',
+                suspendu: activite.status_activite_détente === 'suspendue',
+              }"
+              @click="toggleStatus(activite)"
+            >
+              {{ activite.status_activite_détente }}
+            </button>
+          </td>
           <td>{{ activite.duree_minutes }}</td>
           <td>{{ activite.nom_image }}</td>
           <td>{{ activite.nom_image_2 }}</td>
           <td>{{ activite.lien_video }}</td>
-          <td>
+          <td class="center-cell">
             <button class="edit-btn" @click="openEditForm(activite)">
               <i class="fas fa-edit"></i> Modifier
             </button>
@@ -48,8 +58,8 @@
       <button @click="nextPage" :disabled="currentPage === totalPages">Suivant</button>
     </div>
 
-    <!-- Modal d'édition / ajout -->
-    <div v-if="showForm" class="modal">
+   <!-- Modal d'édition / ajout -->
+   <div v-if="showForm" class="modal">
       <div class="modal-content">
         <button class="close-btn" @click="closeForm">
           <i class="fas fa-times"></i>
@@ -103,6 +113,7 @@
   </div>
 </template>
 
+
 <script>
 import axios from "axios";
 
@@ -136,12 +147,12 @@ export default {
         id_activite: null,
         nom_activite: "",
         description_activite: "",
-        status_activite_détente: "",
+        status_activite_détente: "actif",
         id_categorie: "",
         duree_minutes: "",
         sous_categorie: "",
-        nom_image: "",
-        nom_image_2: "",
+        nom_image: null,
+        nom_image_2: null,
         lien_video: ""
       }
     };
@@ -184,6 +195,21 @@ export default {
         } catch (error) {
           console.error("Erreur lors de la suppression de l'activité:", error);
         }
+      }
+    },
+    async toggleStatus(activite) {
+      const newStatus = activite.status_activite_détente === "actif" ? "suspendue" : "actif";
+      try {
+        await axios.put(
+          `${process.env.VUE_APP_API_URL}/activities/${activite.id_activite}/status`,
+          { status_activite_détente: newStatus },
+          {
+            headers: { "x-access-token": localStorage.getItem("token") },
+          }
+        );
+        activite.status_activite_détente = newStatus;
+      } catch (error) {
+        console.error("Erreur lors de la mise à jour du statut:", error);
       }
     },
     openEditForm(activity) {
@@ -251,6 +277,7 @@ export default {
 };
 </script>
 
+
 <style scoped>
 .admin-container {
   padding: 20px;
@@ -311,6 +338,10 @@ th {
 td {
   font-size: 16px;
   color: #000000;
+}
+
+.center-cell {
+  text-align: center;
 }
 
 .edit-btn {
@@ -470,5 +501,29 @@ td {
 
 .modal-actions button:last-child:hover {
   background-color: #69A050;
+}
+
+button.actif {
+  background-color: #28a745;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+button.suspendu {
+  background-color: #d0021b;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+button.actif:hover {
+  background-color: #7bc28b;
+}
+
+button.suspendu:hover {
+  background-color: #c74454;
 }
 </style>

@@ -11,24 +11,20 @@ Vue CLI (version 4.x ou supérieure)
 Créez la base de données à l'aide du fichier cesi_zen.sql situé dans le dossier backend/database.
 Utilisez un outil comme MySQL Workbench ou la ligne de commande pour importer le fichier SQL.
 
-# configuration
-Dans le dossier config, créez un fichier nommé db.js avec le contenu suivant :
+# configuration du backend
+Dans le dossier config, vous avez un fichier db.js qui gère la connexion à la base de données.
+Pour protéger la cofig, celle-ci est dans:
+# .env du backend:
+Entrez le nom de votre bdd, votre nom d'utilisateur et votre mot de passe:
 
-const mysql = require('mysql');
+PORT=3000
+VUE_APP_JWT_SECRET=your_jwt_secret_key
+JWT_SECRET=your_jwt_secret_key
+DB_HOST=localhost
+DB_USER=
+DB_PASSWORD=
+DB_NAME=
 
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'votre_nom_utilisateur',
-    password: 'votre_mot_de_passe',
-    database: 'cesi_zen'
-});
-
-db.connect((err) => {
-    if (err) throw err;
-    console.log('Connected to database');
-});
-
-module.exports = db;
 
 
 ### BACKEND
@@ -46,14 +42,8 @@ Installez les dépendances nécessaires :
 # cors : Pour autoriser les requêtes provenant de votre frontend Vue.js.
 npm install express mysql2 body-parser cors
 
-## ORM Sequelize dans le serveur Express
-npm install sequelize mysql2 (dans le dossier backend)
 
 ## Pour informations
-# le fichier db.js : 
-Gère la connexion à la base de données avec Sequelize.
-Configure Sequelize et exporte la connexion.
-
 # le fichier server.js : 
 Gère la configuration du serveur (Express).
 Importe db.js, synchronise les modèles, et crée les routes API.
@@ -82,6 +72,10 @@ npm install vue-router
 
 # Vuex :
 npm install vuex
+
+## .env du front, configuration de la route d'appel API:
+VUE_APP_API_URL=http://localhost:3000/api
+
 
 ## DEMARRER le serveur de développement Vue.js :
 npm run serve

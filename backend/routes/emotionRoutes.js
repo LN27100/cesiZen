@@ -21,9 +21,9 @@ router.delete('/types-emotions/:id', TypeEmotionController.deleteTypeEmotion);
 
 // Routes pour le tracker d'émotions
 router.post('/tracker-emotions', verifyToken, TrackerEmotionsController.createTrackerEmotion);
-router.get('/tracker-emotions',verifyToken, TrackerEmotionsController.getAllTrackerEmotions);
+router.get('/tracker-emotions', verifyToken, TrackerEmotionsController.getUserTrackerEmotions); 
 router.get('/tracker-emotions/:id', verifyToken, TrackerEmotionsController.getTrackerEmotionById);
-router.put('/tracker-emotions/:id',verifyToken,  TrackerEmotionsController.updateTrackerEmotion);
-router.delete('/tracker-emotions/:id',verifyToken,  TrackerEmotionsController.deleteTrackerEmotion);
+router.put('/tracker-emotions/:id', verifyToken, TrackerEmotionsController.updateTrackerEmotion);
+router.delete('/tracker-emotions/:id', verifyToken, TrackerEmotionsController.deleteTrackerEmotion);
 
 module.exports = router;
