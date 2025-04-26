@@ -41,7 +41,6 @@ export default {
       if (activityId) {
         axios.get(`${process.env.VUE_APP_API_URL}/activities/${activityId}`)
           .then(response => {
-            console.log('API Response:', response.data);
             if (Array.isArray(response.data) && response.data.length > 0) {
               this.activity = response.data[0];
             } else {
@@ -67,7 +66,7 @@ export default {
     id_exercice: null
   };
 
-  axios.get(`${process.env.VUE_APP_API_URL}/favoris`)
+  axios.get(`${process.env.VUE_APP_API_URL}/favoris/user`) // <-- récupère SEULEMENT les favoris du user connecté
     .then(response => {
       const favoris = response.data;
       const alreadyAdded = favoris.some(fav => fav.id_activite === this.activity.id_activite);
@@ -80,7 +79,7 @@ export default {
             alert('Activité ajoutée aux favoris');
           })
           .catch(error => {
-            console.error('Vous devez être connecté pour ajouter aux favoris !:', error);
+            console.error('Erreur lors de l\'ajout aux favoris:', error);
             alert('Vous devez être connecté pour ajouter aux favoris !');
           });
       }

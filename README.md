@@ -90,10 +90,24 @@ Assurez-vous que Jest est installé dans le répertoire backend:
 npm install --save-dev jest
 # Exécution :
 cd backend
-npm test
+npm test (Lancer tous les tests)
+npm run test:coverage  (Lancer tests + couverture)
+
 # Description :
-Activites Controller : Teste les fonctionnalités CRUD pour les activités.
-User Controller : Teste les fonctionnalités CRUD pour les utilisateurs et la réinitialisation du mot de passe.
+Tests des Modèles
+Les tests des modèles vérifient que les opérations de base de données (création, mise à jour, suppression, récupération) fonctionnent correctement et gèrent les erreurs comme prévu.
+
+Tests des Contrôleurs
+Les tests des contrôleurs vérifient que les routes de l'API répondent correctement aux requêtes HTTP (GET, POST, PUT, DELETE correspondant au CRUD) et que les bonnes réponses sont envoyées, en tenant compte des erreurs éventuelles.
+
+Tests des Services
+Les tests des services valident la logique métier de l'application, assurant que les fonctions interagissent correctement avec les modèles et retournent les bons résultats ou erreurs.
+
+Tests de la Configuration (db.js)
+Les tests de configuration vérifient que la connexion à la base de données est correctement établie et que les paramètres de connexion sont valides avant d'exécuter des opérations sur les données.
+
+# Voir le rapport visuel de couverture:
+Ouvrez dans le navigateur le fichier: coverage/lcov-report/index.html
 
 ## Tests Fonctionnels avec Cypress
 # Prérequis : 
