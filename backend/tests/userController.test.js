@@ -102,3 +102,75 @@ describe('User Controller', () => {
     expect(res.send).toHaveBeenCalledWith({ message: 'Mot de passe réinitialisé avec succès.' }); // Vérifie la réponse JSON
   });
 });
+
+
+
+
+it('should return 400 if email is missing during registration', async () => {
+  const req = {
+    body: { /* manqué email */ },
+  };
+  const res = {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn(),
+  };
+
+  await register(req, res);
+
+  expect(res.status).toHaveBeenCalledWith(400); // Vérifie la gestion des erreurs pour un champ manquant
+  expect(res.json).toHaveBeenCalledWith({ error: 'Email requis' }); // Vérifie le message d'erreur
+});
+
+
+it('should return 404 if user to delete does not exist', async () => {
+  const req = {
+    params: { id: 999 },
+  };
+  const res = {
+    status: jest.fn().mockReturnThis(),
+    send: jest.fn(),
+  };
+
+  User.delete.mockImplementationOnce((id, callback) => callback(null, null)); // Pas d'utilisateur trouvé
+
+  await deleteUser(req, res);
+
+  expect(res.status).toHaveBeenCalledWith(404);
+  expect(res.send).toHaveBeenCalledWith({ error: 'Utilisateur non trouvé' });
+});
+
+it('should return 400 when passwords do not match during reset', async () => {
+  const req = {
+    params: { id: 1 },
+    body: { oldPassword: 'oldpassword', newPassword: 'differentpassword' },
+  };
+  const res = {
+    status: jest.fn().mockReturnThis(),
+    send: jest.fn(),
+  };
+
+  userService.resetPassword.mockRejectedValue(new Error('Les mots de passe ne correspondent pas'));
+
+  await resetPassword(req, res);
+
+  expect(res.status).toHaveBeenCalledWith(400);
+  expect(res.send).toHaveBeenCalledWith({ error: 'Les mots de passe ne correspondent pas' });
+});
+
+it('should return 500 if updating status fails', async () => {
+  const req = {
+    params: { id: 1 },
+    body: { statut_compte: 'actif' },
+  };
+  const res = {
+    status: jest.fn().mockReturnThis(),
+    send: jest.fn(),
+  };
+
+  User.query.mockRejectedValue(new Error('Erreur SQL'));
+
+  await updateStatus(req, res);
+
+  expect(res.status).toHaveBeenCalledWith(500);
+  expect(res.send).toHaveBeenCalledWith({ error: 'Erreur lors de la mise à jour du statut du compte' });
+});
