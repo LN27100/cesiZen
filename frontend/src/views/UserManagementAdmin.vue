@@ -56,16 +56,7 @@
           <option value="Admin">Admin</option>
         </select>
       </div>
-      <div>
-        <input
-        class= "checkMargin"
-          type="checkbox"
-          id="acceptTerms"
-          v-model="acceptTerms"
-          required
-        />
-        <label for="acceptTerms">J'accepte les conditions générales d'utilisation</label>
-      </div>
+     
       <button type="submit">Ajouter</button>
     </form>
       </div>
@@ -125,7 +116,6 @@ export default {
       password: "",
       confirmPassword: "",
       role: "Utilisateur",
-      acceptTerms: false,
     };
   },
   created() {
@@ -191,11 +181,6 @@ export default {
     async handleSubmit() {
       if (this.password !== this.confirmPassword) {
         alert("Les mots de passe ne correspondent pas.");
-        return;
-      }
-
-      if (!this.acceptTerms) {
-        alert("Vous devez accepter les conditions générales d'utilisation.");
         return;
       }
 

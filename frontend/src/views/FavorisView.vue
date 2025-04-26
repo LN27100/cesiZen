@@ -1,13 +1,12 @@
 <template>
-      <h1>Vos favoris</h1>
-
+  <h1>Vos favoris</h1>
   <div class="favoris-container">
     <div v-if="favorites.length === 0" class="no-favorites">
       <p>Aucun favori trouvé</p>
     </div>
     <div v-else>
       <div v-for="favorite in favorites" :key="favorite.id_favori" class="favorite-item">
-        <p @click="goToActivity(favorite.id_activite)" class="favorite-name">{{ favorite.nom_activite }}</p>
+        <p @click="goToActivity(favorite)" class="favorite-name">{{ favorite.nom_activite }}</p>
         <button @click="confirmDelete(favorite.id_favori)" class="delete-button">
           <i class="fas fa-trash-can"></i>
         </button>
@@ -38,19 +37,25 @@ export default {
         }
       })
         .then(response => {
-          console.log('Favoris récupérés:', response.data);
           this.favorites = response.data;
+          // Ajout d'un log pour inspecter les données
+          this.favorites.forEach(favorite => {
+          });
         })
         .catch(error => {
           console.error('Erreur lors de la récupération des favoris:', error);
         });
     },
-    goToActivity(activityId) {
+    goToActivity(favorite) {
+      const activityId = favorite.id_activite;
       if (!activityId) {
-        console.error("L'ID de l'activité est manquant !");
+        console.error("L'ID de l'activité est manquant pour le favori:", favorite);
         return;
       }
-      this.$router.push({ path: `/details-activites/${activityId}` });
+      this.$router.push({ path: `/details-activites/${activityId}` })
+        .catch(error => {
+          console.error('Erreur de navigation:', error);
+        });
     },
     confirmDelete(favoriteId) {
       if (confirm('Êtes-vous sûr de vouloir supprimer ce favori?')) {
@@ -65,7 +70,6 @@ export default {
         }
       })
         .then(response => {
-          console.log('Favori supprimé:', response.data);
           this.fetchFavorites(); // Recharge les favoris après suppression
         })
         .catch(error => {

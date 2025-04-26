@@ -15,21 +15,32 @@ const Favoris = {
 
   // Récupérer tous les favoris
   findAll: (callback) => {
-    const sql = 'SELECT * FROM favori';
+    const sql = `
+      SELECT f.id_favori, f.id_utilisateur, f.id_activite, f.id_exercice, a.nom_activite
+      FROM favori f
+      JOIN activites_de_detente a ON f.id_activite = a.id_activite
+    `;
     db.query(sql, callback);
   },
 
   // Récupérer un favori par ID
   findById: (id, callback) => {
-    const sql = 'SELECT * FROM favori WHERE id_favori = ?';
+    const sql = `
+      SELECT f.id_favori, f.id_utilisateur, f.id_activite, f.id_exercice, a.nom_activite
+      FROM favori f
+      JOIN activites_de_detente a ON f.id_activite = a.id_activite
+      WHERE f.id_favori = ?
+    `;
     db.query(sql, [id], callback);
   },
 
   // Récupérer tous les favoris de l'utilisateur connecté avec les informations de l'activité et de la catégorie
   findByUserId: (userId, callback) => {
     const sql = `
-      SELECT f.id_favori,f.id_utilisateur, a.nom_activite FROM favori f JOIN activites_de_detente a ON f.id_activite = a.id_activite WHERE f.id_utilisateur = ?
-
+      SELECT f.id_favori, f.id_utilisateur, f.id_activite, f.id_exercice, a.nom_activite
+      FROM favori f
+      JOIN activites_de_detente a ON f.id_activite = a.id_activite
+      WHERE f.id_utilisateur = ?
     `;
     db.query(sql, [userId], callback);
   },
