@@ -6,10 +6,26 @@ npm (version 6.x ou supérieure)
 MySQL (version 8.x ou supérieure)
 Vue CLI (version 4.x ou supérieure)
 
+### GITHUB
+# Initialisation du Dépôt pour information
+git init
+git remote add origin https://github.com/LN27100/cesiZen.git
+
+## Cloner le projet
+git clone https://github.com/LN27100/cesiZen.git
+
+# Récupérer changement (avant de commencer à travailler chaque jour si travail à plusieurs)
+git pull origin master
+
+# Faire des commits régulier en fin de journée
+git add .
+git commit -m "descriptif commentaire"
+git push origin master
+
 ### BASE DE DONNEES
 # Importer le Dump SQL :
 Créez la base de données à l'aide du fichier cesi_zen.sql situé dans le dossier backend/database.
-Utilisez un outil comme MySQL Workbench ou la ligne de commande pour importer le fichier SQL.
+Utilisez un outil comme MySQL Workbench ou phpMyAdmin pour importer le fichier SQL.
 
 # configuration du backend
 Dans le dossier config, vous avez un fichier db.js qui gère la connexion à la base de données.
@@ -120,18 +136,3 @@ Flux d'Inscription d'un Utilisateur : Vérifie que le processus d'inscription fo
 
 
 
-## GITHUB
-# Initialisation du Dépôt
-git init
-git remote add origin https://github.com/LN27100/cesiZen.git
-
-## Cloner le projet
-git clone https://github.com/LN27100/cesiZen.git
-
-# Récupérer changement (avant de commencer à travailler chaque jour si travail à plusieurs)
-git pull origin master
-
-# Faire des commits régulier en fin de journée
-git add .
-git commit -m "descriptif commentaire"
-git push origin master
