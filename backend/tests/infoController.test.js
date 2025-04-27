@@ -19,6 +19,7 @@ describe('Info Controller', () => {
     expect(res.send).toHaveBeenCalledWith('Information créée');
   });
 
+
   it('should get all infos', async () => {
     const req = {};
     const res = { json: jest.fn(), status: jest.fn().mockReturnThis(), send: jest.fn() };
@@ -55,17 +56,18 @@ describe('Info Controller', () => {
 
 // Test d'erreur sur create
 it('should handle error when creating an info', async () => {
-    const req = { body: { titre: 'Erreur', description: 'Erreur', auteur: 'Auteur', nom_image: 'img.png' } };
-    const res = { status: jest.fn().mockReturnThis(), send: jest.fn() };
-  
-    Info.create.mockImplementation((newInfo, callback) => callback(new Error('Erreur création'), null));
-  
-    await infoController.create(req, res);
-  
-    expect(res.status).toHaveBeenCalledWith(500);
-    expect(res.send).toHaveBeenCalled();
-  });
-  
+  const req = { body: { titre: 'Erreur', description: 'Erreur', auteur: 'Auteur', nom_image: 'img.png' } };
+  const res = { status: jest.fn().mockReturnThis(), send: jest.fn() };
+
+  Info.create.mockImplementation((newInfo, callback) => callback(new Error('Erreur création'), null));
+  jest.spyOn(console, 'error').mockImplementation(() => {});
+
+  await infoController.create(req, res);
+
+  expect(res.status).toHaveBeenCalledWith(500);
+  expect(res.send).toHaveBeenCalled();
+});
+
   // Test d'erreur sur findAll
   it('should handle error when getting all infos', async () => {
     const req = {};

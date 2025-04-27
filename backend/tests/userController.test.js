@@ -31,7 +31,7 @@ describe('User Controller', () => {
 
     await register(req, res);
 
-    expect(res.status).toHaveBeenCalledWith(201); // Vérifie que le statut HTTP est 201 (Created)
+    expect(res.status).toHaveBeenCalledWith(201); 
     expect(res.json).toHaveBeenCalledWith({ message: 'Utilisateur créé', user: { id: 1, email: 'john.doe@example.com' } }); // Vérifie la réponse JSON
   });
 
@@ -157,6 +157,7 @@ it('should return 400 when passwords do not match during reset', async () => {
   expect(res.send).toHaveBeenCalledWith({ error: 'Les mots de passe ne correspondent pas' });
 });
 
+
 it('should return 500 if updating status fails', async () => {
   const req = {
     params: { id: 1 },
@@ -168,9 +169,11 @@ it('should return 500 if updating status fails', async () => {
   };
 
   User.query.mockRejectedValue(new Error('Erreur SQL'));
+  jest.spyOn(console, 'error').mockImplementation(() => {});
 
   await updateStatus(req, res);
 
   expect(res.status).toHaveBeenCalledWith(500);
   expect(res.send).toHaveBeenCalledWith({ error: 'Erreur lors de la mise à jour du statut du compte' });
 });
+

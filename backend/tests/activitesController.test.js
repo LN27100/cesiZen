@@ -5,7 +5,7 @@ jest.mock('../models/Activites');
 
 describe('Activites Controller', () => {
   afterEach(() => {
-    jest.clearAllMocks(); // Réinitialise tous les mocks après chaque test
+    jest.clearAllMocks(); 
   });
 
   // Teste la création d'une nouvelle activité
@@ -27,8 +27,8 @@ describe('Activites Controller', () => {
 
     await create(req, res);
 
-    expect(res.status).toHaveBeenCalledWith(201); // Vérifie que le statut HTTP est 201 (Created)
-    expect(res.json).toHaveBeenCalledWith({ message: 'Activité créée avec succès', id: 1 }); // Vérifie la réponse JSON
+    expect(res.status).toHaveBeenCalledWith(201);
+    expect(res.json).toHaveBeenCalledWith({ message: 'Activité créée avec succès', id: 1 });
   });
 
   // Teste la récupération de toutes les activités
@@ -93,13 +93,13 @@ describe('Activites Controller', () => {
 
     expect(res.send).toHaveBeenCalledWith([{ id_activite: 1, nom_activite: 'Yoga' }]); // Vérifie que les activités sont retournées par catégorie
   });
-});
+
 
 
 it('should handle error when creating activity due to missing fields', async () => {
   const req = {
     body: {
-      nom_activite: 'Yoga', // description_activite et status_activite_détente manquent
+      nom_activite: 'Yoga',
     },
   };
   const res = {
@@ -107,9 +107,9 @@ it('should handle error when creating activity due to missing fields', async () 
     json: jest.fn(),
   };
 
-  await create(req, res); // Appel de la fonction create avec des champs manquants
+  await create(req, res);
 
-  expect(res.status).toHaveBeenCalledWith(400);  // Statut attendu en cas de champ manquant
+  expect(res.status).toHaveBeenCalledWith(400);
   expect(res.json).toHaveBeenCalledWith({
     message: 'Les champs description_activite, status_activite_détente et id_categorie sont obligatoires.',
   });
@@ -130,11 +130,12 @@ it('should handle database error when creating activity', async () => {
   };
 
   const error = new Error('Database error');
-  Activity.create.mockImplementation((data, callback) => callback(error));  // Simule une erreur de base de données
+  Activity.create.mockImplementation((data, callback) => callback(error));
+  jest.spyOn(console, 'error').mockImplementation(() => {});
 
   await create(req, res);
 
-  expect(res.status).toHaveBeenCalledWith(500); 
+  expect(res.status).toHaveBeenCalledWith(500);
   expect(res.json).toHaveBeenCalledWith({ message: 'Erreur serveur lors de la création de l\'activité.' });
 });
 
@@ -158,4 +159,5 @@ it('should create activity successfully', async () => {
 
   expect(res.status).toHaveBeenCalledWith(201);
   expect(res.json).toHaveBeenCalledWith({ message: 'Activité créée avec succès', id: 1 });
+});
 });

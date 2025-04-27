@@ -31,6 +31,7 @@ describe('Categories Controller', () => {
     };
 
     Categorie.findAll.mockImplementation((callback) => callback(new Error('Erreur DB'), null));
+    jest.spyOn(console, 'error').mockImplementation(() => {});
 
     await categoriesController.getAllCategories(req, res);
 

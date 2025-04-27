@@ -1,9 +1,10 @@
 const mysql = require('mysql');
+require('dotenv').config();
 
 jest.mock('mysql', () => {
   return {
     createConnection: jest.fn(() => ({
-      connect: jest.fn((callback) => callback(null)) // connexion OK
+      connect: jest.fn((callback) => callback(null))
     }))
   };
 });
@@ -17,14 +18,19 @@ describe('db.js', () => {
   it('should connect to the database successfully', () => {
     const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
 
-    require('../../config/db'); // déclenche l'appel à connect
+    require('../../config/db');
 
-    expect(mysql.createConnection).toHaveBeenCalled();
+    expect(mysql.createConnection).toHaveBeenCalledWith({
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME
+    });
     expect(consoleSpy).toHaveBeenCalledWith('Connected to database');
   });
 
   it('should throw an error if connection fails', () => {
-    jest.resetModules(); // important pour recharger mysql mock différemment
+    jest.resetModules();
 
     jest.doMock('mysql', () => {
       return {
