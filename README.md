@@ -96,7 +96,10 @@ VUE_APP_API_URL=http://localhost:3000/api
 ## DEMARRER le serveur de développement Vue.js :
 npm run serve
 
-
+### Web View Expo go (my-app):
+Pour lancer la vue mobile:
+cd my-app/
+npm run start ou npm expo start
 
 ### Tests
 

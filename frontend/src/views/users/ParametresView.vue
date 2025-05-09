@@ -6,19 +6,19 @@
   <div class="button-container">
     <button class="terms-button" @click="goTo('TermsView')">
       <span>Conditions générales d'utilisation</span>
-      <img src="../assets/icones/terms.png" alt="icone conditions générales" />
+      <img src="../../assets/icones/terms.png" alt="icone conditions générales" />
     </button>
     <button class="legal-button" @click="goTo('LegalView')">
       <span>Mentions légales</span>
-      <img src="../assets/icones/legal.png" alt="icone mentions légales" />
+      <img src="../../assets/icones/legal.png" alt="icone mentions légales" />
     </button>
     <button class="privacy-button" @click="goTo('PrivacyView')">
       <span>Politique de confidentialité</span>
-      <img src="../assets/icones/privacy.png" alt="icone politique de confidentialité" />
+      <img src="../../assets/icones/privacy.png" alt="icone politique de confidentialité" />
     </button>
     <button class="faqs-button" @click="goTo('faqsView')">
       <span>FAQs</span>
-      <img src="../assets/icones/help.png" alt="icone faqs" />
+      <img src="../../assets/icones/help.png" alt="icone faqs" />
     </button>
   </div>
 </template>

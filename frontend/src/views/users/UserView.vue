@@ -3,23 +3,23 @@
   <div class="button-container">
     <button class="profile-button" @click="goTo('Profil')">
       <span>Votre profil</span>
-      <img src="../assets/icones/setting_profil.png" alt="icone profil" />
+      <img src="../../assets/icones/setting_profil.png" alt="icone profil" />
     </button>
     <button class="emotion-tracker-button" @click="goTo('EmotionTrackerView')">
       <span>Tracker d'émotions</span>
-      <img src="../assets/icones/tracker_emo_blanc.png" alt="icone tracker émotions" />
+      <img src="../../assets/icones/tracker_emo_blanc.png" alt="icone tracker émotions" />
     </button>
     <button class="progress-button" @click="goTo('FavorisView')">
       <span>Favoris</span>
-      <img src="../assets/icones/favoris.png" alt="icone favoris" />
+      <img src="../../assets/icones/favoris.png" alt="icone favoris" />
     </button>
     <button class="settings-button" @click="goTo('Parametres')">
       <span>Paramètres</span>
-      <img src="../assets/icones/parametres.png" alt="icone paramètres" />
+      <img src="../../assets/icones/parametres.png" alt="icone paramètres" />
     </button>
     <button class="logout-button" @click="toggleLogin">
       <span>{{ isLoggedIn ? 'Déconnexion' : 'Connexion/Inscription' }}</span>
-      <img src="../assets/icones/deconnexion.png" alt="icone connexion" />
+      <img src="../../assets/icones/deconnexion.png" alt="icone connexion" />
     </button>
   </div>
 </template>

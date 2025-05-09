@@ -9,12 +9,12 @@
         </p>
       </div>
     </div>
-    <img src="../assets/images/lotus_2.png" alt="Activité" class="lotus" />
+    <img src="../../assets/images/lotus_2.png" alt="Activité" class="lotus" />
     <div class="buttons">
       <div class="button-container">
         <button class="action-button" @click="handleClick">
           <img
-            src="../assets/icones/activités_détentes.png"
+            src="../../assets/icones/activités_détentes.png"
             alt="Activités détente"
             class="icon"
           />
@@ -24,7 +24,7 @@
       <div class="button-container">
         <button class="action-button" disabled>
           <img
-            src="../assets/icones/exercices_respi.png"
+            src="../../assets/icones/exercices_respi.png"
             alt="Exercices de respiration"
             class="icon"
           />
