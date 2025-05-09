@@ -3,7 +3,7 @@ const router = express.Router();
 const EmotionController = require('../controllers/EmotionController');
 const TypeEmotionController = require('../controllers/TypeEmotionController');
 const TrackerEmotionsController = require('../controllers/TrackerEmotionsController');
-const verifyToken = require('../middlewares/authMiddleware');
+const verifyToken = require('../../../middlewares/authMiddleware');
 
 // Routes pour les émotions
 router.post('/emotions', EmotionController.createEmotion);

@@ -2,12 +2,12 @@ const db = require('../config/db');
 jest.mock('../config/db');
 
 // Correction des importations
-const User = require('../models/User');               
-const Activite = require('../models/Activites');      
-const Emotion = require('../models/Emotion');
-const Favoris = require('../models/Favoris');         
-const Categorie = require('../models/Categorie');
-const Info = require('../models/Info');
+const User = require('../modules/users/models/User');               
+const Activite = require('../modules/activities/models/Activites');      
+const Emotion = require('../modules/emotions/models/Emotion');
+const Favoris = require('../modules/favoris/models/Favoris');         
+const Categorie = require('../modules/categories/models/Categorie');
+const Info = require('../modules/info/models/Info');
 
 
 describe('Models', () => {

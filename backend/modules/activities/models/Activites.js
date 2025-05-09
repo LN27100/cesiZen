@@ -1,4 +1,4 @@
-const db = require('../config/db');
+const db = require('../../../config/db');
 
 const Activite = {
     // Créer une nouvelle activité

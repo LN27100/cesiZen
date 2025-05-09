@@ -1,4 +1,4 @@
-const db = require('../config/db');
+const db = require('../../../config/db');
 
 const TrackerEmotions = {
   // Créer un nouvel enregistrement de tracker d'émotions

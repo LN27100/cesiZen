@@ -37,12 +37,12 @@ const upload = multer({ storage });
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Routes
-const userRoutes = require('./routes/userRoutes');
-const activityRoutes = require('./routes/activitesRoutes');
-const categoriesRoutes = require('./routes/categoriesRoutes');
-const infoRoutes = require('./routes/infoRoutes');
-const favorisRoutes = require('./routes/favorisRoutes');
-const emotionRoutes = require('./routes/emotionRoutes');
+const userRoutes = require('./modules/users/routes/userRoutes');
+const activityRoutes = require('./modules/activities/routes/activitesRoutes');
+const categoriesRoutes = require('./modules/categories/routes/categoriesRoutes');
+const infoRoutes = require('./modules/info/routes/infoRoutes');
+const favorisRoutes = require('./modules/favoris/routes/favorisRoutes');
+const emotionRoutes = require('./modules/emotions/routes/emotionRoutes');
 
 app.use('/api/users', userRoutes);
 app.use('/api/categories', categoriesRoutes);

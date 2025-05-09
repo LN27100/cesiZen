@@ -1,4 +1,4 @@
-const db = require('../config/db');
+const db = require('../../../config/db');
 
 const TypeEmotion = {
     // Créer un nouveau type d'émotion

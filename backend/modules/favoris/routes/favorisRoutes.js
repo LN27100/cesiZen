@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const favorisController = require('../controllers/favorisController');
-const verifyToken = require('../middlewares/authMiddleware');
+const verifyToken = require('../../../middlewares/authMiddleware');
 
 // Créer un nouveau favori
 router.post('/', verifyToken, favorisController.createFavorite);
