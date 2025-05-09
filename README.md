@@ -125,7 +125,8 @@ Les tests de configuration vérifient que la connexion à la base de données es
 # Voir le rapport visuel de couverture:
 Ouvrez dans le navigateur le fichier: coverage/lcov-report/index.html
 
-## Tests Fonctionnels avec Cypress
+
+## Tests Fonctionnels et de non-régression avec Cypress
 # Prérequis : 
 Assurez-vous que Cypress est installé à la racine du projet:
 npm install --save-dev cypress
@@ -133,6 +134,6 @@ npm install --save-dev cypress
 npx cypress open
 # Description :
 Flux d'Inscription d'un Utilisateur : Vérifie que le processus d'inscription fonctionne correctement, y compris la validation des champs et la redirection après une inscription réussie.
-
+Non-régression login: Vérifie que le composant de connexion fonctionne toujours comme prévu, et que les modifications apportées au code n'introduisent pas de nouveaux bugs ou ne réintroduisent pas d'anciens bugs.
 
 
