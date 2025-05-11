@@ -67,7 +67,7 @@
         </tbody>
       </table>
 
-      <div v-if="selectedEmotion" class="selected-emotion">
+      <div v-if="selectedEmotion" class="selected-emotion" id="commentSection">
         <h3>Émotion sélectionnée : {{ selectedEmotion.nom_emotion }}</h3>
         <textarea
           v-model="commentaire"
@@ -75,6 +75,7 @@
         ></textarea>
         <button @click="saveEmotion">Enregistrer l'émotion</button>
       </div>
+
       <hr />
       <div class="emotion-history-card">
         <h3>Historique des émotions enregistrées</h3>
@@ -212,6 +213,12 @@ export default {
     },
     selectEmotion(emotion) {
       this.selectedEmotion = emotion;
+      this.$nextTick(() => {
+        const commentSection = document.getElementById("commentSection");
+        if (commentSection) {
+          commentSection.scrollIntoView({ behavior: "smooth" });
+        }
+      });
     },
     async saveEmotion() {
       if (!this.isAuthenticated) {
@@ -456,19 +463,19 @@ textarea:focus {
   }
 
   button {
-    width: 100%; 
-    padding: 0.5rem; 
-    font-size: 0.6rem; 
-    box-sizing: border-box; 
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 0.6rem;
+    box-sizing: border-box;
   }
 }
 
 /* Ecran bureau (> 1024px) */
 @media (min-width: 1024px) {
   .container {
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-}
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
 
   h1 {
     font-size: 32px;
