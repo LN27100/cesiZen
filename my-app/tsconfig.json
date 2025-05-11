@@ -7,7 +7,6 @@
       "@/*": ["./*"]
     },
     "jsx": "react-native",
-    "types": ["expo-env"]
   },
   "include": [
     "**/*.ts",

@@ -50,6 +50,18 @@ const Activite = {
             activite.nom_image, activite.nom_image_2, activite.lien_video, id
         ], callback);
     },
+    
+// Mettre à jour uniquement le statut d'une activité
+updateStatus: (id, status_activite_détente, callback) => {
+    const sql = `
+        UPDATE activites_de_detente
+        SET status_activite_détente = ?
+        WHERE id_activite = ?
+    `;
+    console.log(`Exécution SQL: ${sql} avec paramètres: [${status_activite_détente}, ${id}]`);
+    db.query(sql, [status_activite_détente, id], callback);
+},
+
 
     // Supprimer une activité par ID
     delete: (id, callback) => {

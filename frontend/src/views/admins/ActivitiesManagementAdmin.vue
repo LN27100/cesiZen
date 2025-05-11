@@ -280,7 +280,7 @@ export default {
 
 <style scoped>
 .admin-container {
-  padding: 20px;
+  padding: 1rem;
   font-family: "Open Sans", sans-serif;
   margin: 0 5rem;
   background-color: #FFFFFF;
@@ -304,7 +304,7 @@ h1 {
   background-color: #A06DB6;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 0.6rem 1rem;
   cursor: pointer;
   border-radius: 5px;
   font-family: "Open Sans", sans-serif;
@@ -318,12 +318,12 @@ h1 {
 .info-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-top: 1.5rem;
 }
 
 th, td {
   border: 1px solid #A9B66D;
-  padding: 10px;
+  padding: 1rem;
   text-align: left;
   font-family: "Open Sans", sans-serif;
 }
@@ -348,7 +348,7 @@ td {
   background-color: #A06DB6;
   color: white;
   border: none;
-  padding: 5px 16px;
+  padding: 0.5rem 1rem;
   cursor: pointer;
   border-radius: 5px;
   font-family: "Open Sans", sans-serif;
@@ -364,7 +364,7 @@ td {
   background-color: #D0021B;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 0.5rem 2rem;
   cursor: pointer;
   border-radius: 5px;
   font-family: "Open Sans", sans-serif;

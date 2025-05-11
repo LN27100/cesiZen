@@ -1,5 +1,7 @@
-const Activity = require('../models/Activites');
+const Activity = require('../models/Activites.js');
+const Activite = require('../models/Activites.js');
 
+// Créer une nouvelle activité
 exports.create = (req, res) => {
     const {
         nom_activite, description_activite, status_activite_détente,
@@ -38,7 +40,7 @@ exports.create = (req, res) => {
     });
 };
 
-
+// Récupérer toutes les activités
 exports.findAll = (req, res) => {
     Activity.findAll((err, activities) => {
         if (err) return res.status(500).send(err);
@@ -46,6 +48,17 @@ exports.findAll = (req, res) => {
     });
 };
 
+// Récupérer une activité par ID
+exports.findOne = (req, res) => {
+    const id = req.params.id;
+    Activity.findById(id, (err, activity) => {
+        if (err) return res.status(500).send(err);
+        if (!activity) return res.status(404).json({ message: 'Activité non trouvée.' });
+        res.json(activity);
+    });
+};
+
+// Récupérer les activités par catégorie
 exports.findByCategory = (req, res) => {
     const categoryId = req.params.id;
     Activity.findByCategory(categoryId, (err, activities) => {
@@ -56,28 +69,43 @@ exports.findByCategory = (req, res) => {
 
 // Mettre à jour une activité
 exports.update = (req, res) => {
-    const { nom, description, statut, id_categorie, duree_minutes, sous_categorie, nom_image, nom_image_2, lien_video } = req.body;
+    const { nom_activite, description_activite, status_activite_détente, id_categorie, duree_minutes, sous_categorie, nom_image, nom_image_2, lien_video } = req.body;
     const id = req.params.id;
 
-    if (!['actif', 'suspendue'].includes(statut)) {
-        return res.status(400).send({ message: "Le statut doit être 'actif' ou 'suspendue'." });
-    }
-
     const updatedActivity = {
-        nom_activite: nom,
-        description_activite: description,
-        status_activite_detente: statut,
-        id_categorie,
-        duree_minutes,
-        sous_categorie,
-        nom_image,
-        nom_image_2,
-        lien_video
+        nom_activite, description_activite, status_activite_détente, id_categorie,
+        duree_minutes, sous_categorie, nom_image, nom_image_2, lien_video
     };
 
     Activity.update(id, updatedActivity, (err, result) => {
         if (err) return res.status(500).send(err);
-        res.send({ message: 'Activité mise à jour avec succès' });
+        res.json({ message: 'Activité mise à jour avec succès' });
+    });
+};
+
+// Mettre à jour le statut d'une activité
+exports.updateStatus = (req, res) => {
+    const { status_activite_détente } = req.body;  // Le statut à mettre à jour
+    const id = req.params.id;  // ID de l'activité
+
+    // Validation du statut
+    if (!['actif', 'suspendue'].includes(status_activite_détente)) {
+        return res.status(400).json({ message: "Le statut doit être 'actif' ou 'suspendue'." });
+    }
+
+    console.log(`Mise à jour du statut pour l'activité ID: ${id}, nouveau statut: ${status_activite_détente}`);
+
+    Activite.updateStatus(id, status_activite_détente, (err, result) => {
+        if (err) {
+            console.error("Erreur lors de la mise à jour du statut:", err);
+            return res.status(500).json({ message: 'Erreur serveur lors de la mise à jour du statut.' });
+        }
+        if (result.affectedRows === 0) {
+            console.log("Aucune activité trouvée avec cet ID.");
+            return res.status(404).json({ message: 'Activité non trouvée pour la mise à jour.' });
+        }
+        console.log("Statut mis à jour avec succès");
+        res.status(200).json({ message: 'Statut mis à jour avec succès' });
     });
 };
 

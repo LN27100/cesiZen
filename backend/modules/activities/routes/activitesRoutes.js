@@ -28,6 +28,10 @@ router.put('/:id', (req, res) => {
     });
 });
 
+// Mettre à jour le statut d'une activité
+router.put('/:id/status', activitesController.updateStatus);
+
+
 // Supprimer une activité par ID
 router.delete('/:id', (req, res) => {
     Activite.delete(req.params.id, (err, result) => {
