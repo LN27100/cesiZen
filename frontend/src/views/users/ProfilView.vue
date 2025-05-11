@@ -293,7 +293,7 @@ h1 {
 .profile-details {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 1rem;
 }
 
 .profile-details p {
@@ -353,23 +353,23 @@ h1 {
 }
 
 .edit-form {
-  margin-top: 20px;
+  margin-top: 2rem;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 2rem;
 }
 
 label {
   display: block;
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 0.3rem;
   color: white;
 }
 
 input {
   width: 100%;
-  padding: 10px;
+  padding: 0.5rem;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;

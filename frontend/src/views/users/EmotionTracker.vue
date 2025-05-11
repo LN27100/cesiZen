@@ -326,7 +326,7 @@ ul {
 }
 
 li {
-  margin: 5px 0;
+  margin: 0.3rem 0;
 }
 
 button {
@@ -347,9 +347,9 @@ button:hover {
 
 textarea {
   width: 100%;
-  height: 80px;
-  margin-top: 10px;
-  padding: 10px;
+  height: 5rem;
+  margin-top: 1rem;
+  padding: 0.7rem;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -361,7 +361,7 @@ textarea:focus {
 }
 
 .selected-emotion {
-  margin-top: 20px;
+  margin-top: 2rem;
 }
 
 .selected-emotion h3 {
@@ -377,7 +377,7 @@ textarea:focus {
 
 /* Card d'historique des émotions */
 .emotion-history-card {
-  margin-top: 20px;
+  margin-top: 1.25rem;
   padding: 1rem;
   border-radius: 8px;
   color: #333;
@@ -396,7 +396,7 @@ textarea:focus {
 }
 
 .emotion-history-card li {
-  margin: 5px 0;
+  margin: 0.3rem 0;
 }
 
 .emotion-history-card p {

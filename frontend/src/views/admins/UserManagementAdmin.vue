@@ -232,7 +232,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Open+Sans:wght@400;600&display=swap");
 
 .admin-container {
-  padding: 20px;
+  padding: 1rem;
   font-family: "Open Sans", sans-serif;
   margin: 0 5rem;
 }
@@ -256,7 +256,7 @@ h1 {
   background-color: #A06DB6;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 0.5rem 1rem;
   cursor: pointer;
   border-radius: 5px;
   font-family: "Open Sans", sans-serif;
@@ -286,7 +286,7 @@ body {
 
 .modal-content {
   background-color: #ffffff;
-  padding: 20px;
+  padding: 1rem;
   border-radius: 10px;
   width: 500px;
   max-height: 80vh; /* Limite la hauteur à 80% de la fenêtre */
@@ -295,22 +295,45 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+input,
+select {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 1rem 0;
+  border: 1px solid #A9B66D;
+  border-radius: 5px;
+}
+
+
 .close-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
+  top: 0.6rem;
+  right: 0.6rem;
+  font-size: 24px;
   cursor: pointer;
-  color: #000000;
+  color: #A06DB6;
+  font-weight: bold;
+}
+
+.close-button:hover {
+  color: #5F3870;
 }
 
 .modal h4 {
   font-family: "Nunito", sans-serif;
   font-size: 24px;
   font-weight: bold;
-  color: #000000;
+  color: #A06DB6;
   margin-bottom: 20px;
   text-align: center;
+}
+
+#firstName, #lastName, #username, #email, #password, #confirmPassword, #role {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 1rem 0;
+  border: 1px solid #A9B66D;
+  border-radius: 5px;
 }
 
 form {
@@ -319,12 +342,11 @@ form {
 }
 
 .input-group {
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
 }
 
 label {
   display: block;
-  margin-bottom: 5px;
   color: #000000;
 }
 
@@ -333,7 +355,7 @@ input[type="email"],
 input[type="password"],
 select {
   width: 100%;
-  padding: 8px;
+  padding: 0.5rem;
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -341,7 +363,7 @@ select {
 
 button[type="submit"] {
   width: 100%;
-  padding: 10px;
+  padding: 0.5rem;
   background-color: #84b66d;
   color: #ffffff;
   border: none;
@@ -367,7 +389,7 @@ table {
 th,
 td {
   border: 1px solid #a9b66d;
-  padding: 12px;
+  padding: 0.6rem;
   text-align: left;
 }
 
@@ -391,7 +413,7 @@ button {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 120px;
+  width: 8rem;
   text-align: center;
   box-sizing: border-box;
 }
@@ -417,8 +439,9 @@ button.suspendu:hover {
 button.supprimer {
   background-color: darkred;
   color: #ffffff;
-  width: 2rem;
-  height: 2rem;
+  width: 3rem;
+  height: 2.7rem;
+  font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -435,13 +458,13 @@ button.supprimer i {
 
 th.actions-column,
 td.actions-column {
-  width: 50px;
+  width: 3rem;
   text-align: center;
 }
 
 th.statut-column,
 td.statut-column {
-  width: 50px;
+  width: 3rem;
   text-align: center;
 }
 
@@ -453,7 +476,7 @@ td.statut-column {
 
   th,
   td {
-    padding: 10px;
+    padding: 0.6rem;
     font-size: 14px;
   }
 

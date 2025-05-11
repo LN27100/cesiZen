@@ -68,7 +68,7 @@ h1 {
   background-color: #a06db6;
   border: solid 2px #a9b66d;
   border-radius: 10px;
-  padding: 20px;
+  padding: 1rem;
   margin-bottom: 1rem;
   color: #ffffff;
   font-family: "Open Sans", sans-serif;
@@ -77,7 +77,7 @@ h1 {
 
 .lotus {
   display: block;
-  margin: 20px auto;
+  margin: 1.25rem auto;
   max-width: 100%;
   height: auto;
 }
@@ -85,8 +85,8 @@ h1 {
 .buttons {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
 .button-container {
@@ -99,8 +99,8 @@ h1 {
   color: #ffffff;
   border: none;
   border-radius: 50%;
-  width: 90px;
-  height: 90px;
+  width: 6rem;
+  height: 6rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -122,15 +122,20 @@ h1 {
 }
 
 .button-label {
-  margin-top: 10px;
+  margin-top: 1rem;
   font-size: 1rem;
   color: #000000;
   font-family: "Open Sans", sans-serif;
 }
 
 .icon {
-  width: 50px;
-  height: 50px;
+  width: 3.5rem;
+  height: 3.5rem;
+}
+
+div:nth-child(2) > button > img {
+   width: 3rem;
+  height: 3rem;
 }
 
 /*  RESPONSIVE */

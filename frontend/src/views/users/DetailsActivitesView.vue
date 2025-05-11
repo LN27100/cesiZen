@@ -170,7 +170,7 @@ p {
 
 .video-container iframe {
   width: 100%;
-  height: 315px;
+  height: 20rem;
 }
 
 /* Tablette : entre 768px et 1024px */

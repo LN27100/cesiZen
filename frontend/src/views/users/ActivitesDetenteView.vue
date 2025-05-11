@@ -123,7 +123,7 @@ export default {
 .activities {
   text-align: center;
   margin-top: 7rem;
-  padding: 10px;
+  padding: 0.5rem;
 }
 
 h1 {
@@ -140,8 +140,8 @@ h1 {
   flex-direction: column;
   align-items: center;
   margin-bottom: 2rem;
-  border: solid 2px #A9B66D;
-  border-radius: 4px;
+  border: solid 3px #A9B66D;
+  border-radius: 5px;
   width: 90%;
   margin: 0 auto;
 }
@@ -156,15 +156,15 @@ h1 {
 
 .search-icon {
   position: absolute;
-  left: 10px;
+  left: 0.6rem;
   color: #CCC;
 }
 
 .search-input {
-  padding: 0.5rem 0.5rem 0.5rem 30px;
+  padding: 0.5rem 0.5rem 0.5rem 1.8rem;
   width: 100%;
   border: 1px solid #CCC;
-  border-radius: 4px;
+  border-radius: 5px;
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
 }
@@ -174,7 +174,7 @@ h1 {
   width: 100%;
   margin-bottom: 1rem;
   border: 1px solid #CCC;
-  border-radius: 4px;
+  border-radius: 5px;
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
 }
@@ -199,7 +199,7 @@ h1 {
   padding: 1rem;
   background-color: #FFFFFF;
   border: 1px solid #CCC;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
 }
 

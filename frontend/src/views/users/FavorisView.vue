@@ -133,7 +133,7 @@ h1 {
   border: none;
   border-radius: 5px;
   color: white;
-  padding: 8px 10px;
+  padding: 0.6rem 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
   display: flex;
@@ -193,7 +193,7 @@ h1 {
   }
 
   .delete-button {
-    padding: 5px;
+    padding: 0.3rem;
   }
 }
 </style>

@@ -101,7 +101,7 @@ export default {
 .home {
   text-align: center;
   margin-top: 2rem;
-  padding: 10px;
+  padding: 0.8rem;
 }
 
 h1 {
@@ -119,11 +119,11 @@ p {
 
 .card {
   width: 90%;
-  margin: 20px auto;
+  margin: 1.5rem auto;
   background-color: #a06db6;
   border: solid 2px #a9b66d;
   border-radius: 10px;
-  padding: 15px;
+  padding: 1rem;
 }
 
 .carousel {
@@ -152,7 +152,7 @@ p {
   border-radius: 5px;
   cursor: pointer;
   font-size: 1.5rem;
-  margin: 20px;
+  margin: 1.25rem;
 }
 
 .category-item:hover {

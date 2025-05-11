@@ -159,7 +159,7 @@ export default {
 
 <style scoped>
 .admin-container {
-  padding: 20px;
+  padding: 1rem;
   font-family: "Open Sans", sans-serif;
   margin: 0 5rem;
 }
@@ -182,8 +182,7 @@ h1 {
   background-color: #A06DB6;
   color: white;
   border: none;
-  padding: 10px 15px;
-  cursor: pointer;
+  padding: 0.6rem 1rem;
   border-radius: 5px;
   font-family: "Open Sans", sans-serif;
   font-weight: semi-bold;
@@ -196,12 +195,12 @@ h1 {
 .info-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-top: 2rem;
 }
 
 th, td {
   border: 1px solid #b0afaf;
-  padding: 10px;
+  padding: 1rem;
   text-align: left;
 }
 
@@ -221,10 +220,10 @@ td {
   background-color: #A06DB6; 
   color: white;
   border: none;
-  padding: 5px 16px;
-  cursor: pointer;
+  padding: 0.5rem 0.5rem;
   border-radius: 5px;
   margin-bottom: 0.5rem;
+  width: 8rem;
 }
 
 .edit-btn:hover {
@@ -235,9 +234,10 @@ td {
   background-color: #D0021B;
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 0.5rem 0.5rem;
   cursor: pointer;
   border-radius: 5px;
+  width: 8rem;
 }
 
 .delete-btn:hover {
@@ -247,12 +247,13 @@ td {
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 2rem;
 }
 
 .pagination button {
-  padding: 10px;
-  margin: 0 5px;
+  padding: 1rem;
+  border-radius: 5px;
+  margin: 0 0.3rem;
   background-color: #84B66D;
   color: white;
   border: none;
@@ -278,7 +279,7 @@ td {
 
 .modal-content {
   background: white;
-  padding: 20px;
+  padding: 1rem;
   border-radius: 5px;
   width: 50%;
 }
@@ -310,13 +311,13 @@ textarea {
 }
 
 .modal-actions {
-  margin-top: 10px;
+  margin-top: 1rem;
   display: flex;
   justify-content: space-between;
 }
 
 .modal-actions button {
-  padding: 10px 15px;
+  padding: 0.5rem 1rem;
   border-radius: 5px;
 }
 

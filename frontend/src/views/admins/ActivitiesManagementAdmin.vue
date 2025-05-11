@@ -53,10 +53,11 @@
       </tbody>
     </table>
 
-    <div class="pagination">
-      <button @click="prevPage" :disabled="currentPage === 1">Précédent</button>
-      <button @click="nextPage" :disabled="currentPage === totalPages">Suivant</button>
-    </div>
+   <div class="pagination">
+  <button @click="prevPage" :disabled="currentPage === 1">Précédent</button>
+  <button @click="nextPage" :disabled="currentPage === totalPages">Suivant</button>
+</div>
+
 
    <!-- Modal d'édition / ajout -->
    <div v-if="showForm" class="modal">
@@ -65,43 +66,43 @@
           <i class="fas fa-times"></i>
         </button>
         <h2>{{ isEditing ? "Modifier l'activité" : "Ajouter une activité" }}</h2>
-        <label>Nom de l'activité:</label>
+        <label>Nom de l'activité</label>
         <input v-model="activiteForm.nom_activite" type="text" required />
 
-        <label>Description:</label>
+        <label>Description</label>
         <textarea v-model="activiteForm.description_activite" required></textarea>
 
-        <label>Catégorie:</label>
+        <label>Catégorie</label>
         <select v-model="activiteForm.id_categorie" required>
           <option v-for="categorie in categories" :key="categorie.id_categorie" :value="categorie.id_categorie">
             {{ categorie.nom_categorie }}
           </option>
         </select>
 
-        <label>Sous-catégorie:</label>
+        <label>Sous-catégorie</label>
         <select v-model="activiteForm.sous_categorie" required>
           <option v-for="sousCategorie in sousCategories" :key="sousCategorie">
             {{ sousCategorie }}
           </option>
         </select>
 
-        <label>Statut:</label>
+        <label>Statut</label>
         <select v-model="activiteForm.status_activite_détente" required>
           <option v-for="status_activite_détente in statuts" :key="status_activite_détente">
             {{ status_activite_détente }}
           </option>
         </select>
 
-        <label>Durée (minutes):</label>
+        <label>Durée (minutes)</label>
         <input v-model="activiteForm.duree_minutes" type="number" required />
 
-        <label>Nom de l'image:</label>
+        <label>Nom de l'image</label>
         <input v-model="activiteForm.nom_image" type="text" />
 
-        <label>Nom de l'image 2:</label>
+        <label>Nom de l'image 2</label>
         <input v-model="activiteForm.nom_image_2" type="text" />
 
-        <label>Lien vidéo:</label>
+        <label>Lien vidéo</label>
         <input v-model="activiteForm.lien_video" type="text" />
 
         <div class="modal-actions">
@@ -110,6 +111,22 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal de confirmation -->
+<!-- Modal de confirmation -->
+<div v-if="showConfirmationModal" class="modal">
+  <div class="modal-content">
+    <button class="close-btn" @click="closeConfirmationModal">
+      <i class="fas fa-times"></i>
+    </button>
+    <h2>Activité créée avec succès</h2>
+    <div class="modal-actions">
+      <button @click="closeConfirmationModal">OK</button>
+    </div>
+  </div>
+</div>
+
+
   </div>
 </template>
 
@@ -121,6 +138,7 @@ export default {
   name: "ActivitiesManagementAdmin",
   data() {
     return {
+      showConfirmationModal: false,
       activities: [],
       categories: [],
       sousCategories: [
@@ -162,14 +180,14 @@ export default {
     this.fetchCategories();
   },
   computed: {
-    paginatedActivities() {
-      const start = (this.currentPage - 1) * this.activitiesPerPage;
-      return this.activities.slice(start, start + this.activitiesPerPage);
-    },
-    totalPages() {
-      return Math.ceil(this.activities.length / this.activitiesPerPage);
-    }
+  paginatedActivities() {
+    const start = (this.currentPage - 1) * this.activitiesPerPage;
+    return this.activities.slice(start, start + this.activitiesPerPage);
   },
+  totalPages() {
+    return Math.ceil(this.activities.length / this.activitiesPerPage);
+  }
+},
   methods: {
     async fetchActivities() {
       try {
@@ -192,6 +210,7 @@ export default {
         try {
           await axios.delete(`${process.env.VUE_APP_API_URL}/activities/${activityId}`);
           this.fetchActivities(); // Rafraîchir la liste après suppression
+          this.currentPage = 1;
         } catch (error) {
           console.error("Erreur lors de la suppression de l'activité:", error);
         }
@@ -242,10 +261,15 @@ export default {
         }
         this.closeForm();
         this.fetchActivities();
+        this.showConfirmationModal = true; 
       } catch (error) {
         console.error("Erreur lors de la sauvegarde de l'activité:", error);
       }
     },
+    closeConfirmationModal() {
+    this.showConfirmationModal = false;
+    this.currentPage = this.totalPages; // Rediriger vers la dernière page des activités
+  },
     closeForm() {
       this.showForm = false;
       this.activiteForm = {
@@ -349,7 +373,7 @@ td {
   color: white;
   border: none;
   padding: 0.5rem 1rem;
-  cursor: pointer;
+  width: 8rem;
   border-radius: 5px;
   font-family: "Open Sans", sans-serif;
   font-weight: semi-bold;
@@ -364,7 +388,8 @@ td {
   background-color: #D0021B;
   color: white;
   border: none;
-  padding: 0.5rem 2rem;
+  width: 8rem;
+  padding: 0.5rem 0.5rem;
   cursor: pointer;
   border-radius: 5px;
   font-family: "Open Sans", sans-serif;
@@ -378,12 +403,13 @@ td {
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 2rem;
 }
 
 .pagination button {
-  padding: 10px;
-  margin: 0 5px;
+  padding: 1rem;
+  border-radius: 5px;
+  margin: 0 0.5rem;
   background-color: #84B66D;
   color: white;
   border: none;
@@ -411,7 +437,7 @@ td {
 
 .modal-content {
   background: white;
-  padding: 20px;
+  padding: 1rem;
   border-radius: 5px;
   width: 30%;
   max-height: 95%;
@@ -422,8 +448,8 @@ td {
 
 .close-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 0.6rem;
+  right: 0.6rem;
   background: none;
   border: none;
   font-size: 20px;
@@ -447,39 +473,39 @@ td {
   color: #000000;
   text-align: left;
   display: block;
-  margin-top: 10px;
+  margin-top: 1rem;
 }
 
 .modal input,
 .modal select {
   width: 100%;
-  padding: 8px;
-  margin: 10px 0;
+  padding: 0.5rem;
+  margin: 1rem 0;
   border: 1px solid #A9B66D;
   border-radius: 5px;
-  height: 36px;
 }
 
 .modal textarea {
   width: 100%;
-  padding: 8px;
-  margin: 10px 0;
+  padding: 1rem;
+  margin: 1rem 0;
   border: 1px solid #A9B66D;
   border-radius: 5px;
-  min-height: 100px;
+  min-height: 10rem;
   resize: vertical;
 }
 
 .modal-actions {
-  margin-top: 20px;
+  margin-top: 2rem;
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 1rem;
 }
 
 .modal-actions button {
-  padding: 10px 20px;
+  padding: 0.5rem 1rem;
   border: none;
+  border-radius: 5px;
   font-weight: semi-bold;
   cursor: pointer;
   font-family: "Open Sans", sans-serif;
@@ -509,6 +535,7 @@ button.actif {
   border: none;
   border-radius: 5px;
   display: inline-block;
+  padding: 0.5rem 1rem;
 }
 
 button.suspendu {
@@ -517,6 +544,7 @@ button.suspendu {
   border: none;
   border-radius: 5px;
   display: inline-block;
+  padding: 0.5rem 1rem;
 }
 
 button.actif:hover {

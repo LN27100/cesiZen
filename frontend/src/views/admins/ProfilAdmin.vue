@@ -307,11 +307,11 @@ h1 {
 }
 
 .edit-form {
-  margin-top: 20px;
+  margin-top: 2rem;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
 }
 
 label {
@@ -323,7 +323,7 @@ label {
 
 input {
   width: 100%;
-  padding: 10px;
+  padding: 0.5rem;
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
