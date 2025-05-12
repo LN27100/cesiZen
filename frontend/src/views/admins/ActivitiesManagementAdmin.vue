@@ -268,7 +268,6 @@ export default {
     },
     closeConfirmationModal() {
     this.showConfirmationModal = false;
-    this.currentPage = this.totalPages; // Rediriger vers la dernière page des activités
   },
     closeForm() {
       this.showForm = false;

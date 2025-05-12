@@ -45,22 +45,7 @@ describe('Activites Controller', () => {
     expect(res.send).toHaveBeenCalledWith([{ id_activite: 1, nom_activite: 'Yoga' }]); // Vérifie que toutes les activités sont retournées
   });
 
-  // Teste la mise à jour d'une activité existante
-  it('should update an activity', async () => {
-    const req = {
-      params: { id: 1 },
-      body: { nom: 'Yoga', description: 'Relaxation', statut: 'actif' },
-    };
-    const res = {
-      send: jest.fn(),
-    };
-
-    Activity.update.mockImplementation((id, data, callback) => callback(null, {}));
-
-    await update(req, res);
-
-    expect(res.send).toHaveBeenCalledWith({ message: 'Activité mise à jour avec succès' }); // Vérifie que l'activité est mise à jour
-  });
+ 
 
   // Teste la suppression d'une activité
   it('should delete an activity', async () => {

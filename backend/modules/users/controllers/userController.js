@@ -1,7 +1,7 @@
-const User = require('../models/User');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const userService = require('../services/userService');
+const User = require("../models/User");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const userService = require("../services/userService");
 
 // Créer un nouvel utilisateur
 exports.register = async (req, res) => {
@@ -9,14 +9,31 @@ exports.register = async (req, res) => {
 
   // Vérifie si l'email est fourni
   if (!email) {
-    return res.status(400).json({ error: 'Email requis' });
+    return res.status(400).json({ error: "Email requis" });
   }
 
   try {
-    const user = await userService.creerUtilisateur({ prenom, nom, email, mot_de_passe, pseudo, role });
-    res.status(201).json({ message: 'Utilisateur créé', user });
+    const user = await userService.creerUtilisateur({
+      prenom,
+      nom,
+      email,
+      mot_de_passe,
+      pseudo,
+      role,
+    });
+    res.status(201).json({ message: "Utilisateur créé", user });
   } catch (err) {
-    res.status(500).json({ error: 'Une erreur est survenue lors de la création de l\'utilisateur', details: err.message });
+    if (err.name === "ValidationError" || err.code === "ER_BAD_NULL_ERROR") {
+      return res
+        .status(400)
+        .json({ error: "Erreur de validation", details: err.message });
+    }
+    res
+      .status(500)
+      .json({
+        error: "Une erreur est survenue lors de la création de l'utilisateur",
+        details: err.message,
+      });
   }
 };
 
@@ -33,7 +50,7 @@ exports.findById = (req, res) => {
   const id = req.params.id;
   User.findById(id, (err, user) => {
     if (err) return res.status(500).send(err);
-    if (!user) return res.status(404).send({ error: 'Utilisateur non trouvé' });
+    if (!user) return res.status(404).send({ error: "Utilisateur non trouvé" });
     res.send(user);
   });
 };
@@ -54,7 +71,7 @@ exports.update = (req, res) => {
 
       User.update(id, updatedUser, (err, result) => {
         if (err) {
-          console.error('Erreur lors de la mise à jour de l\'utilisateur:', err);
+          console.error("Erreur lors de la mise à jour de l'utilisateur:", err);
           return res.status(500).send(err);
         }
         User.findById(id, (err, updatedUser) => {
@@ -68,7 +85,7 @@ exports.update = (req, res) => {
 
   User.update(id, updatedUser, (err, result) => {
     if (err) {
-      console.error('Erreur lors de la mise à jour de l\'utilisateur:', err);
+      console.error("Erreur lors de la mise à jour de l'utilisateur:", err);
       return res.status(500).send(err);
     }
     User.findById(id, (err, updatedUser) => {
@@ -85,7 +102,7 @@ exports.resetPassword = async (req, res) => {
 
   try {
     await userService.resetPassword(id, oldPassword, newPassword);
-    res.status(200).send({ message: 'Mot de passe réinitialisé avec succès.' });
+    res.status(200).send({ message: "Mot de passe réinitialisé avec succès." });
   } catch (err) {
     res.status(400).send({ error: err.message });
   }
@@ -96,8 +113,9 @@ exports.delete = (req, res) => {
   const id = req.params.id;
   User.delete(id, (err, result) => {
     if (err) return res.status(500).send(err);
-    if (!result) return res.status(404).send({ error: 'Utilisateur non trouvé' });
-    res.send('Utilisateur supprimé');
+    if (!result)
+      return res.status(404).send({ error: "Utilisateur non trouvé" });
+    res.send("Utilisateur supprimé");
   });
 };
 
@@ -106,7 +124,10 @@ exports.login = async (req, res) => {
   const { email, mot_de_passe } = req.body;
 
   try {
-    const { utilisateur, token } = await userService.authentifierUtilisateur(email, mot_de_passe);
+    const { utilisateur, token } = await userService.authentifierUtilisateur(
+      email,
+      mot_de_passe
+    );
     res.status(200).send({ auth: true, token });
   } catch (err) {
     res.status(401).send({ error: err.message });
@@ -119,11 +140,14 @@ exports.updateStatus = async (req, res) => {
   const { statut_compte } = req.body;
 
   try {
-    const sql = 'UPDATE utilisateur SET statut_compte = ? WHERE id_utilisateur = ?';
+    const sql =
+      "UPDATE utilisateur SET statut_compte = ? WHERE id_utilisateur = ?";
     await User.query(sql, [statut_compte, id]);
-    res.send({ message: 'Statut du compte mis à jour' });
+    res.send({ message: "Statut du compte mis à jour" });
   } catch (error) {
-    console.error('Erreur lors de la mise à jour du statut du compte:', error);
-    res.status(500).send({ error: 'Erreur lors de la mise à jour du statut du compte' });
+    console.error("Erreur lors de la mise à jour du statut du compte:", error);
+    res
+      .status(500)
+      .send({ error: "Erreur lors de la mise à jour du statut du compte" });
   }
 };
