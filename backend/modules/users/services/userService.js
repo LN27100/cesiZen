@@ -3,56 +3,37 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-// Validation des champs du formulaire
-function validerChampsUtilisateur(data) {
-  const erreurs = [];
-
-  if (!data.prenom || data.prenom.trim() === "") erreurs.push("Le prénom est requis.");
-  if (!data.nom || data.nom.trim() === "") erreurs.push("Le nom est requis.");
-  if (!data.pseudo || data.pseudo.trim() === "") erreurs.push("Le pseudo est requis.");
-  if (!data.email || !/^\S+@\S+\.\S+$/.test(data.email)) erreurs.push("Email invalide.");
-  if (!data.mot_de_passe || !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}/.test(data.mot_de_passe)) {
-    erreurs.push("Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.");
-  }
-
-  return erreurs;
-}
-
 exports.creerUtilisateur = async (data) => {
-  return new Promise((resolve, reject) => {
-    // Vérification si un utilisateur avec le même email existe déjà
-    const erreursValidation = validerChampsUtilisateur(data);
-    if (erreursValidation.length > 0) {
-      return reject(new Error(erreursValidation.join(' ')));
-    }
+    return new Promise((resolve, reject) => {
+        // Vérification si un utilisateur avec le même email existe déjà
+        User.findByEmail(data.email, (err, utilisateurExistant) => {
+            if (err) return reject(err);
+            if (utilisateurExistant) {
+                return reject(new Error('Un compte existe déjà avec cet email.'));
+            }
 
-    User.findByEmail(data.email, (err, utilisateurExistant) => {
-      if (err) return reject(err);
-      if (utilisateurExistant) {
-        return reject(new Error('Un compte existe déjà avec cet email.'));
-      }
-      // Hachage du mot de passe
-      bcrypt.hash(data.mot_de_passe, 10, (err, hash) => {
-        if (err) return reject(err);
+            // Hachage du mot de passe
+            bcrypt.hash(data.mot_de_passe, 10, (err, hash) => {
+                if (err) return reject(err);
 
-        const newUser = {
-          prenom: data.prenom,
-          nom: data.nom,
-          email: data.email,
-          mot_de_passe: hash,
-          pseudo: data.pseudo,
-          role: data.role || "Utilisateur"
-        };
+                 // Création du nouvel utilisateur
+                 const newUser = {
+                    prenom: data.prenom,
+                    nom: data.nom,
+                    email: data.email,
+                    mot_de_passe: hash,
+                    pseudo: data.pseudo,
+                    role: data.role
+                };
 
-        User.create(newUser, (err, utilisateur) => {
-          if (err) return reject(err);
-          resolve(utilisateur);
+                User.create(newUser, (err, utilisateur) => {
+                    if (err) return reject(err);
+                    resolve(utilisateur);
+                });
+            });
         });
-      });
     });
-  });
 };
-
 
 exports.authentifierUtilisateur = async (email, mot_de_passe) => {
     return new Promise((resolve, reject) => {
